@@ -92,9 +92,7 @@
   }
   .theme-toggle:not(.expanding):hover { transform: scale(1.05); }
   
-  .theme-toggle.expanding {
-    width: 145px; /* Expands to a pill */
-  }
+  .theme-toggle.expanding { width: 145px; }
   
   .theme-icon {
     position: absolute;
@@ -161,13 +159,18 @@
   }
   .cta-btn:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 12px 28px rgba(0,0,0,0.25); }
   
-  /* ===== LIVE STATS BOX & DROPDOWN (Now Centered Perfectly) ===== */
+  /* ===== LIVE STATS BOX & DROPDOWN ===== */
   .live-stats-box { 
     margin-top: 40px; 
     display: flex;
     flex-direction: column;
-    align-items: center; /* Forces all elements inside to perfectly center */
+    align-items: center; 
   }
+  .meta-row { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; color: #fff; width: 100%; }
+  .meta-item { text-align: center; }
+  .meta-item .num { font-size: 1.8rem; font-weight: bold; }
+  .meta-item .label { font-size: 0.85rem; opacity: 0.9; }
+
   .live-stats-btn {
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -179,30 +182,26 @@
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 18px;
+    margin-top: 25px;
+    margin-bottom: 5px;
     transition: all 0.3s ease;
   }
   .live-stats-btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
-  
-  .meta-row { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; color: #fff; width: 100%; }
-  .meta-item { text-align: center; }
-  .meta-item .num { font-size: 1.8rem; font-weight: bold; }
-  .meta-item .label { font-size: 0.85rem; opacity: 0.9; }
 
   .live-stats-breakdown {
     background: rgba(0, 0, 0, 0.15);
     border-radius: 16px;
     width: 100%;
-    max-width: 500px; /* Constrains width but keeps it centered via parent flex */
+    max-width: 500px; 
     text-align: left;
     max-height: 0; opacity: 0; overflow: hidden; padding: 0 20px; margin-top: 0;
     transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.5s ease, margin 0.5s ease;
   }
   body.dark-mode .live-stats-breakdown { background: rgba(255, 255, 255, 0.05); }
   
-  .live-stats-breakdown.show { max-height: 400px; opacity: 1; padding: 20px; margin-top: 25px; }
+  .live-stats-breakdown.show { max-height: 400px; opacity: 1; padding: 20px; margin-top: 20px; }
   .mini-stat-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; color: #fff; font-size: 0.9rem; font-weight: 600; }
-  .mini-stat-label { width: 90px; }
+  .mini-stat-label { width: 115px; }
   .mini-stat-bar-bg { flex: 1; height: 10px; background: rgba(255, 255, 255, 0.2); border-radius: 5px; margin: 0 15px; overflow: hidden; }
   .mini-stat-bar-fill { height: 100%; border-radius: 5px; transition: width 1s cubic-bezier(0.25, 1, 0.5, 1); }
   .mini-stat-pct { width: 45px; text-align: right; }
@@ -272,7 +271,7 @@
   <div class="top-bar">
     <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
       <span class="theme-text" id="theme-text"></span>
-      <span class="theme-icon" id="theme-icon">🌙</span>
+      <span class="theme-icon" id="theme-icon">☀️</span>
     </div>
     
     <div class="lang-bar">
@@ -292,7 +291,7 @@
     
     <!-- Stagger 2: Live Stats Section -->
     <div class="live-stats-box stagger-2">
-      <button class="live-stats-btn" id="live-stats-btn" onclick="toggleLiveBreakdown()"></button>
+      <!-- The Meta Row is now above the button -->
       <div class="meta-row">
         <div class="meta-item">
           <div class="num" id="meta-count">…</div>
@@ -307,8 +306,11 @@
           <div class="label" id="meta-acc-label"></div>
         </div>
       </div>
+
+      <!-- Live Statistic Button -->
+      <button class="live-stats-btn" id="live-stats-btn" onclick="toggleLiveBreakdown()"></button>
       
-      <!-- Dropdown Live Percentage Breakdown -->
+      <!-- Dropdown Live Percentage Breakdown (Tier List) -->
       <div id="live-stats-breakdown" class="live-stats-breakdown"></div>
     </div>
 
@@ -349,7 +351,7 @@
 
 <script>
 /* ============ ⬇️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ⬇️ ============ */
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwIVyhNCaVqyollrzo_d4Pjoq_AvYwat-YZ9mIJHCrhVyH3muQWLZJ1j1-g4l0yiyyx/exec";
+const SHEET_URL = "https://script.google.com/macros/s/XXXXXXXXXXXXXXXXXX/exec";
 /* ========================================================================== */
 
 /* ============ LAVA LAMP BACKGROUND ANIMATION ENGINE ============ */
@@ -467,7 +469,7 @@ let liveStats = null;
 let isThemeAnimating = false;
 
 function toggleTheme() {
-  if (isThemeAnimating) return; // Prevent spam clicking
+  if (isThemeAnimating) return; 
   isThemeAnimating = true;
 
   const toggle = document.getElementById('theme-toggle');
@@ -477,43 +479,40 @@ function toggleTheme() {
   const isDark = document.body.classList.contains('dark-mode');
   const targetIsDark = !isDark;
   
-  // 1. Set text dynamically based on mode and language
   textEl.textContent = targetIsDark 
     ? (lang === 'th' ? 'โหมดกลางคืน' : 'Dark Mode') 
     : (lang === 'th' ? 'โหมดสว่าง' : 'Light Mode');
 
-  // 2. Expand the pill and roll the icon
   toggle.classList.add('expanding');
 
-  // 3. Midway through animation: Flip colors and swap icon
   setTimeout(() => {
     document.body.classList.toggle('dark-mode');
     
     if (targetIsDark) {
-      iconEl.textContent = '☀️';
+      iconEl.textContent = '🌙'; 
       localStorage.setItem('theme', 'dark');
     } else {
-      iconEl.textContent = '🌙';
+      iconEl.textContent = '☀️'; 
       localStorage.setItem('theme', 'light');
     }
     
-    // 4. Hold open so the user can read the text, then collapse
     setTimeout(() => {
       toggle.classList.remove('expanding');
       
-      // 5. Unlock the button once the collapse animation finishes
       setTimeout(() => {
         isThemeAnimating = false;
       }, 500); 
       
-    }, 1200); // Wait 1.2 seconds before collapsing
+    }, 1200); 
     
-  }, 400); // Wait 400ms (expansion duration) before changing screen colors
+  }, 400); 
 }
 
 // Check local storage on initial load
 if(localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark-mode');
+  document.getElementById('theme-icon').textContent = '🌙';
+} else {
   document.getElementById('theme-icon').textContent = '☀️';
 }
 
@@ -591,7 +590,7 @@ function animateCount(el, target){
   }, 25);
 }
 
-/* ============ TOGGLE LIVE DROPDOWN ============ */
+/* ============ TOGGLE LIVE DROPDOWN (TIER LIST) ============ */
 function toggleLiveBreakdown() {
   const bd = document.getElementById('live-stats-breakdown');
   bd.classList.toggle('show');
@@ -608,13 +607,25 @@ function renderLiveBreakdown() {
   const counts = liveStats ? liveStats.counts : {lion:0,bear:0,wolf:0,dolphin:0};
   const total = (liveStats && liveStats.total) ? liveStats.total : 1;
 
-  ORDER.forEach(k => {
-    const pct = Math.round((counts[k]||0)/total*100);
+  // Create an array and sort it from highest count to lowest count
+  let sortedStats = ORDER.map(k => {
+    return { key: k, count: counts[k] || 0 };
+  });
+  sortedStats.sort((a, b) => b.count - a.count);
+
+  sortedStats.forEach((item, index) => {
+    const k = item.key;
+    const pct = Math.round((item.count / total) * 100);
     const name = T[lang].animals[k].name;
     const row = document.createElement('div');
     row.className = 'mini-stat-row';
+    
+    // Renders with a #1, #2 rank indicator
     row.innerHTML = `
-      <div class="mini-stat-label">${ANIMAL_ICONS[k]} ${name}</div>
+      <div class="mini-stat-label">
+        <span style="opacity:0.6; font-size:0.8rem; margin-right:4px;">#${index + 1}</span>
+        ${ANIMAL_ICONS[k]} ${name}
+      </div>
       <div class="mini-stat-bar-bg"><div class="mini-stat-bar-fill" style="width:0%; background:${ANIMAL_COLORS[k]}"></div></div>
       <div class="mini-stat-pct">${pct}%</div>
     `;
@@ -780,23 +791,35 @@ function saveData(result){
   }).catch(err => console.warn('Save failed', err));
 }
 
-/* ============ STATS ============ */
+/* ============ END-OF-QUIZ STATS (ALSO TIER LIST SORTED) ============ */
 function renderStats(){
   const counts = liveStats ? liveStats.counts : {lion:0,bear:0,wolf:0,dolphin:0};
   const total = (liveStats && liveStats.total) ? liveStats.total : 1;
   const bars = document.getElementById('stats-bars');
   bars.innerHTML = '';
-  for(const k of ORDER){
-    const pct = Math.round((counts[k]||0)/total*100);
+  
+  // Sort End-of-Quiz stats similarly
+  let sortedStats = ORDER.map(k => {
+    return { key: k, count: counts[k] || 0 };
+  });
+  sortedStats.sort((a, b) => b.count - a.count);
+
+  sortedStats.forEach((item, index) => {
+    const k = item.key;
+    const pct = Math.round((item.count / total) * 100);
     const name = T[lang].animals[k].name;
     const row = document.createElement('div');
     row.className = 'stat-row';
+    
     row.innerHTML = `
-      <div class="stat-label"><span>${ANIMAL_ICONS[k]} ${name}</span><span>${pct}% (${counts[k]||0})</span></div>
+      <div class="stat-label">
+        <span><span style="opacity:0.5; font-size:0.8rem; margin-right:4px;">#${index + 1}</span>${ANIMAL_ICONS[k]} ${name}</span>
+        <span>${pct}% (${item.count})</span>
+      </div>
       <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:0%;background:${ANIMAL_COLORS[k]}"></div></div>`;
     bars.appendChild(row);
     setTimeout(()=>{ row.querySelector('.stat-bar-fill').style.width = pct+'%'; }, 100);
-  }
+  });
 }
 
 /* ============ INIT ============ */
