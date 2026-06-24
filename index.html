@@ -2,15 +2,15 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Chronotype Sleep Quiz</title>
+<link rel="icon" type="image/png" href="woodyworld-logo-2022.png">
 <style>
   :root {
-    /* Colors extracted directly from the uploaded Woody World logo */
     --bg-gradient: linear-gradient(-45deg, #5ba3db, #729c9b, #f6c753, #e4bad3, #447684, #5ba3db);
     --text-main: #1a3c40;
     --text-muted: #555;
-    --heading: #2c5270; /* Deep blue to match the theme */
+    --heading: #2c5270; 
     --card-bg: #fff;
     --card-border: #dbe8f3;
     --btn-bg: #f4f8fb;
@@ -23,11 +23,10 @@
   }
 
   body.dark-mode {
-    /* Deepened versions of the logo colors for a comfortable Dark Mode */
     --bg-gradient: linear-gradient(-45deg, #1f3d54, #263838, #664d17, #593d4e, #182f36, #1f3d54);
     --text-main: #e0e0e0;
     --text-muted: #aaa;
-    --heading: #f6c753; /* Warm yellow pop for headers */
+    --heading: #f6c753; 
     --card-bg: #1e262c;
     --card-border: #2c3a44;
     --btn-bg: #25313a;
@@ -51,154 +50,74 @@
   }
   .wrap { max-width: 760px; margin: 0 auto; }
   
-  /* ===== SCREEN & FIRST APPEARANCE ANIMATIONS ===== */
-  .screen {
-    animation: fadeScreenIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-  @keyframes fadeScreenIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
+  /* ===== SCREEN ANIMATIONS ===== */
+  .screen { animation: fadeScreenIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  @keyframes fadeScreenIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
   .stagger-1 { animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; }
   .stagger-2 { animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards; opacity: 0; }
   .stagger-3 { animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; }
-  
-  @keyframes slideUpFade {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   .hidden { display: none !important; }
 
-  /* ===== TOP BAR (Theme & Lang) ===== */
+  /* ===== TOP BAR ===== */
   .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-  
-  /* Smooth Expanding Theme Toggle */
   .theme-toggle {
-    background: var(--top-bar-bg);
-    border: none;
-    height: 42px;
-    width: 42px; 
-    border-radius: 25px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
+    background: var(--top-bar-bg); border: none; height: 42px; width: 42px; border-radius: 25px;
+    cursor: pointer; display: flex; align-items: center; position: relative; overflow: hidden;
     transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    user-select: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); user-select: none;
   }
   .theme-toggle:not(.expanding):hover { transform: scale(1.05); }
-  
   .theme-toggle.expanding { width: 145px; }
-  
   .theme-icon {
-    position: absolute;
-    left: 5px;
-    width: 32px; height: 32px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 50%;
-    font-size: 1.2rem;
+    position: absolute; left: 5px; width: 32px; height: 32px; display: flex; align-items: center; 
+    justify-content: center; border-radius: 50%; font-size: 1.2rem;
     transition: left 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s ease;
   }
-  .theme-toggle.expanding .theme-icon {
-    left: 108px; 
-    transform: rotate(360deg);
-  }
-  
+  .theme-toggle.expanding .theme-icon { left: 108px; transform: rotate(360deg); }
   .theme-text {
-    position: absolute;
-    left: 18px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    color: #fff;
-    opacity: 0;
-    white-space: nowrap;
-    transform: translateX(-15px);
-    transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    position: absolute; left: 18px; font-size: 0.85rem; font-weight: bold; color: #fff; opacity: 0;
+    white-space: nowrap; transform: translateX(-15px); transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   }
-  .theme-toggle.expanding .theme-text {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.1s;
-  }
+  .theme-toggle.expanding .theme-text { opacity: 1; transform: translateX(0); transition-delay: 0.1s; }
 
-  /* Language Bar */
-  .lang-bar {
-    display: inline-flex;
-    background: var(--top-bar-bg);
-    border-radius: 30px;
-    padding: 5px;
-    transition: background 0.3s ease;
-  }
+  .lang-bar { display: inline-flex; background: var(--top-bar-bg); border-radius: 30px; padding: 5px; transition: background 0.3s ease; }
   .lang-bar button {
-    background: transparent;
-    color: var(--top-bar-text-dim);
-    border: none; padding: 8px 18px; border-radius: 25px;
-    cursor: pointer; font-weight: bold; font-size: 0.95rem;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: transparent; color: var(--top-bar-text-dim); border: none; padding: 8px 18px; border-radius: 25px;
+    cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
-  .lang-bar button.active {
-    background: var(--top-bar-active-bg);
-    color: var(--top-bar-active-text);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-  }
+  .lang-bar button.active { background: var(--top-bar-active-bg); color: var(--top-bar-active-text); box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
 
   /* ===== HOME ===== */
   .hero { text-align: center; color: #fff; padding: 20px 20px; }
   .hero h1 { font-size: 2.4rem; margin-bottom: 18px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.15); transition: color 0.3s ease; }
   .hero p.lead { font-size: 1.1rem; max-width: 560px; margin: 0 auto 28px; line-height: 1.6; opacity: 0.95; transition: color 0.3s ease;}
   .cta-btn {
-    background: #fff; color: #2c5270; border: none;
-    padding: 16px 44px; border-radius: 30px; font-size: 1.15rem;
-    font-weight: bold; cursor: pointer;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2); 
+    background: #fff; color: #2c5270; border: none; padding: 16px 44px; border-radius: 30px; font-size: 1.15rem;
+    font-weight: bold; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.2); 
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background 0.3s ease;
   }
   .cta-btn:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 12px 28px rgba(0,0,0,0.25); }
   
-  /* ===== LIVE STATS BOX & DROPDOWN ===== */
-  .live-stats-box { 
-    margin-top: 40px; 
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-  }
+  .live-stats-box { margin-top: 40px; display: flex; flex-direction: column; align-items: center; }
   .meta-row { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; color: #fff; width: 100%; }
   .meta-item { text-align: center; }
   .meta-item .num { font-size: 1.8rem; font-weight: bold; }
   .meta-item .label { font-size: 0.85rem; opacity: 0.9; }
 
   .live-stats-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 25px;
-    margin-bottom: 5px;
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 8px 20px;
+    border-radius: 20px; cursor: pointer; font-size: 0.95rem; font-weight: bold; text-transform: uppercase;
+    letter-spacing: 1px; margin-top: 25px; margin-bottom: 5px; transition: all 0.3s ease;
   }
   .live-stats-btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
 
   .live-stats-breakdown {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 16px;
-    width: 100%;
-    max-width: 500px; 
-    text-align: left;
+    background: rgba(0, 0, 0, 0.15); border-radius: 16px; width: 100%; max-width: 500px; text-align: left;
     max-height: 0; opacity: 0; overflow: hidden; padding: 0 20px; margin-top: 0;
     transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.5s ease, margin 0.5s ease;
   }
   body.dark-mode .live-stats-breakdown { background: rgba(255, 255, 255, 0.05); }
-  
   .live-stats-breakdown.show { max-height: 400px; opacity: 1; padding: 20px; margin-top: 20px; }
   .mini-stat-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; color: #fff; font-size: 0.9rem; font-weight: 600; }
   .mini-stat-label { width: 115px; }
@@ -227,7 +146,6 @@
   .progress-bar { height: 8px; background: var(--card-border); border-radius: 4px; overflow: hidden; margin-bottom: 25px; transition: background 0.5s ease; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, #5ba3db, #447684); width: 0; transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
 
-  /* ===== QUESTION TRANSITION ===== */
   .q-block { transition: opacity 0.4s ease, transform 0.4s ease; }
   .q-block.fade-out-left  { opacity: 0; transform: translateX(-40px); }
   .q-block.fade-in-right  { opacity: 0; transform: translateX(40px); }
@@ -235,32 +153,88 @@
   .question { font-size: 1.2rem; color: var(--text-main); margin-bottom: 20px; font-weight: 600; transition: color 0.5s ease; }
   .options button {
     display: block; width: 100%; background: var(--btn-bg); border: 2px solid var(--btn-border); color: var(--text-main);
-    padding: 15px; border-radius: 12px; margin-bottom: 12px; cursor: pointer;
-    text-align: left; font-size: 1rem; transition: all 0.3s ease;
+    padding: 15px; border-radius: 12px; margin-bottom: 12px; cursor: pointer; text-align: left; font-size: 1rem; transition: all 0.3s ease;
   }
   .options button:hover { border-color: #5ba3db; background: var(--btn-hover); transform: translateX(6px); }
   .options button:active { transform: scale(0.97); }
 
+  /* ===== RESULT SCREEN DETAILS ===== */
   .result { text-align: center; }
   .result .animal-icon { font-size: 5rem; margin: 10px 0; animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
   @keyframes bounceIn { 0%{transform:scale(0);} 60%{transform:scale(1.1);} 100%{transform:scale(1);} }
   .result h2 { color: var(--heading); margin-bottom: 10px; transition: color 0.5s ease; }
-  .result p { color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; transition: color 0.5s ease; }
+  .result p.main-desc { color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; transition: color 0.5s ease; }
   
-  .stats { margin-top: 25px; text-align: left; }
+  .stats { margin: 30px 0; text-align: left; }
   .stats h3 { color: var(--heading); margin-bottom: 12px; text-align:center; transition: color 0.5s ease; }
   .stat-row { margin-bottom: 12px; }
   .stat-label { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.9rem; color: var(--text-main); transition: color 0.5s ease; }
   .stat-bar-bg { height: 22px; background: var(--card-border); border-radius: 11px; overflow: hidden; transition: background 0.5s ease; }
   .stat-bar-fill { height: 100%; border-radius: 11px; transition: width 1s cubic-bezier(0.25, 1, 0.5, 1); display:flex; align-items:center; justify-content:flex-end; color:#fff; font-size:0.75rem; padding-right:8px; }
+
+  /* Exteded Answer Sections (Timeline & Tips) */
+  .extended-section {
+    border: 2px solid var(--card-border); border-radius: 16px; padding: 25px; margin-top: 25px;
+    text-align: left; background: var(--card-bg); transition: all 0.5s ease;
+  }
+  .ext-title { font-size: 1.05rem; font-weight: 800; text-transform: uppercase; color: var(--heading); margin-bottom: 6px; letter-spacing: 0.5px; }
+  .ext-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4; }
   
-  .restart-btn { background: #5ba3db; color: #fff; border: none; padding: 12px 24px; border-radius: 25px; cursor: pointer; font-size: 1rem; margin-top: 20px; transition: all 0.3s ease; }
-  .restart-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(91, 163, 219, 0.4); }
-  .saving-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 14px; transition: color 0.5s ease; }
+  .timeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+  .timeline-item { padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--card-border); display: flex; flex-direction: column; justify-content: center; }
+  .timeline-time { font-weight: 800; font-size: 1.2rem; margin-bottom: 6px; }
+  .timeline-desc { font-size: 0.85rem; color: var(--text-main); line-height: 1.35; }
   
-  @media(max-width:480px){
-    .hero h1 { font-size: 1.8rem; }
-    .type-card { flex-wrap: wrap; }
+  .tips-list { display: flex; flex-direction: column; gap: 12px; }
+  .tip-item { display: flex; align-items: flex-start; gap: 15px; border: 1px solid var(--card-border); padding: 18px; border-radius: 12px; background: var(--btn-bg); transition: all 0.3s ease; }
+  .tip-num { font-weight: 800; font-size: 1.1rem; min-width: 25px; text-align: right; }
+  .tip-desc { font-size: 0.95rem; line-height: 1.5; color: var(--text-main); }
+  
+  .restart-btn { background: #5ba3db; color: #fff; border: none; padding: 14px 32px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 30px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+  .restart-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(91, 163, 219, 0.4); }
+  .saving-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 14px; transition: color 0.5s ease; display: block; }
+
+  /* =========================================
+     MOBILE RESPONSIVENESS SUPERCHARGE
+     ========================================= */
+  @media (max-width: 600px) {
+    body { padding: 10px; }
+    .hero h1 { font-size: 1.9rem; }
+    .hero p.lead { font-size: 1rem; }
+    
+    .meta-row { gap: 15px; }
+    .meta-item .num { font-size: 1.5rem; }
+    
+    .types-section, .container, .extended-section { padding: 20px 15px; }
+    
+    /* Stack animal cards */
+    .type-card { flex-direction: column; text-align: center; gap: 10px; }
+    .type-card .ico { font-size: 2.5rem; }
+    .type-card .pct { margin-top: 5px; }
+    
+    /* Squeeze stats perfectly so bar doesn't break */
+    .live-stats-breakdown.show { padding: 15px; }
+    .mini-stat-label { width: 95px; font-size: 0.8rem; }
+    .mini-stat-pct { width: 40px; font-size: 0.8rem; }
+    .mini-stat-bar-bg { margin: 0 10px; }
+    
+    /* Quiz adjustments */
+    .question { font-size: 1.1rem; }
+    .options button { padding: 12px; font-size: 0.95rem; }
+    
+    /* Result adjustments */
+    .animal-icon { font-size: 4rem; }
+    #result-title { font-size: 1.8rem !important; }
+    
+    /* Stack timeline items */
+    .timeline-grid { grid-template-columns: 1fr; }
+    
+    /* Adjust tip lists */
+    .tip-item { flex-direction: column; align-items: flex-start; gap: 8px; padding: 15px; }
+    .tip-num { text-align: left; }
+    
+    /* Full width tap targets */
+    .cta-btn, .restart-btn { width: 100%; padding: 14px 20px; display: block; }
   }
 </style>
 </head>
@@ -272,13 +246,13 @@
       <span class="theme-text" id="theme-text"></span>
       <span class="theme-icon" id="theme-icon">☀️</span>
     </div>
-    
     <div class="lang-bar">
       <button id="btn-en" onclick="setLang('en')">Eng</button>
       <button id="btn-th" class="active" onclick="setLang('th')">ไทย</button>
     </div>
   </div>
 
+  <!-- ============ HOME SCREEN ============ -->
   <div id="home-screen" class="screen">
     <div class="hero stagger-1">
       <h1 id="hero-title"></h1>
@@ -301,9 +275,7 @@
           <div class="label" id="meta-acc-label"></div>
         </div>
       </div>
-
       <button class="live-stats-btn" id="live-stats-btn" onclick="toggleLiveBreakdown()"></button>
-      
       <div id="live-stats-breakdown" class="live-stats-breakdown"></div>
     </div>
 
@@ -314,6 +286,7 @@
     </div>
   </div>
 
+  <!-- ============ QUIZ SCREEN ============ -->
   <div id="quiz-screen" class="container screen hidden">
     <h1 id="title"></h1>
     <p class="subtitle" id="subtitle"></p>
@@ -324,14 +297,28 @@
     </div>
   </div>
 
+  <!-- ============ RESULT SCREEN ============ -->
   <div id="result-screen" class="container result screen hidden">
+    <div class="ext-title" id="res-top-title" style="color:var(--text-muted); font-size:0.9rem; margin-bottom:5px;"></div>
     <div class="animal-icon" id="animal-icon"></div>
-    <h2 id="result-title"></h2>
-    <p id="result-desc"></p>
+    <h2 id="result-title" style="font-size: 2.2rem; margin-bottom: 15px;"></h2>
+    <p class="main-desc" id="result-desc"></p>
 
     <div class="stats">
       <h3 id="stats-title"></h3>
       <div id="stats-bars"></div>
+    </div>
+
+    <div class="extended-section">
+      <div class="ext-title" id="tl-title"></div>
+      <div class="ext-subtitle" id="tl-subtitle"></div>
+      <div class="timeline-grid" id="timeline-grid"></div>
+    </div>
+
+    <div class="extended-section">
+      <div class="ext-title" id="tips-title"></div>
+      <div class="ext-subtitle" id="tips-subtitle"></div>
+      <div class="tips-list" id="tips-list"></div>
     </div>
 
     <button class="restart-btn" onclick="goHome()" id="restart-btn"></button>
@@ -341,7 +328,7 @@
 
 <script>
 /* ============ ⬇️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ⬇️ ============ */
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwIVyhNCaVqyollrzo_d4Pjoq_AvYwat-YZ9mIJHCrhVyH3muQWLZJ1j1-g4l0yiyyx/exec";
+const SHEET_URL = "https://script.google.com/macros/s/XXXXXXXXXXXXXXXXXX/exec";
 /* ========================================================================== */
 
 /* ============ LAVA LAMP BACKGROUND ANIMATION ENGINE ============ */
@@ -353,21 +340,14 @@ const bgAnim = document.body.animate(
     { backgroundPosition: '0% 50%' },
     { backgroundPosition: '0% 0%' }
   ],
-  {
-    duration: 60000, 
-    iterations: Infinity,
-    easing: 'ease-in-out'
-  }
+  { duration: 60000, iterations: Infinity, easing: 'ease-in-out' }
 );
-
 function pulseBackground() {
   bgAnim.playbackRate = 25; 
-  setTimeout(() => {
-    bgAnim.playbackRate = 1; 
-  }, 600); 
+  setTimeout(() => { bgAnim.playbackRate = 1; }, 600); 
 }
 
-/* ============ TRANSLATIONS ============ */
+/* ============ TRANSLATIONS & NEW EXTENDED CONTENT ============ */
 const T = {
   en: {
     heroTitle: "What's Your Sleep Chronotype?",
@@ -381,10 +361,14 @@ const T = {
     typesSub: "Based on global sleep research — here's how people around the world break down:",
     title: "Sleep Chronotype Quiz",
     subtitle: "Answer 10 questions to find your sleep animal!",
+    resTopTitle: "YOUR CHRONOTYPE IS",
     statsTitle: "What animal are other people?",
+    tlTitle: "YOUR OPTIMAL DAILY TIMELINE",
+    tlSubtitle: "Aligning your activities to these windows can unlock noticeably higher energy and focus.",
+    tipsTitle: "PRODUCTIVITY TIPS FOR",
+    tipsSubtitle: "Practical strategies for living in sync with your natural rhythm.",
     restart: "Back to Home",
     saving: "✓ Your result was saved",
-    saved: "✓ Your result was saved",
     questions: [
       { q: "What time do you naturally wake up without an alarm?", a: ["Before 6 AM","6-7 AM","7-9 AM","After 9 AM"] },
       { q: "When do you feel most energetic?", a: ["Early morning","Mid-morning","Afternoon","Late night"] },
@@ -398,10 +382,74 @@ const T = {
       { q: "How would you describe your overall sleep?", a: ["Light & regular","Solid & consistent","Variable","Irregular"] }
     ],
     animals: {
-      lion: { icon:"🦁", name:"Lion", short:"Early risers who peak in the morning.", desc:"You wake up early, full of energy in the morning, and prefer to tackle big tasks before noon. You tend to wind down early in the evening." },
-      bear: { icon:"🐻", name:"Bear", short:"Sleep follows the sun — socially in sync.", desc:"Your sleep follows the sun. You're most productive mid-morning and feel a dip in the afternoon. You enjoy a steady, social rhythm." },
-      wolf: { icon:"🐺", name:"Wolf", short:"Creative night owls who come alive after dark.", desc:"You come alive in the evening and night. Mornings are tough, but your creativity and focus peak after dark." },
-      dolphin: { icon:"🐬", name:"Dolphin", short:"Light, restless sleepers with irregular schedules.", desc:"You're a light, sometimes restless sleeper with an irregular schedule. You can be alert at unexpected times and may struggle with consistent rest." }
+      lion: { 
+        icon:"🦁", name:"The Lion", short:"Early risers who peak in the morning.", 
+        desc:"You wake up early, full of energy in the morning, and prefer to tackle big tasks before noon. You tend to wind down early in the evening.",
+        timeline: [
+          { time: "5:30", text: "Wake up — Fresh and energized" }, { time: "6:00", text: "Exercise & hydration" },
+          { time: "7:00", text: "Breakfast & planning" }, { time: "8:00", text: "Peak focus window" },
+          { time: "12:00", text: "Lunch & mental break" }, { time: "14:00", text: "Admin & lighter tasks" },
+          { time: "17:00", text: "Wind down early" }, { time: "21:00", text: "Bedtime" }
+        ],
+        tips: [
+          "Tackle your hardest, most analytical tasks first thing in the morning when your energy is at its absolute peak.",
+          "Avoid scheduling critical decisions or brainstorming sessions in the late afternoon when your energy dips.",
+          "Protect your early bedtime; don't force yourself to stay up late for social events if you feel drained.",
+          "Shift your workouts to the morning to capitalize on your natural early-day energy spike.",
+          "Keep afternoon meals light to prevent a severe early-evening crash."
+        ]
+      },
+      bear: { 
+        icon:"🐻", name:"The Solar Bear", short:"Sleep follows the sun — socially in sync.", 
+        desc:"You belong to the most common chronotype. Your rhythm follows the sun — rising naturally with daylight and winding down after dark. You hit peak cognitive performance between 10 AM and 2 PM, and you're well-suited to standard social and work schedules.",
+        timeline: [
+          { time: "7:00", text: "Wake up — Relaxed morning routine" }, { time: "7:30", text: "Breakfast" },
+          { time: "8:30", text: "Commute or start the day" }, { time: "10:00", text: "Peak focus window" },
+          { time: "12:00", text: "Lunch — A midday reset" }, { time: "14:00", text: "Collaboration & meetings" },
+          { time: "17:30", text: "Post-work exercise" }, { time: "23:00", text: "Bedtime" }
+        ],
+        tips: [
+          "Designate 10 AM to 2 PM as your protected deep work window and schedule your most important tasks during this block.",
+          "A 10–20 minute nap after lunch can effectively restore your afternoon focus and prevent the post-lunch energy slump.",
+          "Maintain the same sleep and wake times at least 5 days per week. Bears thrive on consistent schedules more than any other chronotype.",
+          "Afternoon exercise (5–7 PM) improves your sleep quality and boosts the next morning's energy — a virtuous cycle worth establishing.",
+          "Limit caffeine to the morning hours and avoid it after 2 PM. Caffeine's half-life means it can still disrupt your sleep 8–10 hours after consumption."
+        ]
+      },
+      wolf: { 
+        icon:"🐺", name:"The Night Wolf", short:"Creative night owls who come alive after dark.", 
+        desc:"You come alive in the evening and night. Mornings are tough, but your creativity and focus peak after dark. You thrive when you have the freedom to dictate your own schedule.",
+        timeline: [
+          { time: "8:30", text: "Wake up — Multiple alarms" }, { time: "9:00", text: "Breakfast & hydrate" },
+          { time: "10:00", text: "Light tasks to warm up" }, { time: "13:00", text: "Lunch" },
+          { time: "15:00", text: "First focus window" }, { time: "18:00", text: "Post-work exercise" },
+          { time: "21:00", text: "Peak creative window" }, { time: "00:30", text: "Bedtime" }
+        ],
+        tips: [
+          "Don't force deep work in the early morning; use that time for emails, planning, or low-effort administrative tasks.",
+          "Block out late afternoon and early evening (4 PM - 8 PM) for your most demanding, creative work.",
+          "Try to get sunlight exposure immediately upon waking to help reset your delayed circadian rhythm.",
+          "Eat dinner later (around 8 PM) so you have fuel for your evening productivity burst.",
+          "Implement a strict screen-cutoff at least 45 minutes before your late bedtime to ensure you can actually fall asleep."
+        ]
+      },
+      dolphin: { 
+        icon:"🐬", name:"The Dolphin", short:"Light, restless sleepers with irregular schedules.", 
+        desc:"You're a light, sometimes restless sleeper with an irregular schedule. You can be highly intelligent and alert at unexpected times, but may struggle with consistent, deep rest.",
+        timeline: [
+          { time: "6:30", text: "Wake up — Often groggy" }, { time: "7:30", text: "Breakfast" },
+          { time: "9:30", text: "First focus window" }, { time: "12:30", text: "Lunch" },
+          { time: "14:00", text: "Slump / light tasks" }, { time: "16:00", text: "Second focus window" },
+          { time: "20:30", text: "Strict relaxation" }, { time: "23:30", text: "Bedtime" }
+        ],
+        tips: [
+          "Break large tasks into smaller, manageable chunks to maintain focus despite underlying fatigue.",
+          "Your energy peaks in mid-morning and late afternoon—use these dual windows for complex tasks.",
+          "Avoid naps during the day, as they will severely disrupt your already fragile nighttime sleep cycle.",
+          "Create a wind-down routine that focuses heavily on anxiety reduction, such as reading or meditation.",
+          "Keep your bedroom cool, completely dark, and strictly for sleep to minimize nighttime awakenings."
+        ]
+      }
     }
   },
   th: {
@@ -416,10 +464,14 @@ const T = {
     typesSub: "อ้างอิงจากงานวิจัยการนอนทั่วโลก — สัดส่วนของผู้คนทั่วโลกเป็นดังนี้:",
     title: "แบบทดสอบโครโนไทป์การนอน",
     subtitle: "ตอบ 10 คำถามเพื่อค้นหาสัตว์การนอนของคุณ!",
+    resTopTitle: "โครโนไทป์ของคุณคือ",
     statsTitle: "คนอื่นเป็นสัตว์ประเภทไหน?",
+    tlTitle: "ตารางเวลาที่เหมาะสมที่สุดของคุณ",
+    tlSubtitle: "การปรับกิจกรรมของคุณให้ตรงกับช่วงเวลาเหล่านี้ จะช่วยปลดล็อกพลังงานและสมาธิให้สูงขึ้นอย่างเห็นได้ชัด",
+    tipsTitle: "เคล็ดลับการทำงานสำหรับ",
+    tipsSubtitle: "กลยุทธ์ที่นำไปใช้ได้จริง เพื่อการใช้ชีวิตให้สอดคล้องกับจังหวะธรรมชาติของคุณ",
     restart: "กลับหน้าแรก",
     saving: "✓ บันทึกผลลัพธ์ของคุณแล้ว",
-    saved: "✓ บันทึกผลลัพธ์ของคุณแล้ว",
     questions: [
       { q: "ปกติคุณตื่นนอนเองโดยไม่ตั้งนาฬิกาปลุกตอนกี่โมง?", a: ["ก่อน 6 โมงเช้า","6-7 โมงเช้า","7-9 โมงเช้า","หลัง 9 โมงเช้า"] },
       { q: "คุณรู้สึกมีพลังมากที่สุดตอนไหน?", a: ["เช้าตรู่","สายๆ","บ่าย","ดึก"] },
@@ -433,10 +485,74 @@ const T = {
       { q: "คุณอธิบายการนอนโดยรวมของคุณว่าอย่างไร?", a: ["หลับตื้น & สม่ำเสมอ","หลับลึก & คงที่","ไม่แน่นอน","ไม่เป็นเวลา"] }
     ],
     animals: {
-      lion: { icon:"🦁", name:"สิงโต", short:"คนตื่นเช้าที่มีพลังและทำงานได้ดีในตอนเช้า", desc:"คุณตื่นเช้า มีพลังเต็มที่ในตอนเช้า และชอบจัดการงานสำคัญก่อนเที่ยง คุณมักจะเข้านอนเร็วในตอนเย็น" },
-      bear: { icon:"🐻", name:"หมี", short:"การนอนเป็นไปตามพระอาทิตย์ — เข้ากับสังคม", desc:"การนอนของคุณเป็นไปตามพระอาทิตย์ คุณทำงานได้ดีที่สุดช่วงสาย และรู้สึกเพลียในตอนบ่าย คุณชอบจังหวะชีวิตที่สม่ำเสมอ" },
-      wolf: { icon:"🐺", name:"หมาป่า", short:"คนนอนดึกที่มีความคิดสร้างสรรค์ยามค่ำคืน", desc:"คุณกระปรี้กระเปร่าในตอนเย็นและกลางคืน ตอนเช้าเป็นเรื่องยาก แต่ความคิดสร้างสรรค์และสมาธิของคุณพุ่งสูงหลังพระอาทิตย์ตก" },
-      dolphin: { icon:"🐬", name:"โลมา", short:"คนหลับตื้น หลับไม่สนิท และมีตารางที่ไม่แน่นอน", desc:"คุณเป็นคนหลับตื้น บางครั้งหลับไม่สนิท และมีตารางที่ไม่แน่นอน คุณอาจตื่นตัวในเวลาที่ไม่คาดคิดและนอนหลับสม่ำเสมอได้ยาก" }
+      lion: { 
+        icon:"🦁", name:"สิงโต (The Lion)", short:"คนตื่นเช้าที่มีพลังและทำงานได้ดีในตอนเช้า", 
+        desc:"คุณตื่นเช้า มีพลังเต็มที่ในตอนเช้า และชอบจัดการงานสำคัญก่อนเที่ยง คุณมักจะเข้านอนเร็วในตอนเย็น",
+        timeline: [
+          { time: "5:30", text: "ตื่นนอน — สดชื่นและมีพลัง" }, { time: "6:00", text: "ออกกำลังกาย & ดื่มน้ำ" },
+          { time: "7:00", text: "อาหารเช้า & วางแผนงาน" }, { time: "8:00", text: "ช่วงเวลาสมาธิสูงสุด" },
+          { time: "12:00", text: "พักเที่ยง & พักสมอง" }, { time: "14:00", text: "งานเอกสารทั่วไป" },
+          { time: "17:00", text: "เริ่มพักผ่อนช่วงเย็น" }, { time: "21:00", text: "เข้านอน" }
+        ],
+        tips: [
+          "จัดการงานที่ยากและต้องใช้สมองวิเคราะห์มากที่สุดในตอนเช้า ซึ่งเป็นช่วงที่พลังงานของคุณพุ่งสูงสุด",
+          "หลีกเลี่ยงการประชุมเพื่อตัดสินใจเรื่องสำคัญ หรือการระดมสมอง (Brainstorm) ในช่วงบ่ายแก่ๆ",
+          "รักษาวินัยการเข้านอนเร็ว อย่าฝืนตัวเองให้อยู่ดึกเพื่องานสังคมหากคุณรู้สึกหมดพลังแล้ว",
+          "เลื่อนเวลาออกกำลังกายมาเป็นตอนเช้า เพื่อใช้ประโยชน์จากพลังงานที่พุ่งพล่านตามธรรมชาติของคุณ",
+          "ทานมื้อบ่ายให้เบาลง เพื่อป้องกันอาการง่วงซึมและหมดแรงอย่างรุนแรงในช่วงเย็น"
+        ]
+      },
+      bear: { 
+        icon:"🐻", name:"หมี (The Solar Bear)", short:"การนอนเป็นไปตามพระอาทิตย์ — เข้ากับสังคม", 
+        desc:"คุณจัดอยู่ในกลุ่มโครโนไทป์ที่พบได้บ่อยที่สุด จังหวะของคุณเป็นไปตามพระอาทิตย์ — ตื่นตามธรรมชาติเมื่อมีแสงสว่าง และเริ่มง่วงหลังฟ้ามืด สมองของคุณจะทำงานได้ดีที่สุดช่วง 10.00 น. ถึง 14.00 น. คุณเข้ากับตารางงานและสังคมทั่วไปได้ดีเยี่ยม",
+        timeline: [
+          { time: "7:00", text: "ตื่นนอน — กิจวัตรยามเช้าสบายๆ" }, { time: "7:30", text: "อาหารเช้า" },
+          { time: "8:30", text: "เดินทางหรือเริ่มงาน" }, { time: "10:00", text: "ช่วงเวลาสมาธิสูงสุด" },
+          { time: "12:00", text: "พักเที่ยง — รีเซ็ตพลังงาน" }, { time: "14:00", text: "ประชุมและทำงานร่วมกัน" },
+          { time: "17:30", text: "ออกกำลังกายหลังเลิกงาน" }, { time: "23:00", text: "เข้านอน" }
+        ],
+        tips: [
+          "กำหนดให้ช่วง 10.00 น. ถึง 14.00 น. เป็นช่วงเวลาทำงานเชิงลึก (Deep work) และจัดตารางงานที่สำคัญที่สุดไว้ในช่วงนี้",
+          "การงีบหลับ 10–20 นาทีหลังอาหารเที่ยง จะช่วยฟื้นฟูสมาธิในช่วงบ่าย และป้องกันอาการง่วงหลังมื้ออาหารได้อย่างมีประสิทธิภาพ",
+          "พยายามตื่นและเข้านอนในเวลาเดียวกันอย่างน้อย 5 วันต่อสัปดาห์ หมีจะทำงานได้ดีที่สุดเมื่อมีตารางเวลาที่สม่ำเสมอ",
+          "การออกกำลังกายช่วงเย็น (17.00–19.00 น.) ช่วยให้หลับดีขึ้นและเพิ่มพลังงานในเช้าวันถัดไป — เป็นวงจรที่ดีที่ควรสร้างไว้",
+          "จำกัดการดื่มคาเฟอีนไว้แค่ช่วงเช้า และหลีกเลี่ยงหลัง 14.00 น. ฤทธิ์ของคาเฟอีนอาจรบกวนการนอนหลับของคุณได้ถึง 8–10 ชั่วโมง"
+        ]
+      },
+      wolf: { 
+        icon:"🐺", name:"หมาป่า (The Night Wolf)", short:"คนนอนดึกที่มีความคิดสร้างสรรค์ยามค่ำคืน", 
+        desc:"คุณจะกระปรี้กระเปร่าและมีชีวิตชีวาในช่วงเย็นและกลางคืน ตอนเช้าเป็นเรื่องที่ยากลำบากสำหรับคุณ แต่ความคิดสร้างสรรค์และสมาธิของคุณจะพุ่งสูงสุดหลังพระอาทิตย์ตก",
+        timeline: [
+          { time: "8:30", text: "ตื่นนอน — ต้องใช้นาฬิกาปลุกหลายรอบ" }, { time: "9:00", text: "อาหารเช้า & ดื่มน้ำ" },
+          { time: "10:00", text: "งานเบาๆ เพื่อวอร์มอัพ" }, { time: "13:00", text: "พักเที่ยง" },
+          { time: "15:00", text: "ช่วงสมาธิรอบแรก" }, { time: "18:00", text: "ออกกำลังกายหลังเลิกงาน" },
+          { time: "21:00", text: "ช่วงความคิดสร้างสรรค์พุ่งสูงสุด" }, { time: "00:30", text: "เข้านอน" }
+        ],
+        tips: [
+          "อย่าฝืนทำงานเชิงลึกในตอนเช้าตรู่ ให้ใช้เวลานั้นไปกับการตอบอีเมล วางแผน หรือทำงานเอกสารง่ายๆ",
+          "จัดสรรเวลาช่วงบ่ายแก่ๆ และหัวค่ำ (16.00 น. - 20.00 น.) สำหรับงานที่ต้องใช้พลังสมองและความคิดสร้างสรรค์มากที่สุด",
+          "พยายามรับแสงแดดทันทีที่ตื่นนอน เพื่อช่วยรีเซ็ตนาฬิกาชีวภาพที่มักจะเดินช้ากว่าปกติของคุณ",
+          "ทานอาหารเย็นให้ดึกขึ้น (ประมาณ 20.00 น.) เพื่อให้มีพลังงานเพียงพอสำหรับการลุยงานในช่วงค่ำ",
+          "งดใช้หน้าจออย่างเคร่งครัดอย่างน้อย 45 นาทีก่อนเข้านอนที่ดึกอยู่แล้ว เพื่อให้แน่ใจว่าคุณจะหลับได้จริงๆ"
+        ]
+      },
+      dolphin: { 
+        icon:"🐬", name:"โลมา (The Dolphin)", short:"คนหลับตื้น หลับไม่สนิท และมีตารางที่ไม่แน่นอน", 
+        desc:"คุณเป็นคนหลับตื้น บางครั้งหลับไม่สนิท และมีตารางที่ไม่แน่นอน คุณอาจตื่นตัวในเวลาที่ไม่คาดคิดและมีความฉลาดสูง แต่มักจะพบว่าการนอนหลับให้สนิทสม่ำเสมอเป็นเรื่องยาก",
+        timeline: [
+          { time: "6:30", text: "ตื่นนอน — มักจะรู้สึกงัวเงีย" }, { time: "7:30", text: "อาหารเช้า" },
+          { time: "9:30", text: "ช่วงสมาธิรอบแรก" }, { time: "12:30", text: "พักเที่ยง" },
+          { time: "14:00", text: "ช่วงง่วงซึม / งานทั่วไป" }, { time: "16:00", text: "ช่วงสมาธิรอบสอง" },
+          { time: "20:30", text: "พักผ่อน งดหน้าจอ" }, { time: "23:30", text: "เข้านอน" }
+        ],
+        tips: [
+          "แบ่งงานใหญ่ๆ ออกเป็นส่วนเล็กๆ เพื่อให้สามารถรักษาสมาธิไว้ได้ แม้จะมีความเหนื่อยล้าสะสมซ่อนอยู่",
+          "พลังงานของคุณจะสูงสุดในช่วงสายและช่วงบ่ายแก่ๆ ให้ใช้หน้าต่างสองช่วงนี้ในการจัดการกับงานที่ซับซ้อน",
+          "หลีกเลี่ยงการงีบหลับในตอนกลางวัน เพราะจะไปรบกวนวงจรการนอนหลับตอนกลางคืนที่เปราะบางอยู่แล้วของคุณอย่างรุนแรง",
+          "สร้างกิจวัตรก่อนนอนที่เน้นการลดความวิตกกังวลเป็นหลัก เช่น การอ่านหนังสือ หรือการทำสมาธิ",
+          "รักษาอุณหภูมิห้องนอนให้เย็น มืดสนิท และใช้ห้องนอนสำหรับการนอนเท่านั้น เพื่อลดอัตราการตื่นกลางดึก"
+        ]
+      }
     }
   }
 };
@@ -461,23 +577,17 @@ let isThemeAnimating = false;
 function toggleTheme() {
   if (isThemeAnimating) return; 
   isThemeAnimating = true;
-
   const toggle = document.getElementById('theme-toggle');
   const textEl = document.getElementById('theme-text');
   const iconEl = document.getElementById('theme-icon');
-  
   const isDark = document.body.classList.contains('dark-mode');
   const targetIsDark = !isDark;
   
-  textEl.textContent = targetIsDark 
-    ? (lang === 'th' ? 'โหมดกลางคืน' : 'Dark Mode') 
-    : (lang === 'th' ? 'โหมดสว่าง' : 'Light Mode');
-
+  textEl.textContent = targetIsDark ? (lang === 'th' ? 'โหมดกลางคืน' : 'Dark Mode') : (lang === 'th' ? 'โหมดสว่าง' : 'Light Mode');
   toggle.classList.add('expanding');
 
   setTimeout(() => {
     document.body.classList.toggle('dark-mode');
-    
     if (targetIsDark) {
       iconEl.textContent = '🌙'; 
       localStorage.setItem('theme', 'dark');
@@ -485,20 +595,13 @@ function toggleTheme() {
       iconEl.textContent = '☀️'; 
       localStorage.setItem('theme', 'light');
     }
-    
     setTimeout(() => {
       toggle.classList.remove('expanding');
-      
-      setTimeout(() => {
-        isThemeAnimating = false;
-      }, 500); 
-      
+      setTimeout(() => { isThemeAnimating = false; }, 500); 
     }, 1200); 
-    
   }, 400); 
 }
 
-// Check local storage on initial load
 if(localStorage.getItem('theme') === 'dark') {
   document.body.classList.add('dark-mode');
   document.getElementById('theme-icon').textContent = '🌙';
@@ -516,11 +619,7 @@ function setLang(l){
   document.getElementById('subtitle').textContent = T[l].subtitle;
   if(!document.getElementById('quiz-screen').classList.contains('hidden')) renderQuestion();
   if(!document.getElementById('result-screen').classList.contains('hidden')){ showResultText(); renderStats(); }
-  
-  const bd = document.getElementById('live-stats-breakdown');
-  if(bd.classList.contains('show')) {
-    renderLiveBreakdown();
-  }
+  if(document.getElementById('live-stats-breakdown').classList.contains('show')) { renderLiveBreakdown(); }
 }
 
 /* ============ HOME ============ */
@@ -545,29 +644,18 @@ function renderHome(){
     card.innerHTML = `
       <div class="ico">${a.icon}</div>
       <div class="info"><h3>${a.name}</h3><p>${a.short}</p></div>
-      <div class="pct">
-        <div class="big" style="color:${ANIMAL_COLORS[k]}">${WORLD_PCT[k]}%</div>
-        <div class="small">${lang==='en'?'of people':'ของผู้คน'}</div>
-      </div>`;
+      <div class="pct"><div class="big" style="color:${ANIMAL_COLORS[k]}">${WORLD_PCT[k]}%</div><div class="small">${lang==='en'?'of people':'ของผู้คน'}</div></div>`;
     cont.appendChild(card);
   });
-
   if(liveStats) document.getElementById('meta-count').textContent = liveStats.total.toLocaleString();
 }
 
-/* ============ FETCH REAL STATS ============ */
 function fetchStats(){
-  fetch(SHEET_URL)
-    .then(r => r.json())
-    .then(data => {
-      liveStats = data;
-      animateCount(document.getElementById('meta-count'), data.total);
-      
-      if(document.getElementById('live-stats-breakdown').classList.contains('show')) {
-        renderLiveBreakdown();
-      }
-    })
-    .catch(()=>{ document.getElementById('meta-count').textContent = '—'; });
+  fetch(SHEET_URL).then(r => r.json()).then(data => {
+    liveStats = data;
+    animateCount(document.getElementById('meta-count'), data.total);
+    if(document.getElementById('live-stats-breakdown').classList.contains('show')) { renderLiveBreakdown(); }
+  }).catch(()=>{ document.getElementById('meta-count').textContent = '—'; });
 }
 
 function animateCount(el, target){
@@ -580,27 +668,18 @@ function animateCount(el, target){
   }, 25);
 }
 
-/* ============ TOGGLE LIVE DROPDOWN (TIER LIST) ============ */
 function toggleLiveBreakdown() {
   const bd = document.getElementById('live-stats-breakdown');
   bd.classList.toggle('show');
-  
-  if(bd.classList.contains('show')) {
-    renderLiveBreakdown();
-  }
+  if(bd.classList.contains('show')) { renderLiveBreakdown(); }
 }
 
 function renderLiveBreakdown() {
   const bd = document.getElementById('live-stats-breakdown');
   bd.innerHTML = '';
-  
   const counts = liveStats ? liveStats.counts : {lion:0,bear:0,wolf:0,dolphin:0};
   const total = (liveStats && liveStats.total) ? liveStats.total : 1;
-
-  // Create an array and sort it from highest count to lowest count
-  let sortedStats = ORDER.map(k => {
-    return { key: k, count: counts[k] || 0 };
-  });
+  let sortedStats = ORDER.map(k => { return { key: k, count: counts[k] || 0 }; });
   sortedStats.sort((a, b) => b.count - a.count);
 
   sortedStats.forEach((item, index) => {
@@ -609,70 +688,36 @@ function renderLiveBreakdown() {
     const name = T[lang].animals[k].name;
     const row = document.createElement('div');
     row.className = 'mini-stat-row';
-    
     row.innerHTML = `
-      <div class="mini-stat-label">
-        <span style="opacity:0.6; font-size:0.8rem; margin-right:4px;">#${index + 1}</span>
-        ${ANIMAL_ICONS[k]} ${name}
-      </div>
+      <div class="mini-stat-label"><span style="opacity:0.6; font-size:0.8rem; margin-right:4px;">#${index + 1}</span>${ANIMAL_ICONS[k]} ${name}</div>
       <div class="mini-stat-bar-bg"><div class="mini-stat-bar-fill" style="width:0%; background:${ANIMAL_COLORS[k]}"></div></div>
-      <div class="mini-stat-pct">${pct}%</div>
-    `;
+      <div class="mini-stat-pct">${pct}%</div>`;
     bd.appendChild(row);
-    
-    setTimeout(() => {
-      row.querySelector('.mini-stat-bar-fill').style.width = pct + '%';
-    }, 50);
+    setTimeout(() => { row.querySelector('.mini-stat-bar-fill').style.width = pct + '%'; }, 50);
   });
 }
 
 /* ============ NAVIGATION ============ */
 function startQuiz(){
   pulseBackground(); 
-  
-  current = 0;
-  scores = { lion:0, bear:0, wolf:0, dolphin:0 };
-  userAnswers = []; 
-  lastResult = null;
-  
-  const home = document.getElementById('home-screen');
+  current = 0; scores = { lion:0, bear:0, wolf:0, dolphin:0 }; userAnswers = []; lastResult = null;
+  document.getElementById('home-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
   const quiz = document.getElementById('quiz-screen');
-  
-  home.classList.add('hidden');
-  quiz.classList.remove('hidden');
-  
-  quiz.style.animation = 'none';
-  quiz.offsetHeight; 
-  quiz.style.animation = null; 
-  
-  renderQuestion();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  quiz.style.animation = 'none'; quiz.offsetHeight; quiz.style.animation = null; 
+  renderQuestion(); window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function goHome(){
   bgAnim.playbackRate = 1; 
-  
-  const result = document.getElementById('result-screen');
-  const quiz = document.getElementById('quiz-screen');
+  document.getElementById('result-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.add('hidden');
   const home = document.getElementById('home-screen');
-  
-  result.classList.add('hidden');
-  quiz.classList.add('hidden');
   home.classList.remove('hidden');
-  
-  const stagger1 = home.querySelector('.stagger-1');
-  const stagger2 = home.querySelector('.stagger-2');
-  const stagger3 = home.querySelector('.stagger-3');
-  
-  [stagger1, stagger2, stagger3].forEach(el => {
-    el.style.animation = 'none';
-    el.offsetHeight;
-    el.style.animation = null;
+  [home.querySelector('.stagger-1'), home.querySelector('.stagger-2'), home.querySelector('.stagger-3')].forEach(el => {
+    el.style.animation = 'none'; el.offsetHeight; el.style.animation = null;
   });
-  
-  renderHome();
-  fetchStats();          
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  renderHome(); fetchStats(); window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 /* ============ QUIZ ============ */
@@ -683,38 +728,26 @@ function renderQuestion(){
   opts.innerHTML = '';
   data.a.forEach((text, i)=>{
     const b = document.createElement('button');
-    b.textContent = text;
-    b.onclick = ()=>answer(i);
-    opts.appendChild(b);
+    b.textContent = text; b.onclick = ()=>answer(i); opts.appendChild(b);
   });
   document.getElementById('progress').style.width = (current/T[lang].questions.length*100)+'%';
 }
 
 function answer(i){
   if(isAnimating) return;
-  isAnimating = true;
-  
-  pulseBackground(); 
-  
-  scores[SCORE_MAP[i]]++;
-  userAnswers.push(T[lang].questions[current].a[i]);
-  current++;
-
+  isAnimating = true; pulseBackground(); 
+  scores[SCORE_MAP[i]]++; userAnswers.push(T[lang].questions[current].a[i]); current++;
   const block = document.getElementById('q-block');
   block.classList.add('fade-out-left');
 
   setTimeout(()=>{
     if(current < T[lang].questions.length){
       renderQuestion();
-      block.classList.remove('fade-out-left');
-      block.classList.add('fade-in-right');
-      void block.offsetWidth;
-      block.classList.remove('fade-in-right');
+      block.classList.remove('fade-out-left'); block.classList.add('fade-in-right');
+      void block.offsetWidth; block.classList.remove('fade-in-right');
       isAnimating = false;
     } else {
-      block.classList.remove('fade-out-left');
-      isAnimating = false;
-      finish();
+      block.classList.remove('fade-out-left'); isAnimating = false; finish();
     }
   }, 400);
 }
@@ -727,69 +760,84 @@ function getResult(){
 
 function finish(){
   bgAnim.playbackRate = 1; 
-  
   document.getElementById('progress').style.width = '100%';
-  lastResult = getResult();
-  saveData(lastResult);
-  
-  const quiz = document.getElementById('quiz-screen');
+  lastResult = getResult(); saveData(lastResult);
+  document.getElementById('quiz-screen').classList.add('hidden');
   const res = document.getElementById('result-screen');
-  
-  quiz.classList.add('hidden');
   res.classList.remove('hidden');
-  
-  res.style.animation = 'none';
-  res.offsetHeight;
-  res.style.animation = null;
-  
-  showResultText();
-  renderStats();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  res.style.animation = 'none'; res.offsetHeight; res.style.animation = null;
+  showResultText(); renderStats(); window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+/* ============ RENDER RESULT TEXT (Including Timeline & Tips) ============ */
 function showResultText(){
   if(!lastResult) return;
   const a = T[lang].animals[lastResult];
+  const t = T[lang];
+  const color = ANIMAL_COLORS[lastResult];
+  
+  document.getElementById('res-top-title').textContent = t.resTopTitle;
   document.getElementById('animal-icon').textContent = a.icon;
   document.getElementById('result-title').textContent = a.name;
+  document.getElementById('result-title').style.color = color; 
   document.getElementById('result-desc').textContent = a.desc;
-  document.getElementById('stats-title').textContent = T[lang].statsTitle;
-  document.getElementById('restart-btn').textContent = T[lang].restart;
-  document.getElementById('saving-note').textContent = T[lang].saved;
+  
+  document.getElementById('stats-title').textContent = t.statsTitle;
+  
+  document.getElementById('tl-title').textContent = t.tlTitle;
+  document.getElementById('tl-subtitle').textContent = t.tlSubtitle;
+  const tlGrid = document.getElementById('timeline-grid');
+  tlGrid.innerHTML = '';
+  
+  const softBg = color + '1A'; 
+  
+  a.timeline.forEach(item => {
+    const box = document.createElement('div');
+    box.className = 'timeline-item';
+    box.style.backgroundColor = softBg;
+    box.innerHTML = `
+      <div class="timeline-time" style="color:${color}">${item.time}</div>
+      <div class="timeline-desc">${item.text}</div>
+    `;
+    tlGrid.appendChild(box);
+  });
+
+  const pureName = lang === 'en' ? a.name.replace("The ", "") : a.name.split(" ")[0];
+  document.getElementById('tips-title').textContent = `${t.tipsTitle} ${pureName.toUpperCase()}`;
+  document.getElementById('tips-subtitle').textContent = t.tipsSubtitle;
+  
+  const tipsList = document.getElementById('tips-list');
+  tipsList.innerHTML = '';
+  
+  a.tips.forEach((tip, index) => {
+    const item = document.createElement('div');
+    item.className = 'tip-item';
+    const num = String(index + 1).padStart(2, '0'); 
+    item.innerHTML = `
+      <div class="tip-num" style="color:${color}">${num}</div>
+      <div class="tip-desc">${tip}</div>
+    `;
+    tipsList.appendChild(item);
+  });
+
+  document.getElementById('restart-btn').textContent = t.restart;
+  document.getElementById('restart-btn').style.backgroundColor = color; 
+  document.getElementById('saving-note').textContent = t.saving;
 }
 
-/* ============ DATA → GOOGLE SHEET ============ */
 function saveData(result){
-  const payload = {
-    result: result,
-    answers: userAnswers,
-    timestamp: new Date().toISOString(),
-    lang: lang
-  };
-
-  if(liveStats){
-    liveStats.total++;
-    liveStats.counts[result] = (liveStats.counts[result]||0)+1;
-  }
-
-  fetch(SHEET_URL, {
-    method: 'POST',
-    mode: 'no-cors',                       
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(payload)
-  }).catch(err => console.warn('Save failed', err));
+  const payload = { result: result, answers: userAnswers, timestamp: new Date().toISOString(), lang: lang };
+  if(liveStats){ liveStats.total++; liveStats.counts[result] = (liveStats.counts[result]||0)+1; }
+  fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).catch(err => console.warn('Save failed', err));
 }
 
-/* ============ END-OF-QUIZ STATS (ALSO TIER LIST SORTED) ============ */
 function renderStats(){
   const counts = liveStats ? liveStats.counts : {lion:0,bear:0,wolf:0,dolphin:0};
   const total = (liveStats && liveStats.total) ? liveStats.total : 1;
   const bars = document.getElementById('stats-bars');
   bars.innerHTML = '';
   
-  let sortedStats = ORDER.map(k => {
-    return { key: k, count: counts[k] || 0 };
-  });
+  let sortedStats = ORDER.map(k => { return { key: k, count: counts[k] || 0 }; });
   sortedStats.sort((a, b) => b.count - a.count);
 
   sortedStats.forEach((item, index) => {
@@ -798,7 +846,6 @@ function renderStats(){
     const name = T[lang].animals[k].name;
     const row = document.createElement('div');
     row.className = 'stat-row';
-    
     row.innerHTML = `
       <div class="stat-label">
         <span><span style="opacity:0.5; font-size:0.8rem; margin-right:4px;">#${index + 1}</span>${ANIMAL_ICONS[k]} ${name}</span>
