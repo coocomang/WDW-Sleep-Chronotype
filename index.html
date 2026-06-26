@@ -139,18 +139,23 @@
   .type-card .pct .big { font-size: 1.6rem; font-weight: bold; }
   .type-card .pct .small { font-size: 0.7rem; color: var(--text-muted); transition: color 0.5s ease; }
 
-  /* ===== QUIZ / RESULT CONTAINER ===== */
+  /* ===== LEAD FORM & QUIZ CONTAINER ===== */
   .container { background: var(--card-bg); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); padding: 30px; margin-top: 20px; transition: background 0.5s ease; }
   .container h1 { text-align: center; color: var(--heading); margin-bottom: 10px; font-size: 1.6rem; transition: color 0.5s ease; }
   .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; transition: color 0.5s ease; }
+  
+  /* Form Inputs */
+  .input-group { margin-bottom: 20px; text-align: left; }
+  .input-group label { display: block; margin-bottom: 8px; font-weight: bold; color: var(--text-main); font-size: 0.95rem; transition: color 0.3s ease; }
+  .input-group input { width: 100%; padding: 14px 15px; border-radius: 12px; border: 2px solid var(--btn-border); background: var(--btn-bg); color: var(--text-main); font-size: 1rem; transition: all 0.3s ease; font-family: inherit; }
+  .input-group input:focus { outline: none; border-color: var(--heading); box-shadow: 0 0 0 4px rgba(91, 163, 219, 0.1); }
+  .form-error { color: #e74c3c; font-size: 0.9rem; font-weight: bold; margin-top: 15px; display: none; text-align: center; }
+
   .progress-bar { height: 8px; background: var(--card-border); border-radius: 4px; overflow: hidden; margin-bottom: 25px; transition: background 0.5s ease; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, #5ba3db, #447684); width: 0; transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
 
-  /* ===== SLIDE UP QUESTION TRANSITION ===== */
   .q-block { transition: opacity 0.4s ease, transform 0.4s ease; }
-  /* Slide out upwards */
   .q-block.fade-out-up { opacity: 0; transform: translateY(-30px); }
-  /* Prepare to slide in from below */
   .q-block.fade-in-bottom { opacity: 0; transform: translateY(30px); }
 
   .question { font-size: 1.2rem; color: var(--text-main); margin-bottom: 20px; font-weight: 600; transition: color 0.5s ease; }
@@ -175,7 +180,6 @@
   .stat-bar-bg { height: 22px; background: var(--card-border); border-radius: 11px; overflow: hidden; transition: background 0.5s ease; }
   .stat-bar-fill { height: 100%; border-radius: 11px; transition: width 1s cubic-bezier(0.25, 1, 0.5, 1); display:flex; align-items:center; justify-content:flex-end; color:#fff; font-size:0.75rem; padding-right:8px; }
 
-  /* Exteded Answer Sections (Timeline & Tips) */
   .extended-section {
     border: 2px solid var(--card-border); border-radius: 16px; padding: 25px; margin-top: 25px;
     text-align: left; background: var(--card-bg); transition: all 0.5s ease;
@@ -193,6 +197,9 @@
   .tip-num { font-weight: 800; font-size: 1.1rem; min-width: 25px; text-align: right; }
   .tip-desc { font-size: 0.95rem; line-height: 1.5; color: var(--text-main); }
   
+  .submit-btn { background: #5ba3db; color: #fff; border: none; padding: 14px 32px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 10px; width: 100%; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+  .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(91, 163, 219, 0.4); }
+
   .restart-btn { background: #5ba3db; color: #fff; border: none; padding: 14px 32px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 30px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
   .restart-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(91, 163, 219, 0.4); }
   .saving-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 14px; transition: color 0.5s ease; display: block; }
@@ -204,32 +211,23 @@
     body { padding: 10px; }
     .hero h1 { font-size: 1.9rem; }
     .hero p.lead { font-size: 1rem; }
-    
     .meta-row { gap: 15px; }
     .meta-item .num { font-size: 1.5rem; }
-    
     .types-section, .container, .extended-section { padding: 20px 15px; }
-    
     .type-card { flex-direction: column; text-align: center; gap: 10px; }
     .type-card .ico { font-size: 2.5rem; }
     .type-card .pct { margin-top: 5px; }
-    
     .live-stats-breakdown.show { padding: 15px; }
     .mini-stat-label { width: 95px; font-size: 0.8rem; }
     .mini-stat-pct { width: 40px; font-size: 0.8rem; }
     .mini-stat-bar-bg { margin: 0 10px; }
-    
     .question { font-size: 1.1rem; }
     .options button { padding: 12px; font-size: 0.95rem; }
-    
     .animal-icon { font-size: 4rem; }
     #result-title { font-size: 1.8rem !important; }
-    
     .timeline-grid { grid-template-columns: 1fr 1fr; }
-    
     .tip-item { flex-direction: column; align-items: flex-start; gap: 8px; padding: 15px; }
     .tip-num { text-align: left; }
-    
     .cta-btn, .restart-btn { width: 100%; padding: 14px 20px; display: block; }
   }
 </style>
@@ -253,7 +251,8 @@
     <div class="hero stagger-1">
       <h1 id="hero-title"></h1>
       <p class="lead" id="hero-lead"></p>
-      <button class="cta-btn" id="cta-btn" onclick="startQuiz()"></button>
+      <!-- Changed from startQuiz() to showLeadForm() -->
+      <button class="cta-btn" id="cta-btn" onclick="showLeadForm()"></button>
     </div>
     
     <div class="live-stats-box stagger-2">
@@ -280,6 +279,26 @@
       <p class="sub" id="types-sub"></p>
       <div id="type-cards"></div>
     </div>
+  </div>
+
+  <!-- ============ LEAD FORM SCREEN ============ -->
+  <div id="lead-form-screen" class="container screen hidden">
+    <h1 id="form-title"></h1>
+    <p class="subtitle" id="form-subtitle"></p>
+    
+    <div class="input-group">
+      <label id="label-name" for="user-name"></label>
+      <input type="text" id="user-name" autocomplete="name">
+    </div>
+    
+    <div class="input-group">
+      <label id="label-phone" for="user-phone"></label>
+      <input type="tel" id="user-phone" autocomplete="tel">
+    </div>
+
+    <div id="form-error" class="form-error"></div>
+    
+    <button class="submit-btn" id="btn-submit-form" onclick="submitForm()"></button>
   </div>
 
   <!-- ============ QUIZ SCREEN ============ -->
@@ -355,6 +374,12 @@ const T = {
     accLabel: "Accuracy Rate",
     typesTitle: "The 4 Chronotype Types",
     typesSub: "Based on global sleep research — here's how people around the world break down:",
+    formTitle: "Before We Start",
+    formSubtitle: "Please enter your details so we can contact you with your results or special offers.",
+    nameLabel: "Your Name",
+    phoneLabel: "Phone Number",
+    formSubmit: "Start Quiz",
+    formError: "Please fill in all fields.",
     title: "Sleep Chronotype Quiz",
     subtitle: "Answer 10 questions to find your sleep animal!",
     resTopTitle: "YOUR CHRONOTYPE IS",
@@ -397,470 +422,4 @@ const T = {
       },
       bear: { 
         icon:"🐻", name:"The Solar Bear", short:"Sleep follows the sun — socially in sync.", 
-        desc:"You belong to the most common chronotype. Your rhythm follows the sun — rising naturally with daylight and winding down after dark. You hit peak cognitive performance between 10 AM and 2 PM, and you're well-suited to standard social and work schedules.",
-        timeline: [
-          { time: "7:00", text: "Wake up — Relaxed morning routine" }, { time: "7:30", text: "Breakfast" },
-          { time: "8:30", text: "Commute or start the day" }, { time: "10:00", text: "Peak focus window" },
-          { time: "12:00", text: "Lunch — A midday reset" }, { time: "14:00", text: "Collaboration & meetings" },
-          { time: "17:30", text: "Post-work exercise" }, { time: "23:00", text: "Bedtime" }
-        ],
-        tips: [
-          "Designate 10 AM to 2 PM as your protected deep work window and schedule your most important tasks during this block.",
-          "A 10–20 minute nap after lunch can effectively restore your afternoon focus and prevent the post-lunch energy slump.",
-          "Maintain the same sleep and wake times at least 5 days per week. Bears thrive on consistent schedules more than any other chronotype.",
-          "Afternoon exercise (5–7 PM) improves your sleep quality and boosts the next morning's energy — a virtuous cycle worth establishing.",
-          "Limit caffeine to the morning hours and avoid it after 2 PM. Caffeine's half-life means it can still disrupt your sleep 8–10 hours after consumption."
-        ]
-      },
-      wolf: { 
-        icon:"🐺", name:"The Night Wolf", short:"Creative night owls who come alive after dark.", 
-        desc:"You come alive in the evening and night. Mornings are tough, but your creativity and focus peak after dark. You thrive when you have the freedom to dictate your own schedule.",
-        timeline: [
-          { time: "8:30", text: "Wake up — Multiple alarms" }, { time: "9:00", text: "Breakfast & hydrate" },
-          { time: "10:00", text: "Light tasks to warm up" }, { time: "13:00", text: "Lunch" },
-          { time: "15:00", text: "First focus window" }, { time: "18:00", text: "Post-work exercise" },
-          { time: "21:00", text: "Peak creative window" }, { time: "00:30", text: "Bedtime" }
-        ],
-        tips: [
-          "Don't force deep work in the early morning; use that time for emails, planning, or low-effort administrative tasks.",
-          "Block out late afternoon and early evening (4 PM - 8 PM) for your most demanding, creative work.",
-          "Try to get sunlight exposure immediately upon waking to help reset your delayed circadian rhythm.",
-          "Eat dinner later (around 8 PM) so you have fuel for your evening productivity burst.",
-          "Implement a strict screen-cutoff at least 45 minutes before your late bedtime to ensure you can actually fall asleep."
-        ]
-      },
-      dolphin: { 
-        icon:"🐬", name:"The Dolphin", short:"Light, restless sleepers with irregular schedules.", 
-        desc:"You're a light, sometimes restless sleeper with an irregular schedule. You can be highly intelligent and alert at unexpected times, but may struggle with consistent, deep rest.",
-        timeline: [
-          { time: "6:30", text: "Wake up — Often groggy" }, { time: "7:30", text: "Breakfast" },
-          { time: "9:30", text: "First focus window" }, { time: "12:30", text: "Lunch" },
-          { time: "14:00", text: "Slump / light tasks" }, { time: "16:00", text: "Second focus window" },
-          { time: "20:30", text: "Strict relaxation" }, { time: "23:30", text: "Bedtime" }
-        ],
-        tips: [
-          "Break large tasks into smaller, manageable chunks to maintain focus despite underlying fatigue.",
-          "Your energy peaks in mid-morning and late afternoon—use these dual windows for complex tasks.",
-          "Avoid naps during the day, as they will severely disrupt your already fragile nighttime sleep cycle.",
-          "Create a wind-down routine that focuses heavily on anxiety reduction, such as reading or meditation.",
-          "Keep your bedroom cool, completely dark, and strictly for sleep to minimize nighttime awakenings."
-        ]
-      }
-    }
-  },
-  th: {
-    heroTitle: "โครโนไทป์การนอนของคุณคืออะไร?",
-    heroLead: "ค้นหาจังหวะชีวภาพตามธรรมชาติของคุณด้วยเพียง 10 คำถาม คุณเป็นสิงโต หมี หมาป่า หรือโลมา — และมันมีความหมายอย่างไรต่อสุขภาพและประสิทธิภาพการทำงานของคุณ?",
-    cta: "เริ่มทำแบบทดสอบ",
-    liveStatsBtn: "สถิติเรียลไทม์ ▼",
-    countLabel: "คนทำแบบทดสอบแล้ว",
-    timeLabel: "นาทีในการทำ",
-    accLabel: "ความแม่นยำ",
-    typesTitle: "โครโนไทป์ทั้ง 4 ประเภท",
-    typesSub: "อ้างอิงจากงานวิจัยการนอนทั่วโลก — สัดส่วนของผู้คนทั่วโลกเป็นดังนี้:",
-    title: "แบบทดสอบโครโนไทป์การนอน",
-    subtitle: "ตอบ 10 คำถามเพื่อค้นหาสัตว์การนอนของคุณ!",
-    resTopTitle: "โครโนไทป์ของคุณคือ",
-    statsTitle: "คนอื่นเป็นสัตว์ประเภทไหน?",
-    tlTitle: "ตารางเวลาที่เหมาะสมที่สุดของคุณ",
-    tlSubtitle: "การปรับกิจกรรมของคุณให้ตรงกับช่วงเวลาเหล่านี้ จะช่วยปลดล็อกพลังงานและสมาธิให้สูงขึ้นอย่างเห็นได้ชัด",
-    tipsTitle: "เคล็ดลับการทำงานสำหรับ",
-    tipsSubtitle: "กลยุทธ์ที่นำไปใช้ได้จริง เพื่อการใช้ชีวิตให้สอดคล้องกับจังหวะธรรมชาติของคุณ",
-    restart: "กลับหน้าแรก",
-    saving: "✓ บันทึกผลลัพธ์ของคุณแล้ว",
-    questions: [
-      { q: "ปกติคุณตื่นนอนเองโดยไม่ตั้งนาฬิกาปลุกตอนกี่โมง?", a: ["ก่อน 6 โมงเช้า","6-7 โมงเช้า","7-9 โมงเช้า","หลัง 9 โมงเช้า"] },
-      { q: "คุณรู้สึกมีพลังมากที่สุดตอนไหน?", a: ["เช้าตรู่","สายๆ","บ่าย","ดึก"] },
-      { q: "หลังตื่นนอนคุณรู้สึกอย่างไร?", a: ["สดชื่นเต็มที่","ค่อนข้างดี","งัวเงียเล็กน้อย","เหนื่อยมาก"] },
-      { q: "คุณชอบทำงานที่ใช้สมองหนักตอนไหน?", a: ["เช้าตรู่","สายๆ","บ่าย","เย็น/กลางคืน"] },
-      { q: "ปกติคุณเข้านอนกี่โมง?", a: ["ก่อน 4 ทุ่ม","4-5 ทุ่ม","5 ทุ่ม-ตี 1","หลังตี 1"] },
-      { q: "คุณหลับง่ายแค่ไหนในตอนกลางคืน?", a: ["ง่ายมาก","ค่อนข้างง่าย","บางทียาก","มักจะลำบาก"] },
-      { q: "คุณงีบหลับระหว่างวันหรือไม่?", a: ["ไม่เคยต้องการ","นานๆ ครั้ง","บางครั้ง","บ่อย"] },
-      { q: "คุณรู้สึกอย่างไรกับการประชุมเช้าตรู่?", a: ["ชอบมาก","โอเค","ไม่ค่อยชอบ","เกลียดมาก"] },
-      { q: "คุณรู้สึกง่วงตอนเย็นเมื่อไหร่?", a: ["เร็วมาก","ราว 3 ทุ่ม","ราว 5 ทุ่ม","ดึก/ไม่ง่วงเลย"] },
-      { q: "คุณอธิบายการนอนโดยรวมของคุณว่าอย่างไร?", a: ["หลับตื้น & สม่ำเสมอ","หลับลึก & คงที่","ไม่แน่นอน","ไม่เป็นเวลา"] }
-    ],
-    animals: {
-      lion: { 
-        icon:"🦁", name:"สิงโต (The Lion)", short:"คนตื่นเช้าที่มีพลังและทำงานได้ดีในตอนเช้า", 
-        desc:"คุณตื่นเช้า มีพลังเต็มที่ในตอนเช้า และชอบจัดการงานสำคัญก่อนเที่ยง คุณมักจะเข้านอนเร็วในตอนเย็น",
-        timeline: [
-          { time: "5:30", text: "ตื่นนอน — สดชื่นและมีพลัง" }, { time: "6:00", text: "ออกกำลังกาย & ดื่มน้ำ" },
-          { time: "7:00", text: "อาหารเช้า & วางแผนงาน" }, { time: "8:00", text: "ช่วงเวลาสมาธิสูงสุด" },
-          { time: "12:00", text: "พักเที่ยง & พักสมอง" }, { time: "14:00", text: "งานเอกสารทั่วไป" },
-          { time: "17:00", text: "เริ่มพักผ่อนช่วงเย็น" }, { time: "21:00", text: "เข้านอน" }
-        ],
-        tips: [
-          "จัดการงานที่ยากและต้องใช้สมองวิเคราะห์มากที่สุดในตอนเช้า ซึ่งเป็นช่วงที่พลังงานของคุณพุ่งสูงสุด",
-          "หลีกเลี่ยงการประชุมเพื่อตัดสินใจเรื่องสำคัญ หรือการระดมสมอง (Brainstorm) ในช่วงบ่ายแก่ๆ",
-          "รักษาวินัยการเข้านอนเร็ว อย่าฝืนตัวเองให้อยู่ดึกเพื่องานสังคมหากคุณรู้สึกหมดพลังแล้ว",
-          "เลื่อนเวลาออกกำลังกายมาเป็นตอนเช้า เพื่อใช้ประโยชน์จากพลังงานที่พุ่งพล่านตามธรรมชาติของคุณ",
-          "ทานมื้อบ่ายให้เบาลง เพื่อป้องกันอาการง่วงซึมและหมดแรงอย่างรุนแรงในช่วงเย็น"
-        ]
-      },
-      bear: { 
-        icon:"🐻", name:"หมี (The Solar Bear)", short:"การนอนเป็นไปตามพระอาทิตย์ — เข้ากับสังคม", 
-        desc:"คุณจัดอยู่ในกลุ่มโครโนไทป์ที่พบได้บ่อยที่สุด จังหวะของคุณเป็นไปตามพระอาทิตย์ — ตื่นตามธรรมชาติเมื่อมีแสงสว่าง และเริ่มง่วงหลังฟ้ามืด สมองของคุณจะทำงานได้ดีที่สุดช่วง 10.00 น. ถึง 14.00 น. คุณเข้ากับตารางงานและสังคมทั่วไปได้ดีเยี่ยม",
-        timeline: [
-          { time: "7:00", text: "ตื่นนอน — กิจวัตรยามเช้าสบายๆ" }, { time: "7:30", text: "อาหารเช้า" },
-          { time: "8:30", text: "เดินทางหรือเริ่มงาน" }, { time: "10:00", text: "ช่วงเวลาสมาธิสูงสุด" },
-          { time: "12:00", text: "พักเที่ยง — รีเซ็ตพลังงาน" }, { time: "14:00", text: "ประชุมและทำงานร่วมกัน" },
-          { time: "17:30", text: "ออกกำลังกายหลังเลิกงาน" }, { time: "23:00", text: "เข้านอน" }
-        ],
-        tips: [
-          "กำหนดให้ช่วง 10.00 น. ถึง 14.00 น. เป็นช่วงเวลาทำงานเชิงลึก (Deep work) และจัดตารางงานที่สำคัญที่สุดไว้ในช่วงนี้",
-          "การงีบหลับ 10–20 นาทีหลังอาหารเที่ยง จะช่วยฟื้นฟูสมาธิในช่วงบ่าย และป้องกันอาการง่วงหลังมื้ออาหารได้อย่างมีประสิทธิภาพ",
-          "พยายามตื่นและเข้านอนในเวลาเดียวกันอย่างน้อย 5 วันต่อสัปดาห์ หมีจะทำงานได้ดีที่สุดเมื่อมีตารางเวลาที่สม่ำเสมอ",
-          "การออกกำลังกายช่วงเย็น (17.00–19.00 น.) ช่วยให้หลับดีขึ้นและเพิ่มพลังงานในเช้าวันถัดไป — เป็นวงจรที่ดีที่ควรสร้างไว้",
-          "จำกัดการดื่มคาเฟอีนไว้แค่ช่วงเช้า และหลีกเลี่ยงหลัง 14.00 น. ฤทธิ์ของคาเฟอีนอาจรบกวนการนอนหลับของคุณได้ถึง 8–10 ชั่วโมง"
-        ]
-      },
-      wolf: { 
-        icon:"🐺", name:"หมาป่า (The Night Wolf)", short:"คนนอนดึกที่มีความคิดสร้างสรรค์ยามค่ำคืน", 
-        desc:"คุณจะกระปรี้กระเปร่าและมีชีวิตชีวาในช่วงเย็นและกลางคืน ตอนเช้าเป็นเรื่องที่ยากลำบากสำหรับคุณ แต่ความคิดสร้างสรรค์และสมาธิของคุณจะพุ่งสูงสุดหลังพระอาทิตย์ตก",
-        timeline: [
-          { time: "8:30", text: "ตื่นนอน — ต้องใช้นาฬิกาปลุกหลายรอบ" }, { time: "9:00", text: "อาหารเช้า & ดื่มน้ำ" },
-          { time: "10:00", text: "งานเบาๆ เพื่อวอร์มอัพ" }, { time: "13:00", text: "พักเที่ยง" },
-          { time: "15:00", text: "ช่วงสมาธิรอบแรก" }, { time: "18:00", text: "ออกกำลังกายหลังเลิกงาน" },
-          { time: "21:00", text: "ช่วงความคิดสร้างสรรค์พุ่งสูงสุด" }, { time: "00:30", text: "เข้านอน" }
-        ],
-        tips: [
-          "อย่าฝืนทำงานเชิงลึกในตอนเช้าตรู่ ให้ใช้เวลานั้นไปกับการตอบอีเมล วางแผน หรือทำงานเอกสารง่ายๆ",
-          "จัดสรรเวลาช่วงบ่ายแก่ๆ และหัวค่ำ (16.00 น. - 20.00 น.) สำหรับงานที่ต้องใช้พลังสมองและความคิดสร้างสรรค์มากที่สุด",
-          "พยายามรับแสงแดดทันทีที่ตื่นนอน เพื่อช่วยรีเซ็ตนาฬิกาชีวภาพที่มักจะเดินช้ากว่าปกติของคุณ",
-          "ทานอาหารเย็นให้ดึกขึ้น (ประมาณ 20.00 น.) เพื่อให้มีพลังงานเพียงพอสำหรับการลุยงานในช่วงค่ำ",
-          "งดใช้หน้าจออย่างเคร่งครัดอย่างน้อย 45 นาทีก่อนเข้านอนที่ดึกอยู่แล้ว เพื่อให้แน่ใจว่าคุณจะหลับได้จริงๆ"
-        ]
-      },
-      dolphin: { 
-        icon:"🐬", name:"โลมา (The Dolphin)", short:"คนหลับตื้น หลับไม่สนิท และมีตารางที่ไม่แน่นอน", 
-        desc:"คุณเป็นคนหลับตื้น บางครั้งหลับไม่สนิท และมีตารางที่ไม่แน่นอน คุณอาจตื่นตัวในเวลาที่ไม่คาดคิดและมีความฉลาดสูง แต่มักจะพบว่าการนอนหลับให้สนิทสม่ำเสมอเป็นเรื่องยาก",
-        timeline: [
-          { time: "6:30", text: "ตื่นนอน — มักจะรู้สึกงัวเงีย" }, { time: "7:30", text: "อาหารเช้า" },
-          { time: "9:30", text: "ช่วงสมาธิรอบแรก" }, { time: "12:30", text: "พักเที่ยง" },
-          { time: "14:00", text: "ช่วงง่วงซึม / งานทั่วไป" }, { time: "16:00", text: "ช่วงสมาธิรอบสอง" },
-          { time: "20:30", text: "พักผ่อน งดหน้าจอ" }, { time: "23:30", text: "เข้านอน" }
-        ],
-        tips: [
-          "แบ่งงานใหญ่ๆ ออกเป็นส่วนเล็กๆ เพื่อให้สามารถรักษาสมาธิไว้ได้ แม้จะมีความเหนื่อยล้าสะสมซ่อนอยู่",
-          "พลังงานของคุณจะสูงสุดในช่วงสายและช่วงบ่ายแก่ๆ ให้ใช้หน้าต่างสองช่วงนี้ในการจัดการกับงานที่ซับซ้อน",
-          "หลีกเลี่ยงการงีบหลับในตอนกลางวัน เพราะจะไปรบกวนวงจรการนอนหลับตอนกลางคืนที่เปราะบางอยู่แล้วของคุณอย่างรุนแรง",
-          "สร้างกิจวัตรก่อนนอนที่เน้นการลดความวิตกกังวลเป็นหลัก เช่น การอ่านหนังสือ หรือการทำสมาธิ",
-          "รักษาอุณหภูมิห้องนอนให้เย็น มืดสนิท และใช้ห้องนอนสำหรับการนอนเท่านั้น เพื่อลดอัตราการตื่นกลางดึก"
-        ]
-      }
-    }
-  }
-};
-
-const WORLD_PCT = { lion:15, bear:55, wolf:15, dolphin:10 };
-const ANIMAL_COLORS = { lion:"#f6c753", bear:"#729c9b", wolf:"#447684", dolphin:"#e4bad3" };
-const ANIMAL_ICONS  = { lion:"🦁", bear:"🐻", wolf:"🐺", dolphin:"🐬" };
-const ORDER = ['lion','bear','wolf','dolphin'];
-
-let lang = 'th';
-let current = 0;
-let scores = { lion:0, bear:0, wolf:0, dolphin:0 };
-let userAnswers = [];
-const SCORE_MAP = ['lion','bear','wolf','dolphin'];
-let lastResult = null;
-let isAnimating = false;
-let liveStats = null;   
-
-/* ============ INTERACTIVE THEME TOGGLE ENGINE ============ */
-let isThemeAnimating = false;
-
-function toggleTheme() {
-  if (isThemeAnimating) return; 
-  isThemeAnimating = true;
-  const toggle = document.getElementById('theme-toggle');
-  const textEl = document.getElementById('theme-text');
-  const iconEl = document.getElementById('theme-icon');
-  const isDark = document.body.classList.contains('dark-mode');
-  const targetIsDark = !isDark;
-  
-  textEl.textContent = targetIsDark ? (lang === 'th' ? 'โหมดกลางคืน' : 'Dark Mode') : (lang === 'th' ? 'โหมดสว่าง' : 'Light Mode');
-  toggle.classList.add('expanding');
-
-  setTimeout(() => {
-    document.body.classList.toggle('dark-mode');
-    if (targetIsDark) {
-      iconEl.textContent = '🌙'; 
-      localStorage.setItem('theme', 'dark');
-    } else {
-      iconEl.textContent = '☀️'; 
-      localStorage.setItem('theme', 'light');
-    }
-    setTimeout(() => {
-      toggle.classList.remove('expanding');
-      setTimeout(() => { isThemeAnimating = false; }, 500); 
-    }, 1200); 
-  }, 400); 
-}
-
-if(localStorage.getItem('theme') === 'dark') {
-  document.body.classList.add('dark-mode');
-  document.getElementById('theme-icon').textContent = '🌙';
-} else {
-  document.getElementById('theme-icon').textContent = '☀️';
-}
-
-/* ============ LANGUAGE ============ */
-function setLang(l){
-  lang = l;
-  document.getElementById('btn-en').classList.toggle('active', l==='en');
-  document.getElementById('btn-th').classList.toggle('active', l==='th');
-  renderHome();
-  document.getElementById('title').textContent = T[l].title;
-  document.getElementById('subtitle').textContent = T[l].subtitle;
-  if(!document.getElementById('quiz-screen').classList.contains('hidden')) renderQuestion();
-  if(!document.getElementById('result-screen').classList.contains('hidden')){ showResultText(); renderStats(); }
-  if(document.getElementById('live-stats-breakdown').classList.contains('show')) { renderLiveBreakdown(); }
-}
-
-/* ============ HOME ============ */
-function renderHome(){
-  const t = T[lang];
-  document.getElementById('hero-title').textContent = t.heroTitle;
-  document.getElementById('hero-lead').textContent = t.heroLead;
-  document.getElementById('cta-btn').textContent = t.cta;
-  document.getElementById('live-stats-btn').textContent = t.liveStatsBtn;
-  document.getElementById('meta-count-label').textContent = t.countLabel;
-  document.getElementById('meta-time-label').textContent = t.timeLabel;
-  document.getElementById('meta-acc-label').textContent = t.accLabel;
-  document.getElementById('types-title').textContent = t.typesTitle;
-  document.getElementById('types-sub').textContent = t.typesSub;
-
-  const cont = document.getElementById('type-cards');
-  cont.innerHTML = '';
-  ORDER.forEach(k=>{
-    const a = t.animals[k];
-    const card = document.createElement('div');
-    card.className = 'type-card';
-    card.innerHTML = `
-      <div class="ico">${a.icon}</div>
-      <div class="info"><h3>${a.name}</h3><p>${a.short}</p></div>
-      <div class="pct"><div class="big" style="color:${ANIMAL_COLORS[k]}">${WORLD_PCT[k]}%</div><div class="small">${lang==='en'?'of people':'ของผู้คน'}</div></div>`;
-    cont.appendChild(card);
-  });
-  if(liveStats) document.getElementById('meta-count').textContent = liveStats.total.toLocaleString();
-}
-
-function fetchStats(){
-  fetch(SHEET_URL).then(r => r.json()).then(data => {
-    liveStats = data;
-    animateCount(document.getElementById('meta-count'), data.total);
-    if(document.getElementById('live-stats-breakdown').classList.contains('show')) { renderLiveBreakdown(); }
-  }).catch(()=>{ document.getElementById('meta-count').textContent = '—'; });
-}
-
-function animateCount(el, target){
-  let start = 0;
-  const step = Math.max(1, Math.ceil(target/40));
-  const timer = setInterval(()=>{
-    start += step;
-    if(start >= target){ start = target; clearInterval(timer); }
-    el.textContent = start.toLocaleString();
-  }, 25);
-}
-
-function toggleLiveBreakdown() {
-  const bd = document.getElementById('live-stats-breakdown');
-  bd.classList.toggle('show');
-  if(bd.classList.contains('show')) { renderLiveBreakdown(); }
-}
-
-function renderLiveBreakdown() {
-  const bd = document.getElementById('live-stats-breakdown');
-  bd.innerHTML = '';
-  const counts = liveStats ? liveStats.counts : {lion:0,bear:0,wolf:0,dolphin:0};
-  const total = (liveStats && liveStats.total) ? liveStats.total : 1;
-  let sortedStats = ORDER.map(k => { return { key: k, count: counts[k] || 0 }; });
-  sortedStats.sort((a, b) => b.count - a.count);
-
-  sortedStats.forEach((item, index) => {
-    const k = item.key;
-    const pct = Math.round((item.count / total) * 100);
-    const name = T[lang].animals[k].name;
-    const row = document.createElement('div');
-    row.className = 'mini-stat-row';
-    row.innerHTML = `
-      <div class="mini-stat-label"><span style="opacity:0.6; font-size:0.8rem; margin-right:4px;">#${index + 1}</span>${ANIMAL_ICONS[k]} ${name}</div>
-      <div class="mini-stat-bar-bg"><div class="mini-stat-bar-fill" style="width:0%; background:${ANIMAL_COLORS[k]}"></div></div>
-      <div class="mini-stat-pct">${pct}%</div>`;
-    bd.appendChild(row);
-    setTimeout(() => { row.querySelector('.mini-stat-bar-fill').style.width = pct + '%'; }, 50);
-  });
-}
-
-/* ============ NAVIGATION ============ */
-function startQuiz(){
-  pulseBackground(); 
-  current = 0; scores = { lion:0, bear:0, wolf:0, dolphin:0 }; userAnswers = []; lastResult = null;
-  document.getElementById('home-screen').classList.add('hidden');
-  document.getElementById('quiz-screen').classList.remove('hidden');
-  const quiz = document.getElementById('quiz-screen');
-  quiz.style.animation = 'none'; quiz.offsetHeight; quiz.style.animation = null; 
-  renderQuestion(); window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function goHome(){
-  bgAnim.playbackRate = 1; 
-  document.getElementById('result-screen').classList.add('hidden');
-  document.getElementById('quiz-screen').classList.add('hidden');
-  const home = document.getElementById('home-screen');
-  home.classList.remove('hidden');
-  [home.querySelector('.stagger-1'), home.querySelector('.stagger-2'), home.querySelector('.stagger-3')].forEach(el => {
-    el.style.animation = 'none'; el.offsetHeight; el.style.animation = null;
-  });
-  renderHome(); fetchStats(); window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-/* ============ QUIZ ============ */
-function renderQuestion(){
-  const data = T[lang].questions[current];
-  document.getElementById('question').textContent = (current+1)+". "+data.q;
-  const opts = document.getElementById('options');
-  opts.innerHTML = '';
-  data.a.forEach((text, i)=>{
-    const b = document.createElement('button');
-    b.textContent = text; b.onclick = ()=>answer(i); opts.appendChild(b);
-  });
-  document.getElementById('progress').style.width = (current/T[lang].questions.length*100)+'%';
-}
-
-function answer(i){
-  if(isAnimating) return;
-  isAnimating = true; pulseBackground(); 
-  scores[SCORE_MAP[i]]++; userAnswers.push(T[lang].questions[current].a[i]); current++;
-  const block = document.getElementById('q-block');
-  
-  // TRIGGER SLIDE UP ANIMATION
-  block.classList.add('fade-out-up');
-
-  setTimeout(()=>{
-    if(current < T[lang].questions.length){
-      renderQuestion();
-      block.classList.remove('fade-out-up'); 
-      block.classList.add('fade-in-bottom'); // PREPARE NEW QUESTION AT BOTTOM
-      void block.offsetWidth; // REFLOW
-      block.classList.remove('fade-in-bottom'); // SLIDE IT UP
-      isAnimating = false;
-    } else {
-      block.classList.remove('fade-out-up'); isAnimating = false; finish();
-    }
-  }, 400);
-}
-
-function getResult(){
-  let best='lion', max=-1;
-  for(const k in scores){ if(scores[k]>max){max=scores[k]; best=k;} }
-  return best;
-}
-
-function finish(){
-  bgAnim.playbackRate = 1; 
-  document.getElementById('progress').style.width = '100%';
-  lastResult = getResult(); saveData(lastResult);
-  document.getElementById('quiz-screen').classList.add('hidden');
-  const res = document.getElementById('result-screen');
-  res.classList.remove('hidden');
-  res.style.animation = 'none'; res.offsetHeight; res.style.animation = null;
-  showResultText(); renderStats(); window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-/* ============ RENDER RESULT TEXT (Including Timeline & Tips) ============ */
-function showResultText(){
-  if(!lastResult) return;
-  const a = T[lang].animals[lastResult];
-  const t = T[lang];
-  const color = ANIMAL_COLORS[lastResult];
-  
-  document.getElementById('res-top-title').textContent = t.resTopTitle;
-  document.getElementById('animal-icon').textContent = a.icon;
-  document.getElementById('result-title').textContent = a.name;
-  document.getElementById('result-title').style.color = color; 
-  document.getElementById('result-desc').textContent = a.desc;
-  
-  document.getElementById('stats-title').textContent = t.statsTitle;
-  
-  document.getElementById('tl-title').textContent = t.tlTitle;
-  document.getElementById('tl-subtitle').textContent = t.tlSubtitle;
-  const tlGrid = document.getElementById('timeline-grid');
-  tlGrid.innerHTML = '';
-  
-  const softBg = color + '1A'; 
-  
-  a.timeline.forEach(item => {
-    const box = document.createElement('div');
-    box.className = 'timeline-item';
-    box.style.backgroundColor = softBg;
-    box.innerHTML = `
-      <div class="timeline-time" style="color:${color}">${item.time}</div>
-      <div class="timeline-desc">${item.text}</div>
-    `;
-    tlGrid.appendChild(box);
-  });
-
-  const pureName = lang === 'en' ? a.name.replace("The ", "") : a.name.split(" ")[0];
-  document.getElementById('tips-title').textContent = `${t.tipsTitle} ${pureName.toUpperCase()}`;
-  document.getElementById('tips-subtitle').textContent = t.tipsSubtitle;
-  
-  const tipsList = document.getElementById('tips-list');
-  tipsList.innerHTML = '';
-  
-  a.tips.forEach((tip, index) => {
-    const item = document.createElement('div');
-    item.className = 'tip-item';
-    const num = String(index + 1).padStart(2, '0'); 
-    item.innerHTML = `
-      <div class="tip-num" style="color:${color}">${num}</div>
-      <div class="tip-desc">${tip}</div>
-    `;
-    tipsList.appendChild(item);
-  });
-
-  document.getElementById('restart-btn').textContent = t.restart;
-  document.getElementById('restart-btn').style.backgroundColor = color; 
-  document.getElementById('saving-note').textContent = t.saving;
-}
-
-function saveData(result){
-  const payload = { result: result, answers: userAnswers, timestamp: new Date().toISOString(), lang: lang };
-  if(liveStats){ liveStats.total++; liveStats.counts[result] = (liveStats.counts[result]||0)+1; }
-  fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).catch(err => console.warn('Save failed', err));
-}
-
-function renderStats(){
-  const counts = liveStats ? liveStats.counts : {lion:0,bear:0,wolf:0,dolphin:0};
-  const total = (liveStats && liveStats.total) ? liveStats.total : 1;
-  const bars = document.getElementById('stats-bars');
-  bars.innerHTML = '';
-  
-  let sortedStats = ORDER.map(k => { return { key: k, count: counts[k] || 0 }; });
-  sortedStats.sort((a, b) => b.count - a.count);
-
-  sortedStats.forEach((item, index) => {
-    const k = item.key;
-    const pct = Math.round((item.count / total) * 100);
-    const name = T[lang].animals[k].name;
-    const row = document.createElement('div');
-    row.className = 'stat-row';
-    row.innerHTML = `
-      <div class="stat-label">
-        <span><span style="opacity:0.5; font-size:0.8rem; margin-right:4px;">#${index + 1}</span>${ANIMAL_ICONS[k]} ${name}</span>
-        <span>${pct}% (${item.count})</span>
-      </div>
-      <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:0%;background:${ANIMAL_COLORS[k]}"></div></div>`;
-    bars.appendChild(row);
-    setTimeout(()=>{ row.querySelector('.stat-bar-fill').style.width = pct+'%'; }, 100);
-  });
-}
-
-/* ============ INIT ============ */
-setLang('th');
-renderHome();
-fetchStats();
-</script>
-</body>
-</html>
+        desc:"You belong to the most common chronotype. Your rhythm follows the sun — rising naturally with daylight and winding downNormally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
