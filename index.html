@@ -251,6 +251,7 @@
     </div>
   </div>
 
+  <!-- ============ HOME SCREEN ============ -->
   <div id="home-screen" class="screen">
     <div class="hero stagger-1">
       <h1 id="hero-title"></h1>
@@ -284,6 +285,7 @@
     </div>
   </div>
 
+  <!-- ============ REGISTRATION SCREEN ============ -->
   <div id="registration-screen" class="container screen hidden">
     <h1 id="reg-title"></h1>
     <p class="subtitle" id="reg-subtitle"></p>
@@ -296,6 +298,7 @@
     <button class="cta-btn" id="reg-btn" onclick="startQuizFromReg()" style="width: 100%; background: var(--top-bar-active-text); color: #fff;"></button>
   </div>
 
+  <!-- ============ QUIZ SCREEN ============ -->
   <div id="quiz-screen" class="container screen hidden">
     <h1 id="title"></h1>
     <p class="subtitle" id="subtitle"></p>
@@ -306,6 +309,7 @@
     </div>
   </div>
 
+  <!-- ============ RESULT SCREEN ============ -->
   <div id="result-screen" class="container result screen hidden">
     <div class="ext-title" id="res-top-title" style="color:var(--text-muted); font-size:0.9rem; margin-bottom:5px;"></div>
     <div class="animal-icon" id="animal-icon"></div>
@@ -609,6 +613,11 @@ let scores = { lion:0, bear:0, wolf:0, dolphin:0 };
 let userAnswers = [];
 let userName = "";   
 let userPhone = "";  
+
+/* === THE MISSING VARIABLE IS RESTORED HERE! === */
+const SCORE_MAP = ['lion','bear','wolf','dolphin']; 
+/* ============================================== */
+
 let lastResult = null;
 let isAnimating = false;
 let liveStats = null;   
@@ -773,7 +782,6 @@ function startQuizFromReg(){
 function startQuizCore(){
   current = 0; scores = { lion:0, bear:0, wolf:0, dolphin:0 }; userAnswers = []; lastResult = null;
   
-  /* CRITICAL FIX: Ensure the animation lock is completely wiped out before starting */
   isAnimating = false; 
   
   document.getElementById('quiz-screen').classList.remove('hidden');
@@ -818,7 +826,6 @@ function answer(i){
   
   pulseBackground(); 
 
-  /* CRITICAL FIX: Wrap the quiz logic in a try/catch so an error doesn't freeze the page */
   try {
     scores[SCORE_MAP[i]]++; 
     userAnswers.push(T[lang].questions[current].a[i]); 
@@ -843,7 +850,7 @@ function answer(i){
     }, 400);
   } catch (error) {
     console.error("Quiz encountered an error:", error);
-    isAnimating = false; // Safety release of the lock!
+    isAnimating = false; 
   }
 }
 
