@@ -251,7 +251,6 @@
     </div>
   </div>
 
-  <!-- ============ HOME SCREEN ============ -->
   <div id="home-screen" class="screen">
     <div class="hero stagger-1">
       <h1 id="hero-title"></h1>
@@ -285,7 +284,6 @@
     </div>
   </div>
 
-  <!-- ============ REGISTRATION SCREEN ============ -->
   <div id="registration-screen" class="container screen hidden">
     <h1 id="reg-title"></h1>
     <p class="subtitle" id="reg-subtitle"></p>
@@ -298,7 +296,6 @@
     <button class="cta-btn" id="reg-btn" onclick="startQuizFromReg()" style="width: 100%; background: var(--top-bar-active-text); color: #fff;"></button>
   </div>
 
-  <!-- ============ QUIZ SCREEN ============ -->
   <div id="quiz-screen" class="container screen hidden">
     <h1 id="title"></h1>
     <p class="subtitle" id="subtitle"></p>
@@ -309,7 +306,6 @@
     </div>
   </div>
 
-  <!-- ============ RESULT SCREEN ============ -->
   <div id="result-screen" class="container result screen hidden">
     <div class="ext-title" id="res-top-title" style="color:var(--text-muted); font-size:0.9rem; margin-bottom:5px;"></div>
     <div class="animal-icon" id="animal-icon"></div>
@@ -343,20 +339,35 @@
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbwXYwzPSEZNsLegfOm_z-dva_u7gRwsIkqofMiRoLcXarHAIHud4I4fUOfIVoYxiAMt/exec";
 /* ========================================================================== */
 
-/* ============ LAVA LAMP BACKGROUND ANIMATION ENGINE ============ */
-const bgAnim = document.body.animate(
-  [
-    { backgroundPosition: '0% 0%' },
-    { backgroundPosition: '100% 50%' },
-    { backgroundPosition: '50% 100%' },
-    { backgroundPosition: '0% 50%' },
-    { backgroundPosition: '0% 0%' }
-  ],
-  { duration: 60000, iterations: Infinity, easing: 'ease-in-out' }
-);
+/* ============ SAFEST BACKGROUND ANIMATION ENGINE ============ */
+const bgAnim = (function() {
+  try {
+    return document.body.animate(
+      [
+        { backgroundPosition: '0% 0%' },
+        { backgroundPosition: '100% 50%' },
+        { backgroundPosition: '50% 100%' },
+        { backgroundPosition: '0% 50%' },
+        { backgroundPosition: '0% 0%' }
+      ],
+      { duration: 60000, iterations: Infinity, easing: 'ease-in-out' }
+    );
+  } catch (e) {
+    return null; // Silent fail for bad mobile browsers
+  }
+})();
+
 function pulseBackground() {
-  bgAnim.playbackRate = 25; 
-  setTimeout(() => { bgAnim.playbackRate = 1; }, 600); 
+  try {
+    if(bgAnim && typeof bgAnim.playbackRate !== 'undefined') {
+      bgAnim.playbackRate = 25; 
+      setTimeout(() => { 
+        if (bgAnim) bgAnim.playbackRate = 1; 
+      }, 600); 
+    }
+  } catch (e) {
+    // If it fails, do nothing. Do not freeze the quiz!
+  }
 }
 
 /* ============ TRANSLATIONS & NEW EXTENDED CONTENT ============ */
@@ -487,7 +498,7 @@ const T = {
     // Registration Translations
     regTitle: "ก่อนที่เราจะเริ่ม...",
     regSubtitle: "โปรดกรอกข้อมูลของคุณเพื่อเริ่มทำแบบทดสอบ",
-    namePlaceholder: "ชื่อของคุณ",
+    namePlaceholder: "ชื่อ-นามสกุลของคุณ",
     phonePlaceholder: "เบอร์โทรศัพท์",
     startBtn: "เริ่มทำแบบทดสอบ",
     alertEmpty: "โปรดกรอกทั้งชื่อและเบอร์โทรศัพท์ของคุณ",
@@ -596,8 +607,8 @@ let lang = 'th';
 let current = 0;
 let scores = { lion:0, bear:0, wolf:0, dolphin:0 };
 let userAnswers = [];
-let userName = "";   // Holds registered name
-let userPhone = "";  // Holds registered phone
+let userName = "";   
+let userPhone = "";  
 let lastResult = null;
 let isAnimating = false;
 let liveStats = null;   
@@ -647,14 +658,12 @@ function setLang(l){
   document.getElementById('btn-th').classList.toggle('active', l==='th');
   renderHome();
   
-  // Update Registration Screen
   document.getElementById('reg-title').textContent = T[l].regTitle;
   document.getElementById('reg-subtitle').textContent = T[l].regSubtitle;
   document.getElementById('user-name').placeholder = T[l].namePlaceholder;
   document.getElementById('user-phone').placeholder = T[l].phonePlaceholder;
   document.getElementById('reg-btn').textContent = T[l].startBtn;
 
-  // Update Quiz Screens
   document.getElementById('title').textContent = T[l].title;
   document.getElementById('subtitle').textContent = T[l].subtitle;
   if(!document.getElementById('quiz-screen').classList.contains('hidden')) renderQuestion();
@@ -763,6 +772,10 @@ function startQuizFromReg(){
 
 function startQuizCore(){
   current = 0; scores = { lion:0, bear:0, wolf:0, dolphin:0 }; userAnswers = []; lastResult = null;
+  
+  /* CRITICAL FIX: Ensure the animation lock is completely wiped out before starting */
+  isAnimating = false; 
+  
   document.getElementById('quiz-screen').classList.remove('hidden');
   const quiz = document.getElementById('quiz-screen');
   quiz.style.animation = 'none'; quiz.offsetHeight; quiz.style.animation = null; 
@@ -770,12 +783,11 @@ function startQuizCore(){
 }
 
 function goHome(){
-  bgAnim.playbackRate = 1; 
+  if (bgAnim) bgAnim.playbackRate = 1; 
   document.getElementById('result-screen').classList.add('hidden');
   document.getElementById('quiz-screen').classList.add('hidden');
   document.getElementById('registration-screen').classList.add('hidden');
   
-  // Clear inputs
   document.getElementById('user-name').value = '';
   document.getElementById('user-phone').value = '';
 
@@ -802,24 +814,37 @@ function renderQuestion(){
 
 function answer(i){
   if(isAnimating) return;
-  isAnimating = true; pulseBackground(); 
-  scores[SCORE_MAP[i]]++; userAnswers.push(T[lang].questions[current].a[i]); current++;
-  const block = document.getElementById('q-block');
+  isAnimating = true; 
   
-  block.classList.add('fade-out-up');
+  pulseBackground(); 
 
-  setTimeout(()=>{
-    if(current < T[lang].questions.length){
-      renderQuestion();
-      block.classList.remove('fade-out-up'); 
-      block.classList.add('fade-in-bottom'); 
-      void block.offsetWidth; 
-      block.classList.remove('fade-in-bottom'); 
-      isAnimating = false;
-    } else {
-      block.classList.remove('fade-out-up'); isAnimating = false; finish();
-    }
-  }, 400);
+  /* CRITICAL FIX: Wrap the quiz logic in a try/catch so an error doesn't freeze the page */
+  try {
+    scores[SCORE_MAP[i]]++; 
+    userAnswers.push(T[lang].questions[current].a[i]); 
+    current++;
+    
+    const block = document.getElementById('q-block');
+    block.classList.add('fade-out-up');
+
+    setTimeout(()=>{
+      if(current < T[lang].questions.length){
+        renderQuestion();
+        block.classList.remove('fade-out-up'); 
+        block.classList.add('fade-in-bottom'); 
+        void block.offsetWidth; 
+        block.classList.remove('fade-in-bottom'); 
+        isAnimating = false;
+      } else {
+        block.classList.remove('fade-out-up'); 
+        isAnimating = false; 
+        finish();
+      }
+    }, 400);
+  } catch (error) {
+    console.error("Quiz encountered an error:", error);
+    isAnimating = false; // Safety release of the lock!
+  }
 }
 
 function getResult(){
@@ -829,7 +854,7 @@ function getResult(){
 }
 
 function finish(){
-  bgAnim.playbackRate = 1; 
+  if (bgAnim) bgAnim.playbackRate = 1; 
   document.getElementById('progress').style.width = '100%';
   lastResult = getResult(); saveData(lastResult);
   document.getElementById('quiz-screen').classList.add('hidden');
