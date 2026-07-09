@@ -2,975 +2,599 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Chronotype Sleep Quiz</title>
-<link rel="icon" type="image/png" href="woodyworld-logo-2022.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คุณเป็นสัตว์สายนอนแบบไหน?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg-gradient: linear-gradient(-45deg, #5ba3db, #729c9b, #f6c753, #e4bad3, #447684, #5ba3db);
-    --text-main: #1a3c40;
-    --text-muted: #555;
-    --heading: #2c5270; 
-    --card-bg: #fff;
-    --card-border: #dbe8f3;
-    --btn-bg: #f4f8fb;
-    --btn-border: #cddbe8;
-    --btn-hover: #e4edf5;
-    --top-bar-bg: rgba(0, 0, 0, 0.2);
-    --top-bar-text-dim: rgba(255, 255, 255, 0.6);
-    --top-bar-active-bg: #fff;
-    --top-bar-active-text: #2c5270;
+  :root{
+    --night:#141036;
+    --night2:#241a5e;
+    --dusk:#4a3b8c;
+    --peach:#ff9d6b;
+    --gold:#ffd36b;
+    --lav:#cbb8ff;
+    --cream:#fff4e6;
+    --muted:#b8aee0;
+    --card:rgba(255,255,255,.055);
+    --line:rgba(203,184,255,.22);
   }
-
-  body.dark-mode {
-    --bg-gradient: linear-gradient(-45deg, #1f3d54, #263838, #664d17, #593d4e, #182f36, #1f3d54);
-    --text-main: #e0e0e0;
-    --text-muted: #aaa;
-    --heading: #f6c753; 
-    --card-bg: #1e262c;
-    --card-border: #2c3a44;
-    --btn-bg: #25313a;
-    --btn-border: #354652;
-    --btn-hover: #2f3e49;
-    --top-bar-bg: rgba(0, 0, 0, 0.3);
-    --top-bar-text-dim: rgba(255, 255, 255, 0.4);
-    --top-bar-active-bg: #f6c753;
-    --top-bar-active-text: #1e262c;
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Sarabun",sans-serif;
+    color:var(--cream);
+    background:
+      radial-gradient(120% 90% at 50% -10%, #3a2c78 0%, var(--night2) 42%, var(--night) 100%);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:22px 16px 40px;
+    overflow-x:hidden;
+    position:relative;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: var(--bg-gradient);
-    background-size: 600% 600%; 
-    min-height: 100vh;
-    color: var(--text-main);
-    padding: 20px;
-    transition: color 0.5s ease;
-  }
-  .wrap { max-width: 760px; margin: 0 auto; }
   
-  /* ===== SCREEN ANIMATIONS ===== */
-  .screen { animation: fadeScreenIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-  @keyframes fadeScreenIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-  .stagger-1 { animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; }
-  .stagger-2 { animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards; opacity: 0; }
-  .stagger-3 { animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; }
-  @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  .hidden { display: none !important; }
+  .stars,.stars::before,.stars::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:
+      radial-gradient(1.6px 1.6px at 10% 15%, #fff, transparent),
+      radial-gradient(1.2px 1.2px at 25% 35%, #fff, transparent),
+      radial-gradient(2px 2px at 45% 10%, #ffe9c2, transparent),
+      radial-gradient(1.5px 1.5px at 65% 50%, #fff, transparent),
+      radial-gradient(1.8px 1.8px at 85% 25%, #ffe9c2, transparent),
+      radial-gradient(1.2px 1.2px at 15% 75%, #fff, transparent),
+      radial-gradient(1.4px 1.4px at 55% 85%, #fff, transparent),
+      radial-gradient(1.6px 1.6px at 80% 70%, #fff, transparent),
+      radial-gradient(1px 1px at 35% 60%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 95% 45%, #fff, transparent),
+      radial-gradient(2.5px 2.5px at 70% 20%, #fff, transparent),
+      radial-gradient(2.2px 2.2px at 73% 23%, #fff, transparent),
+      radial-gradient(2px 2px at 77% 25%, #fff, transparent),
+      radial-gradient(2.2px 2.2px at 81% 29%, #fff, transparent),
+      radial-gradient(2.4px 2.4px at 83% 25%, #fff, transparent),
+      radial-gradient(2.5px 2.5px at 87% 28%, #fff, transparent),
+      radial-gradient(2px 2px at 85% 32%, #fff, transparent);
+    background-repeat:no-repeat;
+    animation:tw 4s ease-in-out infinite;
+  }
+  .stars::before{background-position:20px 50px;animation-delay:1.3s;opacity:.8}
+  .stars::after{background-position:-40px -30px;animation-delay:2.4s;opacity:.6}
+  @keyframes tw{0%,100%{opacity:.35}50%{opacity:1}}
 
-  /* ===== TOP BAR ===== */
-  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-  .theme-toggle {
-    background: var(--top-bar-bg); border: none; height: 42px; width: 42px; border-radius: 25px;
-    cursor: pointer; display: flex; align-items: center; position: relative; overflow: hidden;
-    transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1); user-select: none;
+  .app{
+    position:relative;z-index:1;
+    width:100%;max-width:460px;
   }
-  .theme-toggle:not(.expanding):hover { transform: scale(1.05); }
-  .theme-toggle.expanding { width: 145px; }
-  .theme-icon {
-    position: absolute; left: 5px; width: 32px; height: 32px; display: flex; align-items: center; 
-    justify-content: center; border-radius: 50%; font-size: 1.2rem;
-    transition: left 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s ease;
-  }
-  .theme-toggle.expanding .theme-icon { left: 108px; transform: rotate(360deg); }
-  .theme-text {
-    position: absolute; left: 18px; font-size: 0.85rem; font-weight: bold; color: #fff; opacity: 0;
-    white-space: nowrap; transform: translateX(-15px); transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-  .theme-toggle.expanding .theme-text { opacity: 1; transform: translateX(0); transition-delay: 0.1s; }
+  .screen{display:none;animation:rise .45s ease both}
+  .screen.on{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-  .lang-bar { display: inline-flex; background: var(--top-bar-bg); border-radius: 30px; padding: 5px; transition: background 0.3s ease; }
-  .lang-bar button {
-    background: transparent; color: var(--top-bar-text-dim); border: none; padding: 8px 18px; border-radius: 25px;
-    cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  .lang-toggle{
+    position:fixed;top:16px;right:16px;z-index:6;
+    font-family:"Kanit";font-weight:600;font-size:12.5px;letter-spacing:1px;
+    color:var(--gold);background:rgba(255,255,255,.06);border:1px solid var(--line);
+    padding:7px 15px;border-radius:20px;cursor:pointer;
+    transition:background .15s ease, transform .12s ease;
   }
-  .lang-bar button.active { background: var(--top-bar-active-bg); color: var(--top-bar-active-text); box-shadow: 0 2px 10px rgba(0,0,0,0.15); }
+  .lang-toggle:hover{background:rgba(255,211,107,.14);transform:translateY(-1px)}
+  .lang-toggle:active{transform:translateY(0)}
 
-  /* ===== HOME ===== */
-  .hero { text-align: center; color: #fff; padding: 20px 20px; }
-  .hero h1 { font-size: 2.4rem; margin-bottom: 18px; line-height: 1.2; text-shadow: 0 2px 10px rgba(0,0,0,0.15); transition: color 0.3s ease; }
-  .hero p.lead { font-size: 1.1rem; max-width: 560px; margin: 0 auto 28px; line-height: 1.6; opacity: 0.95; transition: color 0.3s ease;}
-  .cta-btn {
-    background: #fff; color: #2c5270; border: none; padding: 16px 44px; border-radius: 30px; font-size: 1.15rem;
-    font-weight: bold; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.2); 
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background 0.3s ease;
-  }
-  .cta-btn:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 12px 28px rgba(0,0,0,0.25); }
+  .moon-glow{filter:drop-shadow(0 0 24px rgba(255,211,107,.5))}
+  .moon-big{font-size:76px;line-height:1;text-align:center;animation:float 5s ease-in-out infinite}
   
-  .live-stats-box { margin-top: 40px; display: flex; flex-direction: column; align-items: center; }
-  .meta-row { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; color: #fff; width: 100%; }
-  .meta-item { text-align: center; }
-  .meta-item .num { font-size: 1.8rem; font-weight: bold; }
-  .meta-item .label { font-size: 0.85rem; opacity: 0.9; }
-
-  .live-stats-btn {
-    background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 8px 20px;
-    border-radius: 20px; cursor: pointer; font-size: 0.95rem; font-weight: bold; text-transform: uppercase;
-    letter-spacing: 1px; margin-top: 25px; margin-bottom: 5px; transition: all 0.3s ease;
-  }
-  .live-stats-btn:hover { background: rgba(255, 255, 255, 0.3); transform: translateY(-2px); }
-
-  .live-stats-breakdown {
-    background: rgba(0, 0, 0, 0.15); border-radius: 16px; width: 100%; max-width: 500px; text-align: left;
-    max-height: 0; opacity: 0; overflow: hidden; padding: 0 20px; margin-top: 0;
-    transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.5s ease, margin 0.5s ease;
-  }
-  body.dark-mode .live-stats-breakdown { background: rgba(255, 255, 255, 0.05); }
-  .live-stats-breakdown.show { max-height: 400px; opacity: 1; padding: 20px; margin-top: 20px; }
-  .mini-stat-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; color: #fff; font-size: 0.9rem; font-weight: 600; }
-  .mini-stat-label { width: 115px; }
-  .mini-stat-bar-bg { flex: 1; height: 10px; background: rgba(255, 255, 255, 0.2); border-radius: 5px; margin: 0 15px; overflow: hidden; }
-  .mini-stat-bar-fill { height: 100%; border-radius: 5px; transition: width 1s cubic-bezier(0.25, 1, 0.5, 1); }
-  .mini-stat-pct { width: 45px; text-align: right; }
-
-  /* ===== TYPES SECTION ===== */
-  .types-section { background: var(--card-bg); border-radius: 24px; padding: 34px 28px; margin: 40px 0; box-shadow: 0 20px 60px rgba(0,0,0,0.2); transition: background 0.5s ease; }
-  .types-section h2 { text-align: center; color: var(--heading); font-size: 1.7rem; margin-bottom: 6px; transition: color 0.5s ease; }
-  .types-section .sub { text-align: center; color: var(--text-muted); margin-bottom: 28px; transition: color 0.5s ease; }
-  .type-card { display: flex; align-items: center; gap: 18px; border: 2px solid var(--card-border); border-radius: 16px; padding: 18px; margin-bottom: 16px; transition: all 0.3s ease; }
-  .type-card:hover { border-color: #5ba3db; transform: translateX(6px); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-  .type-card .ico { font-size: 3rem; flex-shrink: 0; }
-  .type-card .info { flex: 1; }
-  .type-card .info h3 { color: var(--heading); margin-bottom: 4px; transition: color 0.5s ease; }
-  .type-card .info p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; transition: color 0.5s ease; }
-  .type-card .pct { text-align: center; flex-shrink: 0; }
-  .type-card .pct .big { font-size: 1.6rem; font-weight: bold; }
-  .type-card .pct .small { font-size: 0.7rem; color: var(--text-muted); transition: color 0.5s ease; }
-
-  /* ===== REGISTRATION / QUIZ / RESULT CONTAINER ===== */
-  .container { background: var(--card-bg); border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); padding: 30px; margin-top: 20px; transition: background 0.5s ease; }
-  .container h1 { text-align: center; color: var(--heading); margin-bottom: 10px; font-size: 1.6rem; transition: color 0.5s ease; }
-  .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem; transition: color 0.5s ease; }
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
   
-  /* Inputs */
-  .input-field { width: 100%; padding: 15px; border: 2px solid var(--card-border); border-radius: 12px; background: var(--btn-bg); color: var(--text-main); font-size: 1rem; transition: all 0.3s ease; outline: none; }
-  .input-field:focus { border-color: #5ba3db; box-shadow: 0 0 8px rgba(91, 163, 219, 0.3); }
-
-  .progress-bar { height: 8px; background: var(--card-border); border-radius: 4px; overflow: hidden; margin-bottom: 25px; transition: background 0.5s ease; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, #5ba3db, #447684); width: 0; transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-
-  /* ===== SLIDE UP QUESTION TRANSITION ===== */
-  .q-block { transition: opacity 0.4s ease, transform 0.4s ease; }
-  .q-block.fade-out-up { opacity: 0; transform: translateY(-30px); }
-  .q-block.fade-in-bottom { opacity: 0; transform: translateY(30px); }
-
-  .question { font-size: 1.2rem; color: var(--text-main); margin-bottom: 20px; font-weight: 600; transition: color 0.5s ease; }
-  .options button {
-    display: block; width: 100%; background: var(--btn-bg); border: 2px solid var(--btn-border); color: var(--text-main);
-    padding: 15px; border-radius: 12px; margin-bottom: 12px; cursor: pointer; text-align: left; font-size: 1rem; transition: all 0.3s ease;
+  .eyebrow{
+    text-align:center;font-family:"Kanit";font-weight:600;font-size:13px;letter-spacing:2px;
+    color:var(--gold);text-transform:uppercase;margin:18px 0 8px;opacity:.9
   }
-  .options button:hover { border-color: #5ba3db; background: var(--btn-hover); transform: translateX(6px); }
-  .options button:active { transform: scale(0.97); }
-
-  /* ===== RESULT SCREEN DETAILS ===== */
-  .result { text-align: center; }
-  .result .animal-icon { font-size: 5rem; margin: 10px 0; animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-  @keyframes bounceIn { 0%{transform:scale(0);} 60%{transform:scale(1.1);} 100%{transform:scale(1);} }
-  .result h2 { color: var(--heading); margin-bottom: 10px; transition: color 0.5s ease; }
-  .result p.main-desc { color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; transition: color 0.5s ease; }
-  
-  .stats { margin: 30px 0; text-align: left; }
-  .stats h3 { color: var(--heading); margin-bottom: 12px; text-align:center; transition: color 0.5s ease; }
-  .stat-row { margin-bottom: 12px; }
-  .stat-label { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 0.9rem; color: var(--text-main); transition: color 0.5s ease; }
-  .stat-bar-bg { height: 22px; background: var(--card-border); border-radius: 11px; overflow: hidden; transition: background 0.5s ease; }
-  .stat-bar-fill { height: 100%; border-radius: 11px; transition: width 1s cubic-bezier(0.25, 1, 0.5, 1); display:flex; align-items:center; justify-content:flex-end; color:#fff; font-size:0.75rem; padding-right:8px; }
-
-  /* Exteded Answer Sections (Timeline & Tips) */
-  .extended-section {
-    border: 2px solid var(--card-border); border-radius: 16px; padding: 25px; margin-top: 25px;
-    text-align: left; background: var(--card-bg); transition: all 0.5s ease;
+  h1{
+    font-family:"Kanit";font-weight:700;text-align:center;line-height:1.15;
+    font-size:34px;margin-bottom:14px;
   }
-  .ext-title { font-size: 1.05rem; font-weight: 800; text-transform: uppercase; color: var(--heading); margin-bottom: 6px; letter-spacing: 0.5px; }
-  .ext-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4; }
+  h1 .hl{color:var(--peach)}
+  .lede{text-align:center;color:var(--muted);font-size:15.5px;line-height:1.6;max-width:340px;margin:0 auto 20px}
   
-  .timeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
-  .timeline-item { padding: 15px; border-radius: 12px; text-align: center; border: 1px solid var(--card-border); display: flex; flex-direction: column; justify-content: center; }
-  .timeline-time { font-weight: 800; font-size: 1.2rem; margin-bottom: 6px; }
-  .timeline-desc { font-size: 0.85rem; color: var(--text-main); line-height: 1.35; }
-  
-  .tips-list { display: flex; flex-direction: column; gap: 12px; }
-  .tip-item { display: flex; align-items: flex-start; gap: 15px; border: 1px solid var(--card-border); padding: 18px; border-radius: 12px; background: var(--btn-bg); transition: all 0.3s ease; }
-  .tip-num { font-weight: 800; font-size: 1.1rem; min-width: 25px; text-align: right; }
-  .tip-desc { font-size: 0.95rem; line-height: 1.5; color: var(--text-main); }
-  
-  .restart-btn { background: #5ba3db; color: #fff; border: none; padding: 14px 32px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 30px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-  .restart-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(91, 163, 219, 0.4); }
-  .saving-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 14px; transition: color 0.5s ease; display: block; }
-
-  /* =========================================
-     MOBILE RESPONSIVENESS SUPERCHARGE
-     ========================================= */
-  @media (max-width: 600px) {
-    body { padding: 10px; }
-    .hero h1 { font-size: 1.9rem; }
-    .hero p.lead { font-size: 1rem; }
-    
-    .meta-row { gap: 15px; }
-    .meta-item .num { font-size: 1.5rem; }
-    
-    .types-section, .container, .extended-section { padding: 20px 15px; }
-    
-    .type-card { flex-direction: column; text-align: center; gap: 10px; }
-    .type-card .ico { font-size: 2.5rem; }
-    .type-card .pct { margin-top: 5px; }
-    
-    .live-stats-breakdown.show { padding: 15px; }
-    .mini-stat-label { width: 95px; font-size: 0.8rem; }
-    .mini-stat-pct { width: 40px; font-size: 0.8rem; }
-    .mini-stat-bar-bg { margin: 0 10px; }
-    
-    .question { font-size: 1.1rem; }
-    .options button { padding: 12px; font-size: 0.95rem; }
-    
-    .animal-icon { font-size: 4rem; }
-    #result-title { font-size: 1.8rem !important; }
-    
-    .timeline-grid { grid-template-columns: 1fr 1fr; }
-    
-    .tip-item { flex-direction: column; align-items: flex-start; gap: 8px; padding: 15px; }
-    .tip-num { text-align: left; }
-    
-    .cta-btn, .restart-btn { width: 100%; padding: 14px 20px; display: block; }
+  .user-info-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 22px;
   }
+  .user-info-form input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--cream);
+    font-family: "Sarabun", sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  }
+  .user-info-form input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 12px rgba(255, 211, 107, 0.3);
+  }
+  .user-info-form input::placeholder {
+    color: var(--muted);
+    opacity: 0.8;
+  }
+  .error-msg {
+    color: var(--peach);
+    font-size: 13.5px;
+    text-align: center;
+    font-family: "Kanit";
+    margin-top: -4px;
+    display: none;
+    animation: shake 0.4s ease;
+  }
+  .error-msg.show {
+    display: block;
+  }
+  @keyframes shake {
+    0%, 100% {transform: translateX(0);}
+    25% {transform: translateX(-4px);}
+    75% {transform: translateX(4px);}
+  }
+
+  .btn{
+    display:block;width:100%;border:0;cursor:pointer;
+    font-family:"Kanit";font-weight:600;font-size:17px;
+    color:#241a5e;background:linear-gradient(180deg,var(--gold),var(--peach));
+    padding:15px;border-radius:16px;
+    box-shadow:0 10px 24px -8px rgba(255,157,107,.6);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px -8px rgba(255,157,107,.7)}
+  .btn:active{transform:translateY(0)}
+  .btn.ghost{
+    background:transparent;color:var(--lav);border:1px solid var(--line);
+    box-shadow:none;font-size:15px;padding:13px;margin-top:10px;
+  }
+  .btn.ghost:hover{background:rgba(203,184,255,.08);transform:none}
+  .cast{display:flex;justify-content:center;gap:14px;margin-bottom:20px;font-size:26px}
+  .cast span{opacity:.85;animation:float 5s ease-in-out infinite}
+  .cast span:nth-child(2){animation-delay:.6s}
+  .cast span:nth-child(3){animation-delay:1.2s}
+  .cast span:nth-child(4){animation-delay:1.8s}
+
+  .prog{margin-bottom:22px}
+  .track{position:relative;height:2px;background:var(--line);border-radius:2px;margin:0 6px}
+  .fill{position:absolute;left:0;top:0;height:100%;background:var(--gold);border-radius:2px;width:0;transition:width .4s ease;box-shadow:0 0 8px rgba(255,211,107,.6)}
+  .orb{
+    position:absolute;
+    top:50%; 
+    font-size:22px;
+    transform:translate(-50%, -50%); 
+    transition:left .4s ease;
+    filter:drop-shadow(0 0 10px rgba(255,211,107,.55))
+  }
+  
+  .qcount{text-align:center;font-family:"Kanit";font-size:12.5px;letter-spacing:1px;color:var(--muted);margin-top:14px}
+
+  .q{
+    font-family:"Kanit";font-weight:600;font-size:22px;line-height:1.4;
+    text-align:center;margin:6px 0 22px;min-height:62px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .opts{display:flex;flex-direction:column;gap:11px}
+  .opt{
+    text-align:left;cursor:pointer;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:15px;padding:15px 16px;font-size:15.5px;line-height:1.45;
+    color:var(--cream);font-family:"Sarabun";font-weight:500;
+    transition:border-color .15s, background .15s, transform .1s;
+    display:flex;gap:12px;align-items:center;
+  }
+  .opt .dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--dusk);transition:background .15s;margin-top:1px}
+  .opt:hover{border-color:var(--peach);background:rgba(255,157,107,.09);transform:translateX(3px)}
+  .opt:hover .dot{background:var(--gold)}
+
+  .r-emoji-wrap { animation:pop .5s cubic-bezier(.2,1.4,.5,1) both; text-align:center; }
+  .r-emoji{display:inline-block; font-size:88px; line-height:1; animation:float 4s ease-in-out infinite;}
+  @keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+  
+  .r-tag{text-align:center;font-family:"Kanit";font-size:12.5px;letter-spacing:1.5px;color:var(--gold);margin:16px 0 4px}
+  .r-name{text-align:center;font-family:"Kanit";font-weight:700;font-size:30px;margin-bottom:4px}
+  .r-eng{text-align:center;color:var(--muted);font-size:13px;letter-spacing:.5px;margin-bottom:20px}
+  .r-body{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:12px}
+  .r-body p{font-size:15px;line-height:1.65}
+  
+  .r-section{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+  .r-label{font-family:"Kanit";font-weight:600;font-size:13px;color:var(--peach);margin-bottom:8px}
+  .r-list { list-style-type: disc; padding-left: 20px; font-size: 14.5px; line-height: 1.6; color: var(--cream); }
+  .r-list li { margin-bottom: 4px; }
+
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--gold);color:#241a5e;font-family:"Kanit";font-weight:600;font-size:14px;
+    padding:10px 20px;border-radius:30px;opacity:0;transition:.3s;z-index:5;pointer-events:none;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  
-  <div class="top-bar">
-    <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
-      <span class="theme-text" id="theme-text"></span>
-      <span class="theme-icon" id="theme-icon">☀️</span>
-    </div>
-    <div class="lang-bar">
-      <button id="btn-en" onclick="setLang('en')">Eng</button>
-      <button id="btn-th" class="active" onclick="setLang('th')">ไทย</button>
-    </div>
-  </div>
+<div class="stars"></div>
+<button class="lang-toggle" id="langToggle" onclick="toggleLang()" aria-label="Switch language">EN</button>
 
-  <!-- ============ HOME SCREEN ============ -->
-  <div id="home-screen" class="screen">
-    <div class="hero stagger-1">
-      <h1 id="hero-title"></h1>
-      <p class="lead" id="hero-lead"></p>
-      <button class="cta-btn" id="cta-btn" onclick="showRegistration()"></button>
+<div class="app">
+
+  <!-- START -->
+  <section id="start" class="screen on">
+    <div class="moon-big moon-glow">🌙</div>
+    <div class="eyebrow" id="eyebrow">แบบทดสอบการนอน</div>
+    <h1><span id="h1a">นอนแบบไหน</span><br><span id="h1b">บอกได้ว่าคุณคือ</span><br><span class="hl" id="h1hl">สัตว์อะไร</span></h1>
+    <p class="lede" id="lede">ตอบคำถามสั้นๆ 7 ข้อเกี่ยวกับการนอน แล้วมาดูกันว่าคุณคือสัตว์ตัวไหน</p>
+    
+    <div class="cast"><span>🐓</span><span>🐱</span><span>🦇</span><span>🦉</span></div>
+    
+    <div class="user-info-form">
+      <input type="text" id="userName" placeholder="ชื่อของคุณ">
+      <input type="tel" id="userPhone" placeholder="เบอร์โทรศัพท์">
+      <div id="formError" class="error-msg">กรุณากรอกชื่อและเบอร์โทรศัพท์</div>
+    </div>
+
+    <button class="btn" id="startBtn" onclick="start()">เริ่มเทสต์เลย</button>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="screen">
+    <div class="prog">
+      <div class="track">
+        <div class="fill" id="fill"></div>
+        <div class="orb" id="orb" style="left:0">🌙</div>
+      </div>
+      <div class="qcount" id="qcount"></div>
+    </div>
+    <div class="q" id="qtext"></div>
+    <div class="opts" id="opts"></div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="screen">
+    <div class="r-emoji-wrap"><div class="r-emoji moon-glow" id="rEmoji"></div></div>
+    <div class="r-tag" id="resultTag">คุณคือ</div>
+    <div class="r-name" id="rName"></div>
+    <div class="r-eng" id="rEng"></div>
+    
+    <div class="r-body">
+      <p id="rDesc"></p>
+      
+      <div class="r-section">
+        <div class="r-label" id="weakLabel">💤 จุดสลบ</div>
+        <p id="rWeak"></p>
+      </div>
+
+      <div class="r-section">
+        <div class="r-label" id="timelineLabel">🗓️ ตารางชีวิตแนะนำ</div>
+        <ul id="rTimeline" class="r-list"></ul>
+      </div>
+
+      <div class="r-section">
+        <div class="r-label" id="tipsLabel">💡 ทริคเพิ่มพลังทำงาน</div>
+        <ul id="rTips" class="r-list"></ul>
+      </div>
     </div>
     
-    <div class="live-stats-box stagger-2">
-      <div class="meta-row">
-        <div class="meta-item">
-          <div class="num" id="meta-count">…</div>
-          <div class="label" id="meta-count-label"></div>
-        </div>
-        <div class="meta-item">
-          <div class="num">~3</div>
-          <div class="label" id="meta-time-label"></div>
-        </div>
-        <div class="meta-item">
-          <div class="num">94%</div>
-          <div class="label" id="meta-acc-label"></div>
-        </div>
-      </div>
-      <button class="live-stats-btn" id="live-stats-btn" onclick="toggleLiveBreakdown()"></button>
-      <div id="live-stats-breakdown" class="live-stats-breakdown"></div>
-    </div>
+    <button class="btn" id="shareBtn" onclick="share()">แชร์ผลลัพธ์</button>
+    <button class="btn ghost" id="replayBtn" onclick="reset()">เล่นอีกครั้ง</button>
+  </section>
 
-    <div class="types-section stagger-3">
-      <h2 id="types-title"></h2>
-      <p class="sub" id="types-sub"></p>
-      <div id="type-cards"></div>
-    </div>
-  </div>
-
-  <!-- ============ REGISTRATION SCREEN ============ -->
-  <div id="registration-screen" class="container screen hidden">
-    <h1 id="reg-title"></h1>
-    <p class="subtitle" id="reg-subtitle"></p>
-    <div style="margin-bottom: 15px;">
-      <input type="text" id="user-name" class="input-field" placeholder="Name">
-    </div>
-    <div style="margin-bottom: 25px;">
-      <input type="tel" id="user-phone" class="input-field" placeholder="Phone Number">
-    </div>
-    <button class="cta-btn" id="reg-btn" onclick="startQuizFromReg()" style="width: 100%; background: var(--top-bar-active-text); color: #fff;"></button>
-  </div>
-
-  <!-- ============ QUIZ SCREEN ============ -->
-  <div id="quiz-screen" class="container screen hidden">
-    <h1 id="title"></h1>
-    <p class="subtitle" id="subtitle"></p>
-    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
-    <div class="q-block" id="q-block">
-      <div class="question" id="question"></div>
-      <div class="options" id="options"></div>
-    </div>
-  </div>
-
-  <!-- ============ RESULT SCREEN ============ -->
-  <div id="result-screen" class="container result screen hidden">
-    <div class="ext-title" id="res-top-title" style="color:var(--text-muted); font-size:0.9rem; margin-bottom:5px;"></div>
-    <div class="animal-icon" id="animal-icon"></div>
-    <h2 id="result-title" style="font-size: 2.2rem; margin-bottom: 15px;"></h2>
-    <p class="main-desc" id="result-desc"></p>
-
-    <div class="stats">
-      <h3 id="stats-title"></h3>
-      <div id="stats-bars"></div>
-    </div>
-
-    <div class="extended-section">
-      <div class="ext-title" id="tl-title"></div>
-      <div class="ext-subtitle" id="tl-subtitle"></div>
-      <div class="timeline-grid" id="timeline-grid"></div>
-    </div>
-
-    <div class="extended-section">
-      <div class="ext-title" id="tips-title"></div>
-      <div class="ext-subtitle" id="tips-subtitle"></div>
-      <div class="tips-list" id="tips-list"></div>
-    </div>
-
-    <button class="restart-btn" onclick="goHome()" id="restart-btn"></button>
-    <div class="saving-note" id="saving-note"></div>
-  </div>
 </div>
 
+<div class="toast" id="toast">คัดลอกผลแล้ว วางแชร์ได้เลย!</div>
+
 <script>
-/* ============ ⬇️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE ⬇️ ============ */
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbwXYwzPSEZNsLegfOm_z-dva_u7gRwsIkqofMiRoLcXarHAIHud4I4fUOfIVoYxiAMt/exec";
-/* ========================================================================== */
+// ==========================================
+// GOOGLE SHEETS WEB APP URL
+// ==========================================
+const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzLTE7MO-suAuNS_oIJQNpvM0KwieeaI6t1JgeJyHP5IirW0REwW6C4OOh3CJk-jr9XnA/exec"; 
 
-/* ============ SAFEST BACKGROUND ANIMATION ENGINE ============ */
-const bgAnim = (function() {
-  try {
-    return document.body.animate(
-      [
-        { backgroundPosition: '0% 0%' },
-        { backgroundPosition: '100% 50%' },
-        { backgroundPosition: '50% 100%' },
-        { backgroundPosition: '0% 50%' },
-        { backgroundPosition: '0% 0%' }
-      ],
-      { duration: 60000, iterations: Infinity, easing: 'ease-in-out' }
-    );
-  } catch (e) {
-    return null; // Silent fail for bad mobile browsers
-  }
-})();
-
-function pulseBackground() {
-  try {
-    if(bgAnim && typeof bgAnim.playbackRate !== 'undefined') {
-      bgAnim.playbackRate = 25; 
-      setTimeout(() => { 
-        if (bgAnim) bgAnim.playbackRate = 1; 
-      }, 600); 
-    }
-  } catch (e) {
-    // If it fails, do nothing. Do not freeze the quiz!
-  }
-}
-
-/* ============ TRANSLATIONS & NEW EXTENDED CONTENT ============ */
-const T = {
+const STR = {
+  th: {
+    docTitle: `คุณเป็นสัตว์สายนอนแบบไหน?`,
+    eyebrow: `แบบทดสอบการนอน`,
+    h1a: `นอนแบบไหน`,
+    h1b: `บอกได้ว่าคุณคือ`,
+    h1hl: `สัตว์อะไร`,
+    lede: `ตอบคำถามสั้นๆ 7 ข้อเกี่ยวกับการนอน แล้วมาดูกันว่าคุณคือสัตว์ตัวไหน`,
+    namePlaceholder: `ชื่อของคุณ`,
+    phonePlaceholder: `เบอร์โทรศัพท์`,
+    formError: `กรุณากรอกชื่อและเบอร์โทรศัพท์ก่อนเริ่มเทสต์`,
+    start: `เริ่มเทสต์เลย`,
+    qWord: `คำถาม`,
+    resultTag: `คุณคือ`,
+    weakLabel: `💤 จุดสลบ`,
+    timelineLabel: `🗓️ ตารางชีวิตที่เหมาะกับคุณ`,
+    tipsLabel: `💡 ทริคเพิ่มพลังการทำงานง่ายๆ`,
+    shareBtn: `แชร์ผลลัพธ์`,
+    replayBtn: `เล่นอีกครั้ง`,
+    toast: `คัดลอกผลแล้ว วางแชร์ได้เลย!`,
+    shareIntro: `ผลเทสต์สายนอนของฉันคือ`,
+    shareCta: `แล้วคุณเป็นสัตว์สายนอนแบบไหน? มาลองเล่นกัน`
+  },
   en: {
-    heroTitle: "What's Your Sleep Chronotype?",
-    heroLead: "Discover your natural biological rhythm with just 10 questions. Are you a Lion, Bear, Wolf, or Dolphin — and what does that mean for your health and productivity?",
-    cta: "Take the Quiz",
-    liveStatsBtn: "Live Statistic ▼",
-    countLabel: "people tested",
-    timeLabel: "minutes to complete",
-    accLabel: "Accuracy Rate",
-    typesTitle: "The 4 Chronotype Types",
-    typesSub: "Based on global sleep research — here's how people around the world break down:",
-    
-    // Registration Translations
-    regTitle: "Before we begin...",
-    regSubtitle: "Please enter your details to start the quiz.",
-    namePlaceholder: "Your Name",
-    phonePlaceholder: "Your Phone Number",
-    startBtn: "Start Quiz",
-    alertEmpty: "Please enter both your name and phone number.",
+    docTitle: `What's Your Sleep Animal?`,
+    eyebrow: `Sleep Personality Quiz`,
+    h1a: `Your sleep style`,
+    h1b: `reveals your inner`,
+    h1hl: `animal`,
+    lede: `Answer 7 quick questions about your sleep habits and find out which animal you really are.`,
+    namePlaceholder: `Your Name`,
+    phonePlaceholder: `Phone Number`,
+    formError: `Please enter your name and phone number to start.`,
+    start: `Start the Quiz`,
+    qWord: `Question`,
+    resultTag: `You Are`,
+    weakLabel: `💤 Weak Spot`,
+    timelineLabel: `🗓️ Your Optimal Timeline`,
+    tipsLabel: `💡 Productivity Tips`,
+    shareBtn: `Share Result`,
+    replayBtn: `Play Again`,
+    toast: `Copied! Ready to share.`,
+    shareIntro: `My sleep animal result is`,
+    shareCta: `What's your sleep animal? Try the quiz 👉`
+  }
+};
 
-    title: "Sleep Chronotype Quiz",
-    subtitle: "Answer 10 questions to find your sleep animal!",
-    resTopTitle: "YOUR CHRONOTYPE IS",
-    statsTitle: "What animal are other people?",
-    tlTitle: "YOUR OPTIMAL DAILY TIMELINE",
-    tlSubtitle: "Aligning your activities to these windows can unlock noticeably higher energy and focus.",
-    tipsTitle: "PRODUCTIVITY TIPS FOR",
-    tipsSubtitle: "Practical strategies for living in sync with your natural rhythm.",
-    restart: "Back to Home",
-    saving: "✓ Your result was saved",
-    questions: [
-      { q: "What time do you naturally wake up without an alarm?", a: ["Before 6 AM","6-7 AM","7-9 AM","After 9 AM"] },
-      { q: "When do you feel most energetic?", a: ["Early morning","Mid-morning","Afternoon","Late night"] },
-      { q: "How do you feel right after waking up?", a: ["Fully alert","Pretty good","A bit groggy","Very tired"] },
-      { q: "When would you prefer to do hard mental work?", a: ["Early morning","Late morning","Afternoon","Evening/Night"] },
-      { q: "What time do you usually go to bed?", a: ["Before 10 PM","10-11 PM","11 PM-1 AM","After 1 AM"] },
-      { q: "How easily do you fall asleep at night?", a: ["Very easily","Fairly easily","Sometimes hard","Often struggle"] },
-      { q: "Do you take naps during the day?", a: ["Never needed","Rarely","Sometimes","Often"] },
-      { q: "How do you feel about early morning meetings?", a: ["Love them","Fine with them","Prefer not to","Hate them"] },
-      { q: "When do you feel sleepy in the evening?", a: ["Very early","Around 9 PM","Around 11 PM","Late / not at all"] },
-      { q: "How would you describe your overall sleep?", a: ["Light & regular","Solid & consistent","Variable","Irregular"] }
-    ],
-    animals: {
-      lion: { 
-        icon:"🦁", name:"The Lion", short:"Early risers who peak in the morning.", 
-        desc:"You wake up early, full of energy in the morning, and prefer to tackle big tasks before noon. You tend to wind down early in the evening.",
-        timeline: [
-          { time: "5:30", text: "Wake up — Fresh and energized" }, { time: "6:00", text: "Exercise & hydration" },
-          { time: "7:00", text: "Breakfast & planning" }, { time: "8:00", text: "Peak focus window" },
-          { time: "12:00", text: "Lunch & mental break" }, { time: "14:00", text: "Admin & lighter tasks" },
-          { time: "17:00", text: "Wind down early" }, { time: "21:00", text: "Bedtime" }
-        ],
-        tips: [
-          "Tackle your hardest, most analytical tasks first thing in the morning when your energy is at its absolute peak.",
-          "Avoid scheduling critical decisions or brainstorming sessions in the late afternoon when your energy dips.",
-          "Protect your early bedtime; don't force yourself to stay up late for social events if you feel drained.",
-          "Shift your workouts to the morning to capitalize on your natural early-day energy spike.",
-          "Keep afternoon meals light to prevent a severe early-evening crash."
-        ]
-      },
-      bear: { 
-        icon:"🐻", name:"The Solar Bear", short:"Sleep follows the sun — socially in sync.", 
-        desc:"You belong to the most common chronotype. Your rhythm follows the sun — rising naturally with daylight and winding down after dark. You hit peak cognitive performance between 10 AM and 2 PM, and you're well-suited to standard social and work schedules.",
-        timeline: [
-          { time: "7:00", text: "Wake up — Relaxed morning routine" }, { time: "7:30", text: "Breakfast" },
-          { time: "8:30", text: "Commute or start the day" }, { time: "10:00", text: "Peak focus window" },
-          { time: "12:00", text: "Lunch — A midday reset" }, { time: "14:00", text: "Collaboration & meetings" },
-          { time: "17:30", text: "Post-work exercise" }, { time: "23:00", text: "Bedtime" }
-        ],
-        tips: [
-          "Designate 10 AM to 2 PM as your protected deep work window and schedule your most important tasks during this block.",
-          "A 10–20 minute nap after lunch can effectively restore your afternoon focus and prevent the post-lunch energy slump.",
-          "Maintain the same sleep and wake times at least 5 days per week. Bears thrive on consistent schedules more than any other chronotype.",
-          "Afternoon exercise (5–7 PM) improves your sleep quality and boosts the next morning's energy — a virtuous cycle worth establishing.",
-          "Limit caffeine to the morning hours and avoid it after 2 PM. Caffeine's half-life means it can still disrupt your sleep 8–10 hours after consumption."
-        ]
-      },
-      wolf: { 
-        icon:"🐺", name:"The Night Wolf", short:"Creative night owls who come alive after dark.", 
-        desc:"You come alive in the evening and night. Mornings are tough, but your creativity and focus peak after dark. You thrive when you have the freedom to dictate your own schedule.",
-        timeline: [
-          { time: "8:30", text: "Wake up — Multiple alarms" }, { time: "9:00", text: "Breakfast & hydrate" },
-          { time: "10:00", text: "Light tasks to warm up" }, { time: "13:00", text: "Lunch" },
-          { time: "15:00", text: "First focus window" }, { time: "18:00", text: "Post-work exercise" },
-          { time: "21:00", text: "Peak creative window" }, { time: "00:30", text: "Bedtime" }
-        ],
-        tips: [
-          "Don't force deep work in the early morning; use that time for emails, planning, or low-effort administrative tasks.",
-          "Block out late afternoon and early evening (4 PM - 8 PM) for your most demanding, creative work.",
-          "Try to get sunlight exposure immediately upon waking to help reset your delayed circadian rhythm.",
-          "Eat dinner later (around 8 PM) so you have fuel for your evening productivity burst.",
-          "Implement a strict screen-cutoff at least 45 minutes before your late bedtime to ensure you can actually fall asleep."
-        ]
-      },
-      dolphin: { 
-        icon:"🐬", name:"The Dolphin", short:"Light, restless sleepers with irregular schedules.", 
-        desc:"You're a light, sometimes restless sleeper with an irregular schedule. You can be highly intelligent and alert at unexpected times, but may struggle with consistent, deep rest.",
-        timeline: [
-          { time: "6:30", text: "Wake up — Often groggy" }, { time: "7:30", text: "Breakfast" },
-          { time: "9:30", text: "First focus window" }, { time: "12:30", text: "Lunch" },
-          { time: "14:00", text: "Slump / light tasks" }, { time: "16:00", text: "Second focus window" },
-          { time: "20:30", text: "Strict relaxation" }, { time: "23:30", text: "Bedtime" }
-        ],
-        tips: [
-          "Break large tasks into smaller, manageable chunks to maintain focus despite underlying fatigue.",
-          "Your energy peaks in mid-morning and late afternoon—use these dual windows for complex tasks.",
-          "Avoid naps during the day, as they will severely disrupt your already fragile nighttime sleep cycle.",
-          "Create a wind-down routine that focuses heavily on anxiety reduction, such as reading or meditation.",
-          "Keep your bedroom cool, completely dark, and strictly for sleep to minimize nighttime awakenings."
-        ]
-      }
+const TYPES = {
+  chicken:{emoji:"🐓",
+    th:{name:`ไก่ชนตื่นตีสี่`,eng:`สายเช้า`,
+      desc:`คุณตื่นเช้ามาก บางทีก่อนพระอาทิตย์ขึ้นด้วยซ้ำ ช่วงเช้าคือเวลาที่หัวโล่งและทำงานได้ดีที่สุด ตื่นมาก็พร้อมลุยเลย`,
+      weak:`พอสองทุ่มตาก็เริ่มปิด ใครชวนไปเที่ยวหรือกินข้าวมื้อดึก มักตอบว่า “ไม่ไหว ขอนอนก่อน”`,
+      timeline:[`05:00 - ตื่นนอน ดื่มน้ำ และออกกำลังกายเบาๆ`,`08:00 - ลุยงานที่ยากที่สุด (ช่วงสมองแล่น)`,`20:00 - เริ่มปิดไฟ พักผ่อนเตรียมตัวนอน`],
+      tips:[`จัดการงานที่ใช้สมาธิสูงให้เสร็จก่อนเที่ยง`,`งดชาหรือกาแฟหลังบ่ายโมงเพื่อไม่ให้กระทบการนอน`,`กินมื้อเย็นให้เร็วขึ้น ช่วยให้หลับสบายกว่าเดิม`]
+    },
+    en:{name:`The 4AM Rooster`,eng:`Morning Type`,
+      desc:`You're up early — sometimes even before sunrise. Mornings are when your mind is clearest and you get your best work done. You wake up ready to go.`,
+      weak:`By 8pm your eyes start closing. If someone invites you out or to a late dinner, your answer is usually “I can't, I need to sleep.”`,
+      timeline:[`05:00 - Wake up, hydrate, light stretching`,`08:00 - Deep work (Your peak focus time)`,`20:00 - Wind down and prepare for bed`],
+      tips:[`Knock out your hardest tasks before noon.`,`Cut off caffeine by 1 PM.`,`Eat dinner earlier for better sleep quality.`]
     }
   },
-  th: {
-    heroTitle: "โครโนไทป์การนอนของคุณคืออะไร?",
-    heroLead: "ค้นหาจังหวะชีวภาพตามธรรมชาติของคุณด้วยเพียง 10 คำถาม คุณเป็นสิงโต หมี หมาป่า หรือโลมา — และมันมีความหมายอย่างไรต่อสุขภาพและประสิทธิภาพการทำงานของคุณ?",
-    cta: "เริ่มทำแบบทดสอบ",
-    liveStatsBtn: "สถิติเรียลไทม์ ▼",
-    countLabel: "คนทำแบบทดสอบแล้ว",
-    timeLabel: "นาทีในการทำ",
-    accLabel: "ความแม่นยำ",
-    typesTitle: "โครโนไทป์ทั้ง 4 ประเภท",
-    typesSub: "อ้างอิงจากงานวิจัยการนอนทั่วโลก — สัดส่วนของผู้คนทั่วโลกเป็นดังนี้:",
-    
-    // Registration Translations
-    regTitle: "ก่อนที่เราจะเริ่ม...",
-    regSubtitle: "โปรดกรอกข้อมูลของคุณเพื่อเริ่มทำแบบทดสอบ",
-    namePlaceholder: "ชื่อ-นามสกุลของคุณ",
-    phonePlaceholder: "เบอร์โทรศัพท์",
-    startBtn: "เริ่มทำแบบทดสอบ",
-    alertEmpty: "โปรดกรอกทั้งชื่อและเบอร์โทรศัพท์ของคุณ",
-
-    title: "แบบทดสอบโครโนไทป์การนอน",
-    subtitle: "ตอบ 10 คำถามเพื่อค้นหาสัตว์การนอนของคุณ!",
-    resTopTitle: "โครโนไทป์ของคุณคือ",
-    statsTitle: "คนอื่นเป็นสัตว์ประเภทไหน?",
-    tlTitle: "ตารางเวลาที่เหมาะสมที่สุดของคุณ",
-    tlSubtitle: "การปรับกิจกรรมของคุณให้ตรงกับช่วงเวลาเหล่านี้ จะช่วยปลดล็อกพลังงานและสมาธิให้สูงขึ้นอย่างเห็นได้ชัด",
-    tipsTitle: "เคล็ดลับการทำงานสำหรับ",
-    tipsSubtitle: "กลยุทธ์ที่นำไปใช้ได้จริง เพื่อการใช้ชีวิตให้สอดคล้องกับจังหวะธรรมชาติของคุณ",
-    restart: "กลับหน้าแรก",
-    saving: "✓ บันทึกผลลัพธ์ของคุณแล้ว",
-    questions: [
-      { q: "ปกติคุณตื่นนอนเองโดยไม่ตั้งนาฬิกาปลุกตอนกี่โมง?", a: ["ก่อน 6 โมงเช้า","6-7 โมงเช้า","7-9 โมงเช้า","หลัง 9 โมงเช้า"] },
-      { q: "คุณรู้สึกมีพลังมากที่สุดตอนไหน?", a: ["เช้าตรู่","สายๆ","บ่าย","ดึก"] },
-      { q: "หลังตื่นนอนคุณรู้สึกอย่างไร?", a: ["สดชื่นเต็มที่","ค่อนข้างดี","งัวเงียเล็กน้อย","เหนื่อยมาก"] },
-      { q: "คุณชอบทำงานที่ใช้สมองหนักตอนไหน?", a: ["เช้าตรู่","สายๆ","บ่าย","เย็น/กลางคืน"] },
-      { q: "ปกติคุณเข้านอนกี่โมง?", a: ["ก่อน 4 ทุ่ม","4-5 ทุ่ม","5 ทุ่ม-ตี 1","หลังตี 1"] },
-      { q: "คุณหลับง่ายแค่ไหนในตอนกลางคืน?", a: ["ง่ายมาก","ค่อนข้างง่าย","บางทียาก","มักจะลำบาก"] },
-      { q: "คุณงีบหลับระหว่างวันหรือไม่?", a: ["ไม่เคยต้องการ","นานๆ ครั้ง","บางครั้ง","บ่อย"] },
-      { q: "คุณรู้สึกอย่างไรกับการประชุมเช้าตรู่?", a: ["ชอบมาก","โอเค","ไม่ค่อยชอบ","เกลียดมาก"] },
-      { q: "คุณรู้สึกง่วงตอนเย็นเมื่อไหร่?", a: ["เร็วมาก","ราว 3 ทุ่ม","ราว 5 ทุ่ม","ดึก/ไม่ง่วงเลย"] },
-      { q: "คุณอธิบายการนอนโดยรวมของคุณว่าอย่างไร?", a: ["หลับตื้น & สม่ำเสมอ","หลับลึก & คงที่","ไม่แน่นอน","ไม่เป็นเวลา"] }
-    ],
-    animals: {
-      lion: { 
-        icon:"🦁", name:"สิงโต (The Lion)", short:"คนตื่นเช้าที่มีพลังและทำงานได้ดีในตอนเช้า", 
-        desc:"คุณตื่นเช้า มีพลังเต็มที่ในตอนเช้า และชอบจัดการงานสำคัญก่อนเที่ยง คุณมักจะเข้านอนเร็วในตอนเย็น",
-        timeline: [
-          { time: "5:30", text: "ตื่นนอน — สดชื่นและมีพลัง" }, { time: "6:00", text: "ออกกำลังกาย & ดื่มน้ำ" },
-          { time: "7:00", text: "อาหารเช้า & วางแผนงาน" }, { time: "8:00", text: "ช่วงเวลาสมาธิสูงสุด" },
-          { time: "12:00", text: "พักเที่ยง & พักสมอง" }, { time: "14:00", text: "งานเอกสารทั่วไป" },
-          { time: "17:00", text: "เริ่มพักผ่อนช่วงเย็น" }, { time: "21:00", text: "เข้านอน" }
-        ],
-        tips: [
-          "จัดการงานที่ยากและต้องใช้สมองวิเคราะห์มากที่สุดในตอนเช้า ซึ่งเป็นช่วงที่พลังงานของคุณพุ่งสูงสุด",
-          "หลีกเลี่ยงการประชุมเพื่อตัดสินใจเรื่องสำคัญ หรือการระดมสมอง (Brainstorm) ในช่วงบ่ายแก่ๆ",
-          "รักษาวินัยการเข้านอนเร็ว อย่าฝืนตัวเองให้อยู่ดึกเพื่องานสังคมหากคุณรู้สึกหมดพลังแล้ว",
-          "เลื่อนเวลาออกกำลังกายมาเป็นตอนเช้า เพื่อใช้ประโยชน์จากพลังงานที่พุ่งพล่านตามธรรมชาติของคุณ",
-          "ทานมื้อบ่ายให้เบาลง เพื่อป้องกันอาการง่วงซึมและหมดแรงอย่างรุนแรงในช่วงเย็น"
-        ]
-      },
-      bear: { 
-        icon:"🐻", name:"หมี (The Solar Bear)", short:"การนอนเป็นไปตามพระอาทิตย์ — เข้ากับสังคม", 
-        desc:"คุณจัดอยู่ในกลุ่มโครโนไทป์ที่พบได้บ่อยที่สุด จังหวะของคุณเป็นไปตามพระอาทิตย์ — ตื่นตามธรรมชาติเมื่อมีแสงสว่าง และเริ่มง่วงหลังฟ้ามืด สมองของคุณจะทำงานได้ดีที่สุดช่วง 10.00 น. ถึง 14.00 น. คุณเข้ากับตารางงานและสังคมทั่วไปได้ดีเยี่ยม",
-        timeline: [
-          { time: "7:00", text: "ตื่นนอน — กิจวัตรยามเช้าสบายๆ" }, { time: "7:30", text: "อาหารเช้า" },
-          { time: "8:30", text: "เดินทางหรือเริ่มงาน" }, { time: "10:00", text: "ช่วงเวลาสมาธิสูงสุด" },
-          { time: "12:00", text: "พักเที่ยง — รีเซ็ตพลังงาน" }, { time: "14:00", text: "ประชุมและทำงานร่วมกัน" },
-          { time: "17:30", text: "ออกกำลังกายหลังเลิกงาน" }, { time: "23:00", text: "เข้านอน" }
-        ],
-        tips: [
-          "กำหนดให้ช่วง 10.00 น. ถึง 14.00 น. เป็นช่วงเวลาทำงานเชิงลึก (Deep work) และจัดตารางงานที่สำคัญที่สุดไว้ในช่วงนี้",
-          "การงีบหลับ 10–20 นาทีหลังอาหารเที่ยง จะช่วยฟื้นฟูสมาธิในช่วงบ่าย และป้องกันอาการง่วงหลังมื้ออาหารได้อย่างมีประสิทธิภาพ",
-          "พยายามตื่นและเข้านอนในเวลาเดียวกันอย่างน้อย 5 วันต่อสัปดาห์ หมีจะทำงานได้ดีที่สุดเมื่อมีตารางเวลาที่สม่ำเสมอ",
-          "การออกกำลังกายช่วงเย็น (17.00–19.00 น.) ช่วยให้หลับดีขึ้นและเพิ่มพลังงานในเช้าวันถัดไป — เป็นวงจรที่ดีที่ควรสร้างไว้",
-          "จำกัดการดื่มคาเฟอีนไว้แค่ช่วงเช้า และหลีกเลี่ยงหลัง 14.00 น. ฤทธิ์ของคาเฟอีนอาจรบกวนการนอนหลับของคุณได้ถึง 8–10 ชั่วโมง"
-        ]
-      },
-      wolf: { 
-        icon:"🐺", name:"หมาป่า (The Night Wolf)", short:"คนนอนดึกที่มีความคิดสร้างสรรค์ยามค่ำคืน", 
-        desc:"คุณจะกระปรี้กระเปร่าและมีชีวิตชีวาในช่วงเย็นและกลางคืน ตอนเช้าเป็นเรื่องที่ยากลำบากสำหรับคุณ แต่ความคิดสร้างสรรค์และสมาธิของคุณจะพุ่งสูงสุดหลังพระอาทิตย์ตก",
-        timeline: [
-          { time: "8:30", text: "ตื่นนอน — ต้องใช้นาฬิกาปลุกหลายรอบ" }, { time: "9:00", text: "อาหารเช้า & ดื่มน้ำ" },
-          { time: "10:00", text: "งานเบาๆ เพื่อวอร์มอัพ" }, { time: "13:00", text: "พักเที่ยง" },
-          { time: "15:00", text: "ช่วงสมาธิรอบแรก" }, { time: "18:00", text: "ออกกำลังกายหลังเลิกงาน" },
-          { time: "21:00", text: "ช่วงความคิดสร้างสรรค์พุ่งสูงสุด" }, { time: "00:30", text: "เข้านอน" }
-        ],
-        tips: [
-          "อย่าฝืนทำงานเชิงลึกในตอนเช้าตรู่ ให้ใช้เวลานั้นไปกับการตอบอีเมล วางแผน หรือทำงานเอกสารง่ายๆ",
-          "จัดสรรเวลาช่วงบ่ายแก่ๆ และหัวค่ำ (16.00 น. - 20.00 น.) สำหรับงานที่ต้องใช้พลังสมองและความคิดสร้างสรรค์มากที่สุด",
-          "พยายามรับแสงแดดทันทีที่ตื่นนอน เพื่อช่วยรีเซ็ตนาฬิกาชีวภาพที่มักจะเดินช้ากว่าปกติของคุณ",
-          "ทานอาหารเย็นให้ดึกขึ้น (ประมาณ 20.00 น.) เพื่อให้มีพลังงานเพียงพอสำหรับการลุยงานในช่วงค่ำ",
-          "งดใช้หน้าจออย่างเคร่งครัดอย่างน้อย 45 นาทีก่อนเข้านอนที่ดึกอยู่แล้ว เพื่อให้แน่ใจว่าคุณจะหลับได้จริงๆ"
-        ]
-      },
-      dolphin: { 
-        icon:"🐬", name:"โลมา (The Dolphin)", short:"คนหลับตื้น หลับไม่สนิท และมีตารางที่ไม่แน่นอน", 
-        desc:"คุณเป็นคนหลับตื้น บางครั้งหลับไม่สนิท และมีตารางที่ไม่แน่นอน คุณอาจตื่นตัวในเวลาที่ไม่คาดคิดและมีความฉลาดสูง แต่มักจะพบว่าการนอนหลับให้สนิทสม่ำเสมอเป็นเรื่องยาก",
-        timeline: [
-          { time: "6:30", text: "ตื่นนอน — มักจะรู้สึกงัวเงีย" }, { time: "7:30", text: "อาหารเช้า" },
-          { time: "9:30", text: "ช่วงสมาธิรอบแรก" }, { time: "12:30", text: "พักเที่ยง" },
-          { time: "14:00", text: "ช่วงง่วงซึม / งานทั่วไป" }, { time: "16:00", text: "ช่วงสมาธิรอบสอง" },
-          { time: "20:30", text: "พักผ่อน งดหน้าจอ" }, { time: "23:30", text: "เข้านอน" }
-        ],
-        tips: [
-          "แบ่งงานใหญ่ๆ ออกเป็นส่วนเล็กๆ เพื่อให้สามารถรักษาสมาธิไว้ได้ แม้จะมีความเหนื่อยล้าสะสมซ่อนอยู่",
-          "พลังงานของคุณจะสูงสุดในช่วงสายและช่วงบ่ายแก่ๆ ให้ใช้หน้าต่างสองช่วงนี้ในการจัดการกับงานที่ซับซ้อน",
-          "หลีกเลี่ยงการงีบหลับในตอนกลางวัน เพราะจะไปรบกวนวงจรการนอนหลับตอนกลางคืนที่เปราะบางอยู่แล้วของคุณอย่างรุนแรง",
-          "สร้างกิจวัตรก่อนนอนที่เน้นการลดความวิตกกังวลเป็นหลัก เช่น การอ่านหนังสือ หรือการทำสมาธิ",
-          "รักษาอุณหภูมิห้องนอนให้เย็น มืดสนิท และใช้ห้องนอนสำหรับการนอนเท่านั้น เพื่อลดอัตราการตื่นกลางดึก"
-        ]
-      }
+  cat:{emoji:"🐱",
+    th:{name:`แมวส้มออฟฟิศ`,eng:`สายกลางวัน`,
+      desc:`คุณนอนและตื่นตามเวลาปกติทั่วไป ใช้ชีวิตตามตารางได้เรื่อยๆ ไม่เช้าเกินและไม่ดึกเกิน เป็นสายที่พบมากที่สุด`,
+      weak:`ช่วงบ่ายสามจะเริ่มหมดแรง ต้องหากาแฟหรือชาเย็นสักแก้วมาเติมพลังให้ทำงานต่อไหว`,
+      timeline:[`07:30 - ตื่นนอนและเตรียมตัวเริ่มวันใหม่`,`10:00 - เข้าสู่โหมดโฟกัสการทำงาน`,`15:00 - ลุกเดินยืดเส้นยืดสาย (ช่วงแบตเตอรี่ตก)`],
+      tips:[`ใช้เทคนิค Pomodoro (ทำ 25 นาที พัก 5 นาที) จะช่วยให้ไม่เหนื่อยล้าตอนบ่าย`,`หาเวลาออกไปรับแดดช่วงเช้า 10 นาที`,`ช่วงบ่ายถ้าง่วง ให้ดื่มน้ำเปล่าเยอะๆ แทนการกินขนมหวาน`]
+    },
+    en:{name:`The Office Cat`,eng:`Daytime Type`,
+      desc:`You sleep and wake at fairly normal hours. You keep a steady schedule — not too early, not too late. This is the most common type.`,
+      weak:`By 3pm you're running low on energy. You need a coffee or iced tea to power through the rest of the day.`,
+      timeline:[`07:30 - Wake up and start the day`,`10:00 - Primary focus and heavy tasks`,`15:00 - Take a short walk (Beware the afternoon slump!)`],
+      tips:[`Use the Pomodoro technique to maintain steady energy.`,`Get 10 minutes of morning sunlight.`,`Hydrate with water in the afternoon instead of sugary snacks.`]
+    }
+  },
+  bat:{emoji:"🦇",
+    th:{name:`ค้างคาวออกดึก`,eng:`สายดึก`,
+      desc:`ตอนเช้าคุณเหมือนยังไม่ตื่นดี แต่พอฟ้ามืดกลับสดชื่นและมีไอเดียพุ่ง กลางคืนคือเวลาที่คุณทำงานได้ดีที่สุด`,
+      weak:`การตื่นเช้าหรือมีนัด 9 โมงคือเรื่องที่ทรมานที่สุด และมักติดกินมื้อดึกจนน้ำหนักขึ้น`,
+      timeline:[`10:00 - ตื่นนอนแบบค่อยเป็นค่อยไป`,`14:00 - เริ่มทำงานหรือจัดการธุระสำคัญ`,`21:00 - ช่วงเวลาแห่งไอเดีย (สมองแล่นที่สุด)`],
+      tips:[`พยายามหลีกเลี่ยงการจัดประชุมช่วงเช้าตรู่ถ้าทำได้`,`เปิดโหมดถนอมสายตา (Blue light filter) ที่หน้าจอก่อนนอน 1 ชม.`,`ถ้าหิวดึก ให้เปลี่ยนจากบะหมี่เป็นผลไม้หรือนมอุ่นๆ`]
+    },
+    en:{name:`The Night Bat`,eng:`Night Type`,
+      desc:`In the morning you're barely awake, but once it gets dark you come alive and the ideas start flowing. Night is when you do your best work.`,
+      weak:`Waking up early or having a 9am appointment is pure torture. You also tend to snack late at night, which doesn't help the waistline.`,
+      timeline:[`10:00 - Gentle wake up`,`14:00 - Start tackling important tasks`,`21:00 - Idea generation (Peak productivity)`],
+      tips:[`Block out your mornings to avoid early meetings.`,`Use blue-light blocking screens 1 hour before sleep.`,`Swap heavy midnight snacks for warm milk or fruit.`]
+    }
+  },
+  owl:{emoji:"🦉",
+    th:{name:`นกฮูกนอนยาก`,eng:`สายหลับยาก`,
+      desc:`เวลานอนของคุณไม่แน่นอน มักคิดมากก่อนนอน พอหัวถึงหมอนสมองก็เริ่มขุดเรื่องเก่าหรือคิดเรื่องพรุ่งนี้ไม่หยุด`,
+      weak:`การนอนขึ้นอยู่กับความเครียดในแต่ละวัน เดาไม่ได้เลยว่าคืนไหนจะหลับสบาย คืนไหนจะตาค้าง`,
+      timeline:[`เวลาตื่น - ไม่แน่นอน แนะนำให้ตื่นเวลาเดิมทุกวัน`,`16:00 - ออกกำลังกายให้ร่างกายเหนื่อย`,`22:00 - งดเล่นมือถือและเตรียมตัวผ่อนคลาย`],
+      tips:[`มีสมุดจดไว้ข้างเตียง คิดอะไรออกให้จดลงไป สมองจะได้ไม่ต้องจำ`,`ลดแสงในห้องลง 1 ชั่วโมงก่อนนอน สร้างบรรยากาศ`,`ลองฟังพอดแคสต์เล่านิทานหรือเสียงฝนตกช่วยให้หลับง่ายขึ้น`]
+    },
+    en:{name:`The Restless Owl`,eng:`Insomniac Type`,
+      desc:`Your sleep schedule is unpredictable. You tend to overthink before bed — the moment your head hits the pillow, your brain digs up old memories or spirals about tomorrow.`,
+      weak:`Your sleep depends entirely on how stressed you are that day. There's no telling which nights you'll sleep soundly and which ones you'll be wide awake.`,
+      timeline:[`Wake time - Variable, try to keep it consistent`,`16:00 - Exercise to physically tire yourself out`,`22:00 - Strict no-screen wind down time`],
+      tips:[`Keep a "brain dump" notebook by your bed to write down racing thoughts.`,`Dim all lights 1 hour before bed to signal your brain.`,`Try listening to rain sounds or sleep stories to distract your mind.`]
     }
   }
 };
 
-const WORLD_PCT = { lion:15, bear:55, wolf:15, dolphin:10 };
-const ANIMAL_COLORS = { lion:"#f6c753", bear:"#729c9b", wolf:"#447684", dolphin:"#e4bad3" };
-const ANIMAL_ICONS  = { lion:"🦁", bear:"🐻", wolf:"🐺", dolphin:"🐬" };
-const ORDER = ['lion','bear','wolf','dolphin'];
+const Q = [
+  {types:["chicken","cat","bat","owl"],
+   th:{q:`วันหยุดที่ไม่ต้องตั้งนาฬิกาปลุก คุณตื่นเองกี่โมง?`,a:[`ตี 4–ตี 5 ตื่นเอง นอนต่อไม่ได้แล้ว`,`6–8 โมง ตื่นตามปกติ`,`เกือบเที่ยง หรือบ่ายไปเลย`,`ไม่แน่ แล้วแต่เมื่อคืนหลับกี่โมง`]},
+   en:{q:`On a day off with no alarm, what time do you naturally wake up?`,a:[`4–5am — wide awake, can't fall back asleep`,`6–8am — my usual wake-up time`,`Almost noon, or even into the afternoon`,`Varies, depends what time I fell asleep`]}},
+
+  {types:["chicken","cat","bat","owl"],
+   th:{q:`ช่วงไหนของวันที่หัวโล่ง ทำงานได้ดีที่สุด?`,a:[`เช้าตรู่ สดที่สุดตอนเช้า`,`สายๆ ถึงบ่าย ค่อยๆ อุ่นเครื่อง`,`กลางคืน ยิ่งดึกยิ่งแล่น`,`บอกไม่ได้ แล้วแต่วัน`]},
+   en:{q:`What time of day is your mind clearest and most productive?`,a:[`Early morning — sharpest right after I wake up`,`Late morning to afternoon — I warm up gradually`,`At night — the later it gets, the better I work`,`Hard to say, it changes day to day`]}},
+
+  {types:["chicken","cat","bat","owl"],
+   th:{q:`พอถึงบ่ายสามโมง คุณเป็นยังไง?`,a:[`ง่วงจริง เพราะตื่นมาตั้งแต่เช้ามืด`,`ง่วงนิดหน่อย ขอกาแฟหรือชาเย็นสักแก้ว`,`ยังสดอยู่ เพิ่งตื่นได้ไม่นาน`,`แล้วแต่วัน บางวันเพลีย บางวันไหว`]},
+   en:{q:`How do you feel around 3pm?`,a:[`Genuinely sleepy, I've been up since dawn`,`A little drowsy, need a coffee or iced tea`,`Still fresh, I only woke up recently`,`Depends on the day, sometimes tired, sometimes fine`]}},
+
+  {types:["chicken","cat","bat","owl"],
+   th:{q:`เพื่อนชวนออกไปเที่ยวกลางคืน คุณจะ…`,a:[`ขอผ่าน ง่วงแล้ว`,`ไปได้ แต่ขอกลับก่อนดึก`,`ไปสิ กำลังสนุกเลย!`,`ไป แต่กลับมานอนไม่หลับอยู่ดี`]},
+   en:{q:`A friend invites you out for a late night — you…`,a:[`Pass, I'm already sleepy`,`Go, but head home before it gets too late`,`Absolutely, this is when the fun starts!`,`Go, but still can't fall asleep once I'm home`]}},
+
+  {types:["chicken","cat","bat","owl"],
+   th:{q:`ต้องเข้าประชุมหรือเรียนตอน 9 โมงเช้า คุณ…`,a:[`สบายมาก ตื่นมานานแล้ว`,`ไหวอยู่ รีบหน่อยแต่ทัน`,`เหนื่อยมาก ง่วงจนแทบหลับ`,`แล้วแต่ว่าเมื่อคืนหลับพอไหม`]},
+   en:{q:`You have a 9am meeting or class — you…`,a:[`No problem, I've been up for hours`,`Manageable, I rush a bit but make it`,`Exhausted, so sleepy I'm about to doze off`,`Depends whether I got enough sleep last night`]}},
+
+  {types:["chicken","cat","bat","owl"],
+   th:{q:`คืนก่อนวันที่ต้องตื่นไปทำงาน คุณนอนยังไง?`,a:[`หลับง่าย พรุ่งนี้ตื่นเช้าอยู่แล้ว`,`นอนปกติ เล่นมือถือหน่อยแล้วหลับ`,`ยังไม่ง่วง นอนดึกเหมือนเดิม`,`นอนไม่หลับ คิดวนเรื่องพรุ่งนี้`]},
+   en:{q:`The night before a work day, how do you sleep?`,a:[`Fall asleep easily, I'm an early riser anyway`,`Normal routine, scroll my phone a bit then doze off`,`Not sleepy yet, stay up late as usual`,`Can't sleep, my mind loops on tomorrow`]}},
+
+  {types:["chicken","cat","bat","owl"],
+   th:{q:`พอหัวถึงหมอน อีกกี่นาทีถึงจะหลับ?`,a:[`5 นาที หลับปุ๊บ`,`เล่นมือถือสักพักแล้วค่อยหลับ`,`ยังไม่ง่วง ลุกไปทำอย่างอื่นต่อ`,`นาน คิดโน่นคิดนี่ไม่หยุด`]},
+   en:{q:`Once your head hits the pillow, how long until you fall asleep?`,a:[`5 minutes, out like a light`,`Scroll my phone for a while, then drift off`,`Not sleepy yet, get up to do something else`,`A long time, my thoughts won't stop racing`]}}
+];
 
 let lang = 'th';
-let current = 0;
-let scores = { lion:0, bear:0, wolf:0, dolphin:0 };
-let userAnswers = [];
-let userName = "";   
-let userPhone = "";  
+let idx = 0, score = {chicken:0,cat:0,bat:0,owl:0};
+let userInfo = {name: "", phone: ""}; 
+let userAnswers = []; // Array to store each chosen answer
 
-/* === THE MISSING VARIABLE IS RESTORED HERE! === */
-const SCORE_MAP = ['lion','bear','wolf','dolphin']; 
-/* ============================================== */
+const $=id=>document.getElementById(id);
 
-let lastResult = null;
-let isAnimating = false;
-let liveStats = null;   
-
-/* ============ INTERACTIVE THEME TOGGLE ENGINE ============ */
-let isThemeAnimating = false;
-
-function toggleTheme() {
-  if (isThemeAnimating) return; 
-  isThemeAnimating = true;
-  const toggle = document.getElementById('theme-toggle');
-  const textEl = document.getElementById('theme-text');
-  const iconEl = document.getElementById('theme-icon');
-  const isDark = document.body.classList.contains('dark-mode');
-  const targetIsDark = !isDark;
-  
-  textEl.textContent = targetIsDark ? (lang === 'th' ? 'โหมดกลางคืน' : 'Dark Mode') : (lang === 'th' ? 'โหมดสว่าง' : 'Light Mode');
-  toggle.classList.add('expanding');
-
-  setTimeout(() => {
-    document.body.classList.toggle('dark-mode');
-    if (targetIsDark) {
-      iconEl.textContent = '🌙'; 
-      localStorage.setItem('theme', 'dark');
-    } else {
-      iconEl.textContent = '☀️'; 
-      localStorage.setItem('theme', 'light');
-    }
-    setTimeout(() => {
-      toggle.classList.remove('expanding');
-      setTimeout(() => { isThemeAnimating = false; }, 500); 
-    }, 1200); 
-  }, 400); 
+function applyStaticText(){
+  const s = STR[lang];
+  document.documentElement.lang = lang;
+  document.title = s.docTitle;
+  $("eyebrow").textContent = s.eyebrow;
+  $("h1a").textContent = s.h1a;
+  $("h1b").textContent = s.h1b;
+  $("h1hl").textContent = s.h1hl;
+  $("lede").textContent = s.lede;
+  $("userName").placeholder = s.namePlaceholder;
+  $("userPhone").placeholder = s.phonePlaceholder;
+  $("formError").textContent = s.formError;
+  $("startBtn").textContent = s.start;
+  $("resultTag").textContent = s.resultTag;
+  $("weakLabel").textContent = s.weakLabel;
+  $("timelineLabel").textContent = s.timelineLabel;
+  $("tipsLabel").textContent = s.tipsLabel;
+  $("shareBtn").textContent = s.shareBtn;
+  $("replayBtn").textContent = s.replayBtn;
+  $("toast").textContent = s.toast;
+  $("langToggle").textContent = lang==='th' ? 'EN' : 'TH';
 }
 
-if(localStorage.getItem('theme') === 'dark') {
-  document.body.classList.add('dark-mode');
-  document.getElementById('theme-icon').textContent = '🌙';
-} else {
-  document.getElementById('theme-icon').textContent = '☀️';
+function toggleLang(){
+  lang = lang==='th' ? 'en' : 'th';
+  applyStaticText();
+  if($("quiz").classList.contains("on")) render();
+  if($("result").classList.contains("on") && window._resultKey) renderResult();
 }
 
-/* ============ LANGUAGE ============ */
-function setLang(l){
-  lang = l;
-  document.getElementById('btn-en').classList.toggle('active', l==='en');
-  document.getElementById('btn-th').classList.toggle('active', l==='th');
-  renderHome();
-  
-  document.getElementById('reg-title').textContent = T[l].regTitle;
-  document.getElementById('reg-subtitle').textContent = T[l].regSubtitle;
-  document.getElementById('user-name').placeholder = T[l].namePlaceholder;
-  document.getElementById('user-phone').placeholder = T[l].phonePlaceholder;
-  document.getElementById('reg-btn').textContent = T[l].startBtn;
+function start() {
+  const nameInput = $("userName").value.trim();
+  const phoneInput = $("userPhone").value.trim();
+  const errorEl = $("formError");
 
-  document.getElementById('title').textContent = T[l].title;
-  document.getElementById('subtitle').textContent = T[l].subtitle;
-  if(!document.getElementById('quiz-screen').classList.contains('hidden')) renderQuestion();
-  if(!document.getElementById('result-screen').classList.contains('hidden')){ showResultText(); renderStats(); }
-  if(document.getElementById('live-stats-breakdown').classList.contains('show')) { renderLiveBreakdown(); }
-}
-
-/* ============ HOME ============ */
-function renderHome(){
-  const t = T[lang];
-  document.getElementById('hero-title').textContent = t.heroTitle;
-  document.getElementById('hero-lead').textContent = t.heroLead;
-  document.getElementById('cta-btn').textContent = t.cta;
-  document.getElementById('live-stats-btn').textContent = t.liveStatsBtn;
-  document.getElementById('meta-count-label').textContent = t.countLabel;
-  document.getElementById('meta-time-label').textContent = t.timeLabel;
-  document.getElementById('meta-acc-label').textContent = t.accLabel;
-  document.getElementById('types-title').textContent = t.typesTitle;
-  document.getElementById('types-sub').textContent = t.typesSub;
-
-  const cont = document.getElementById('type-cards');
-  cont.innerHTML = '';
-  ORDER.forEach(k=>{
-    const a = t.animals[k];
-    const card = document.createElement('div');
-    card.className = 'type-card';
-    card.innerHTML = `
-      <div class="ico">${a.icon}</div>
-      <div class="info"><h3>${a.name}</h3><p>${a.short}</p></div>
-      <div class="pct"><div class="big" style="color:${ANIMAL_COLORS[k]}">${WORLD_PCT[k]}%</div><div class="small">${lang==='en'?'of people':'ของผู้คน'}</div></div>`;
-    cont.appendChild(card);
-  });
-  if(liveStats) document.getElementById('meta-count').textContent = liveStats.total.toLocaleString();
-}
-
-function fetchStats(){
-  fetch(SHEET_URL).then(r => r.json()).then(data => {
-    liveStats = data;
-    animateCount(document.getElementById('meta-count'), data.total);
-    if(document.getElementById('live-stats-breakdown').classList.contains('show')) { renderLiveBreakdown(); }
-  }).catch(()=>{ document.getElementById('meta-count').textContent = '—'; });
-}
-
-function animateCount(el, target){
-  let start = 0;
-  const step = Math.max(1, Math.ceil(target/40));
-  const timer = setInterval(()=>{
-    start += step;
-    if(start >= target){ start = target; clearInterval(timer); }
-    el.textContent = start.toLocaleString();
-  }, 25);
-}
-
-function toggleLiveBreakdown() {
-  const bd = document.getElementById('live-stats-breakdown');
-  bd.classList.toggle('show');
-  if(bd.classList.contains('show')) { renderLiveBreakdown(); }
-}
-
-function renderLiveBreakdown() {
-  const bd = document.getElementById('live-stats-breakdown');
-  bd.innerHTML = '';
-  const counts = liveStats ? liveStats.counts : {lion:0,bear:0,wolf:0,dolphin:0};
-  const total = (liveStats && liveStats.total) ? liveStats.total : 1;
-  let sortedStats = ORDER.map(k => { return { key: k, count: counts[k] || 0 }; });
-  sortedStats.sort((a, b) => b.count - a.count);
-
-  sortedStats.forEach((item, index) => {
-    const k = item.key;
-    const pct = Math.round((item.count / total) * 100);
-    const name = T[lang].animals[k].name;
-    const row = document.createElement('div');
-    row.className = 'mini-stat-row';
-    row.innerHTML = `
-      <div class="mini-stat-label"><span style="opacity:0.6; font-size:0.8rem; margin-right:4px;">#${index + 1}</span>${ANIMAL_ICONS[k]} ${name}</div>
-      <div class="mini-stat-bar-bg"><div class="mini-stat-bar-fill" style="width:0%; background:${ANIMAL_COLORS[k]}"></div></div>
-      <div class="mini-stat-pct">${pct}%</div>`;
-    bd.appendChild(row);
-    setTimeout(() => { row.querySelector('.mini-stat-bar-fill').style.width = pct + '%'; }, 50);
-  });
-}
-
-/* ============ NAVIGATION & REGISTRATION ============ */
-function showRegistration(){
-  pulseBackground();
-  document.getElementById('home-screen').classList.add('hidden');
-  document.getElementById('registration-screen').classList.remove('hidden');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function startQuizFromReg(){
-  const nameInput = document.getElementById('user-name').value.trim();
-  const phoneInput = document.getElementById('user-phone').value.trim();
-  
-  if(!nameInput || !phoneInput){
-    alert(T[lang].alertEmpty);
-    return;
+  if (!nameInput || !phoneInput) {
+    errorEl.classList.add("show");
+    setTimeout(() => errorEl.classList.remove("show"), 2000);
+    return; 
   }
+
+  errorEl.classList.remove("show");
+  userInfo.name = nameInput;
+  userInfo.phone = phoneInput;
   
-  userName = nameInput;
-  userPhone = phoneInput;
-  
-  document.getElementById('registration-screen').classList.add('hidden');
-  startQuizCore();
+  idx=0; 
+  score={chicken:0,cat:0,bat:0,owl:0}; 
+  userAnswers = []; // Reset answers
+  go("quiz"); 
+  render(); 
 }
 
-function startQuizCore(){
-  current = 0; scores = { lion:0, bear:0, wolf:0, dolphin:0 }; userAnswers = []; lastResult = null;
-  
-  isAnimating = false; 
-  
-  document.getElementById('quiz-screen').classList.remove('hidden');
-  const quiz = document.getElementById('quiz-screen');
-  quiz.style.animation = 'none'; quiz.offsetHeight; quiz.style.animation = null; 
-  renderQuestion(); window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+function go(id){ document.querySelectorAll(".screen").forEach(sec=>sec.classList.remove("on")); $(id).classList.add("on"); window.scrollTo(0,0); }
 
-function goHome(){
-  if (bgAnim) bgAnim.playbackRate = 1; 
-  document.getElementById('result-screen').classList.add('hidden');
-  document.getElementById('quiz-screen').classList.add('hidden');
-  document.getElementById('registration-screen').classList.add('hidden');
+function render(){
+  const item=Q[idx];
+  const s=STR[lang];
+  $("qtext").textContent=item[lang].q;
+  $("qcount").textContent=s.qWord+" "+(idx+1)+" / "+Q.length;
+  const pct=(idx/(Q.length-1))*100;
+  $("fill").style.width=pct+"%";
+  $("orb").style.left=pct+"%";
+  const box=$("opts"); box.innerHTML="";
   
-  document.getElementById('user-name').value = '';
-  document.getElementById('user-phone').value = '';
-
-  const home = document.getElementById('home-screen');
-  home.classList.remove('hidden');
-  [home.querySelector('.stagger-1'), home.querySelector('.stagger-2'), home.querySelector('.stagger-3')].forEach(el => {
-    el.style.animation = 'none'; el.offsetHeight; el.style.animation = null;
+  item[lang].a.forEach((label,i)=>{
+    const type=item.types[i];
+    const b=document.createElement("button");
+    b.className="opt";
+    b.innerHTML='<span class="dot"></span><span>'+label+'</span>';
+    // Passing the actual answer text to the pick function
+    b.onclick=()=>pick(type, label);
+    box.appendChild(b);
   });
-  renderHome(); fetchStats(); window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ============ QUIZ ============ */
-function renderQuestion(){
-  const data = T[lang].questions[current];
-  document.getElementById('question').textContent = (current+1)+". "+data.q;
-  const opts = document.getElementById('options');
-  opts.innerHTML = '';
-  data.a.forEach((text, i)=>{
-    const b = document.createElement('button');
-    b.textContent = text; b.onclick = ()=>answer(i); opts.appendChild(b);
-  });
-  document.getElementById('progress').style.width = (current/T[lang].questions.length*100)+'%';
-}
-
-function answer(i){
-  if(isAnimating) return;
-  isAnimating = true; 
-  
-  pulseBackground(); 
-
-  try {
-    scores[SCORE_MAP[i]]++; 
-    userAnswers.push(T[lang].questions[current].a[i]); 
-    current++;
-    
-    const block = document.getElementById('q-block');
-    block.classList.add('fade-out-up');
-
-    setTimeout(()=>{
-      if(current < T[lang].questions.length){
-        renderQuestion();
-        block.classList.remove('fade-out-up'); 
-        block.classList.add('fade-in-bottom'); 
-        void block.offsetWidth; 
-        block.classList.remove('fade-in-bottom'); 
-        isAnimating = false;
-      } else {
-        block.classList.remove('fade-out-up'); 
-        isAnimating = false; 
-        finish();
-      }
-    }, 400);
-  } catch (error) {
-    console.error("Quiz encountered an error:", error);
-    isAnimating = false; 
-  }
-}
-
-function getResult(){
-  let best='lion', max=-1;
-  for(const k in scores){ if(scores[k]>max){max=scores[k]; best=k;} }
-  return best;
+function pick(type, answerLabel){
+  score[type]++;
+  userAnswers.push(answerLabel); // Store the exact text of the answer
+  idx++;
+  if(idx<Q.length){ render(); }
+  else finish();
 }
 
 function finish(){
-  if (bgAnim) bgAnim.playbackRate = 1; 
-  document.getElementById('progress').style.width = '100%';
-  lastResult = getResult(); saveData(lastResult);
-  document.getElementById('quiz-screen').classList.add('hidden');
-  const res = document.getElementById('result-screen');
-  res.classList.remove('hidden');
-  res.style.animation = 'none'; res.offsetHeight; res.style.animation = null;
-  showResultText(); renderStats(); window.scrollTo({ top: 0, behavior: 'smooth' });
+  window._resultKey = Object.keys(score).reduce((a,b)=>score[b]>score[a]?b:a,"chicken");
+  renderResult();
+  saveDataToSheets(window._resultKey);
+  go("result");
 }
 
-/* ============ RENDER RESULT TEXT ============ */
-function showResultText(){
-  if(!lastResult) return;
-  const a = T[lang].animals[lastResult];
-  const t = T[lang];
-  const color = ANIMAL_COLORS[lastResult];
-  
-  document.getElementById('res-top-title').textContent = t.resTopTitle;
-  document.getElementById('animal-icon').textContent = a.icon;
-  document.getElementById('result-title').textContent = a.name;
-  document.getElementById('result-title').style.color = color; 
-  document.getElementById('result-desc').textContent = a.desc;
-  
-  document.getElementById('stats-title').textContent = t.statsTitle;
-  
-  document.getElementById('tl-title').textContent = t.tlTitle;
-  document.getElementById('tl-subtitle').textContent = t.tlSubtitle;
-  const tlGrid = document.getElementById('timeline-grid');
-  tlGrid.innerHTML = '';
-  
-  const softBg = color + '1A'; 
-  
-  a.timeline.forEach(item => {
-    const box = document.createElement('div');
-    box.className = 'timeline-item';
-    box.style.backgroundColor = softBg;
-    box.innerHTML = `
-      <div class="timeline-time" style="color:${color}">${item.time}</div>
-      <div class="timeline-desc">${item.text}</div>
-    `;
-    tlGrid.appendChild(box);
+function renderResult(){
+  const t = TYPES[window._resultKey];
+  $("rEmoji").textContent = t.emoji;
+  $("rName").textContent = t[lang].name;
+  $("rEng").textContent = t[lang].eng;
+  $("rDesc").textContent = t[lang].desc;
+  $("rWeak").textContent = t[lang].weak;
+
+  const timelineBox = $("rTimeline");
+  timelineBox.innerHTML = "";
+  t[lang].timeline.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    timelineBox.appendChild(li);
   });
 
-  const pureName = lang === 'en' ? a.name.replace("The ", "") : a.name.split(" ")[0];
-  document.getElementById('tips-title').textContent = `${t.tipsTitle} ${pureName.toUpperCase()}`;
-  document.getElementById('tips-subtitle').textContent = t.tipsSubtitle;
-  
-  const tipsList = document.getElementById('tips-list');
-  tipsList.innerHTML = '';
-  
-  a.tips.forEach((tip, index) => {
-    const item = document.createElement('div');
-    item.className = 'tip-item';
-    const num = String(index + 1).padStart(2, '0'); 
-    item.innerHTML = `
-      <div class="tip-num" style="color:${color}">${num}</div>
-      <div class="tip-desc">${tip}</div>
-    `;
-    tipsList.appendChild(item);
-  });
-
-  document.getElementById('restart-btn').textContent = t.restart;
-  document.getElementById('restart-btn').style.backgroundColor = color; 
-  document.getElementById('saving-note').textContent = t.saving;
-}
-
-function saveData(result){
-  const payload = { 
-    name: userName, 
-    phone: userPhone, 
-    result: result, 
-    answers: userAnswers, 
-    timestamp: new Date().toISOString(), 
-    lang: lang 
-  };
-  
-  if(liveStats){ liveStats.total++; liveStats.counts[result] = (liveStats.counts[result]||0)+1; }
-  fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).catch(err => console.warn('Save failed', err));
-}
-
-function renderStats(){
-  const counts = liveStats ? liveStats.counts : {lion:0,bear:0,wolf:0,dolphin:0};
-  const total = (liveStats && liveStats.total) ? liveStats.total : 1;
-  const bars = document.getElementById('stats-bars');
-  bars.innerHTML = '';
-  
-  let sortedStats = ORDER.map(k => { return { key: k, count: counts[k] || 0 }; });
-  sortedStats.sort((a, b) => b.count - a.count);
-
-  sortedStats.forEach((item, index) => {
-    const k = item.key;
-    const pct = Math.round((item.count / total) * 100);
-    const name = T[lang].animals[k].name;
-    const row = document.createElement('div');
-    row.className = 'stat-row';
-    row.innerHTML = `
-      <div class="stat-label">
-        <span><span style="opacity:0.5; font-size:0.8rem; margin-right:4px;">#${index + 1}</span>${ANIMAL_ICONS[k]} ${name}</span>
-        <span>${pct}% (${item.count})</span>
-      </div>
-      <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:0%;background:${ANIMAL_COLORS[k]}"></div></div>`;
-    bars.appendChild(row);
-    setTimeout(()=>{ row.querySelector('.stat-bar-fill').style.width = pct+'%'; }, 100);
+  const tipsBox = $("rTips");
+  tipsBox.innerHTML = "";
+  t[lang].tips.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    tipsBox.appendChild(li);
   });
 }
 
-/* ============ INIT ============ */
-setLang('th');
-renderHome();
-fetchStats();
+function reset(){
+  $("userName").value = "";
+  $("userPhone").value = "";
+  userInfo = {name: "", phone: ""};
+  go("start"); 
+}
+
+function share(){
+  const winner = window._resultKey;
+  if(!winner) return;
+  const t = TYPES[winner];
+  const s = STR[lang];
+  const shareText = `${s.shareIntro} ${t.emoji} ${t[lang].name} (${t[lang].eng})!\n${s.shareCta}`;
+  const url = location.href;
+  if(navigator.share){
+    navigator.share({title:s.docTitle, text:shareText, url:url}).catch(()=>{});
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(shareText+"\n"+url).then(toastShow).catch(toastShow);
+  } else {
+    toastShow();
+  }
+}
+function toastShow(){ const el=$("toast"); el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),1800); }
+
+function saveDataToSheets(resultAnimal) {
+  if (GOOGLE_APP_SCRIPT_URL === "YOUR_WEB_APP_URL_HERE") return;
+
+  fetch(GOOGLE_APP_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors', 
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: userInfo.name,
+      phone: userInfo.phone,
+      animal_result: resultAnimal,
+      language: lang,
+      answers: userAnswers // Sending the array of 7 answers
+    })
+  }).catch(error => console.error('Error recording data:', error));
+}
+
+applyStaticText();
 </script>
 </body>
 </html>
