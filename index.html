@@ -207,7 +207,7 @@
   .r-section{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
   .r-label{font-family:"Kanit";font-weight:600;font-size:13px;color:var(--peach);margin-bottom:8px}
   .r-list { list-style-type: disc; padding-left: 20px; font-size: 14.5px; line-height: 1.6; color: var(--cream); }
-  .r-list li { margin-bottom: 4px; }
+  .r-list li { margin-bottom: 8px; }
 
   .toast{
     position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
@@ -224,7 +224,6 @@
 
 <div class="app">
 
-  <!-- START -->
   <section id="start" class="screen on">
     <div class="moon-big moon-glow">🌙</div>
     <div class="eyebrow" id="eyebrow">แบบทดสอบการนอน</div>
@@ -242,7 +241,6 @@
     <button class="btn" id="startBtn" onclick="start()">เริ่มเทสต์เลย</button>
   </section>
 
-  <!-- QUIZ -->
   <section id="quiz" class="screen">
     <div class="prog">
       <div class="track">
@@ -255,7 +253,6 @@
     <div class="opts" id="opts"></div>
   </section>
 
-  <!-- RESULT -->
   <section id="result" class="screen">
     <div class="r-emoji-wrap"><div class="r-emoji moon-glow" id="rEmoji"></div></div>
     <div class="r-tag" id="resultTag">คุณคือ</div>
@@ -266,13 +263,8 @@
       <p id="rDesc"></p>
       
       <div class="r-section">
-        <div class="r-label" id="weakLabel">💤 จุดสลบ</div>
+        <div class="r-label" id="weakLabel">💤 จุดอ่อนเรื่องการนอน</div>
         <p id="rWeak"></p>
-      </div>
-
-      <div class="r-section">
-        <div class="r-label" id="timelineLabel">🗓️ ตารางชีวิตแนะนำ</div>
-        <ul id="rTimeline" class="r-list"></ul>
       </div>
 
       <div class="r-section">
@@ -309,8 +301,7 @@ const STR = {
     start: `เริ่มเทสต์เลย`,
     qWord: `คำถาม`,
     resultTag: `คุณคือ`,
-    weakLabel: `💤 จุดสลบ`,
-    timelineLabel: `🗓️ ตารางชีวิตที่เหมาะกับคุณ`,
+    weakLabel: `💤 จุดอ่อนเรื่องการนอน`,
     tipsLabel: `💡 ทริคเพิ่มพลังการทำงานง่ายๆ`,
     shareBtn: `แชร์ผลลัพธ์`,
     replayBtn: `เล่นอีกครั้ง`,
@@ -331,8 +322,7 @@ const STR = {
     start: `Start the Quiz`,
     qWord: `Question`,
     resultTag: `You Are`,
-    weakLabel: `💤 Weak Spot`,
-    timelineLabel: `🗓️ Your Optimal Timeline`,
+    weakLabel: `💤 Sleeping Point`,
     tipsLabel: `💡 Productivity Tips`,
     shareBtn: `Share Result`,
     replayBtn: `Play Again`,
@@ -347,56 +337,104 @@ const TYPES = {
     th:{name:`ไก่ชนตื่นตีสี่`,eng:`สายเช้า`,
       desc:`คุณตื่นเช้ามาก บางทีก่อนพระอาทิตย์ขึ้นด้วยซ้ำ ช่วงเช้าคือเวลาที่หัวโล่งและทำงานได้ดีที่สุด ตื่นมาก็พร้อมลุยเลย`,
       weak:`พอสองทุ่มตาก็เริ่มปิด ใครชวนไปเที่ยวหรือกินข้าวมื้อดึก มักตอบว่า “ไม่ไหว ขอนอนก่อน”`,
-      timeline:[`05:00 - ตื่นนอน ดื่มน้ำ และออกกำลังกายเบาๆ`,`08:00 - ลุยงานที่ยากที่สุด (ช่วงสมองแล่น)`,`20:00 - เริ่มปิดไฟ พักผ่อนเตรียมตัวนอน`],
-      tips:[`จัดการงานที่ใช้สมาธิสูงให้เสร็จก่อนเที่ยง`,`งดชาหรือกาแฟหลังบ่ายโมงเพื่อไม่ให้กระทบการนอน`,`กินมื้อเย็นให้เร็วขึ้น ช่วยให้หลับสบายกว่าเดิม`]
+      tips:[
+        `จัดการงานที่ใช้สมาธิสูงหรือโปรเจกต์ยากๆ ให้เสร็จก่อนเที่ยง`,
+        `งดชาหรือกาแฟหลังบ่ายโมง เพื่อไม่ให้คาเฟอีนตกค้างจนกระทบการนอน`,
+        `กินมื้อเย็นให้เร็วขึ้น (ก่อน 6 โมงเย็น) จะช่วยให้ร่างกายหลับสบายและลึกกว่าเดิม`,
+        `พยายามรับแสงแดดอ่อนๆ ยามเช้าเพื่อรีเฟรชสมองและกระตุ้นนาฬิกาชีวิต`,
+        `ใช้เวลาช่วงบ่ายเคลียร์งานเอกสาร การตอบอีเมล หรืองานที่ไม่ต้องใช้พลังสมองเยอะ`,
+        `พยายามเข้านอนให้เป็นเวลาเดิมทุกวัน เพื่อรักษาวงจรการนอนหลับให้คงที่`
+      ]
     },
     en:{name:`The 4AM Rooster`,eng:`Morning Type`,
       desc:`You're up early — sometimes even before sunrise. Mornings are when your mind is clearest and you get your best work done. You wake up ready to go.`,
       weak:`By 8pm your eyes start closing. If someone invites you out or to a late dinner, your answer is usually “I can't, I need to sleep.”`,
-      timeline:[`05:00 - Wake up, hydrate, light stretching`,`08:00 - Deep work (Your peak focus time)`,`20:00 - Wind down and prepare for bed`],
-      tips:[`Knock out your hardest tasks before noon.`,`Cut off caffeine by 1 PM.`,`Eat dinner earlier for better sleep quality.`]
+      tips:[
+        `Knock out your hardest or most focus-heavy tasks before noon.`,
+        `Cut off all caffeine by 1 PM so it doesn't interfere with your early bedtime.`,
+        `Eat dinner earlier in the evening to improve your overall sleep quality.`,
+        `Get 10-15 minutes of mild morning sunlight to reset your circadian rhythm.`,
+        `Save your afternoons for light administrative work, organizing, or answering emails.`,
+        `Maintain a strict and consistent bedtime to keep your morning energy high.`
+      ]
     }
   },
   cat:{emoji:"🐱",
     th:{name:`แมวส้มออฟฟิศ`,eng:`สายกลางวัน`,
       desc:`คุณนอนและตื่นตามเวลาปกติทั่วไป ใช้ชีวิตตามตารางได้เรื่อยๆ ไม่เช้าเกินและไม่ดึกเกิน เป็นสายที่พบมากที่สุด`,
       weak:`ช่วงบ่ายสามจะเริ่มหมดแรง ต้องหากาแฟหรือชาเย็นสักแก้วมาเติมพลังให้ทำงานต่อไหว`,
-      timeline:[`07:30 - ตื่นนอนและเตรียมตัวเริ่มวันใหม่`,`10:00 - เข้าสู่โหมดโฟกัสการทำงาน`,`15:00 - ลุกเดินยืดเส้นยืดสาย (ช่วงแบตเตอรี่ตก)`],
-      tips:[`ใช้เทคนิค Pomodoro (ทำ 25 นาที พัก 5 นาที) จะช่วยให้ไม่เหนื่อยล้าตอนบ่าย`,`หาเวลาออกไปรับแดดช่วงเช้า 10 นาที`,`ช่วงบ่ายถ้าง่วง ให้ดื่มน้ำเปล่าเยอะๆ แทนการกินขนมหวาน`]
+      tips:[
+        `ใช้เทคนิค Pomodoro (ทำงาน 25 นาที พัก 5 นาที) จะช่วยให้สมองไม่ล้าตอนบ่าย`,
+        `จัดอันดับความสำคัญของงานตั้งแต่เริ่มเปิดคอมพิวเตอร์ในตอนเช้า`,
+        `ช่วงบ่ายถ้าง่วง ให้ดื่มน้ำเปล่าเย็นๆ เยอะๆ แทนการกินขนมหวานหรือน้ำตาล`,
+        `พยายามลุกเดิน ยืดเส้นยืดสาย หรือพักสายตาทุกๆ 1-2 ชั่วโมง`,
+        `หาเวลาออกไปรับแสงแดดอ่อนๆ นอกออฟฟิศช่วงเช้าสัก 10 นาที`,
+        `ถ้าช่วงบ่ายแบตหมดจริงๆ การงีบสั้นๆ (Power Nap) 15-20 นาทีจะช่วยกู้ชีพได้มาก`
+      ]
     },
     en:{name:`The Office Cat`,eng:`Daytime Type`,
       desc:`You sleep and wake at fairly normal hours. You keep a steady schedule — not too early, not too late. This is the most common type.`,
       weak:`By 3pm you're running low on energy. You need a coffee or iced tea to power through the rest of the day.`,
-      timeline:[`07:30 - Wake up and start the day`,`10:00 - Primary focus and heavy tasks`,`15:00 - Take a short walk (Beware the afternoon slump!)`],
-      tips:[`Use the Pomodoro technique to maintain steady energy.`,`Get 10 minutes of morning sunlight.`,`Hydrate with water in the afternoon instead of sugary snacks.`]
+      tips:[
+        `Use the Pomodoro technique (25 mins work, 5 mins rest) to maintain steady energy.`,
+        `Prioritize your to-do list and tackle the top 3 items first thing in the morning.`,
+        `Hydrate with cold water in the afternoon instead of reaching for sugary snacks.`,
+        `Make a habit of standing up, stretching, or resting your eyes every 1-2 hours.`,
+        `Try to get at least 10 minutes of natural sunlight outside before starting work.`,
+        `If you hit a wall in the afternoon, a strict 15-20 minute power nap works wonders.`
+      ]
     }
   },
   bat:{emoji:"🦇",
     th:{name:`ค้างคาวออกดึก`,eng:`สายดึก`,
       desc:`ตอนเช้าคุณเหมือนยังไม่ตื่นดี แต่พอฟ้ามืดกลับสดชื่นและมีไอเดียพุ่ง กลางคืนคือเวลาที่คุณทำงานได้ดีที่สุด`,
       weak:`การตื่นเช้าหรือมีนัด 9 โมงคือเรื่องที่ทรมานที่สุด และมักติดกินมื้อดึกจนน้ำหนักขึ้น`,
-      timeline:[`10:00 - ตื่นนอนแบบค่อยเป็นค่อยไป`,`14:00 - เริ่มทำงานหรือจัดการธุระสำคัญ`,`21:00 - ช่วงเวลาแห่งไอเดีย (สมองแล่นที่สุด)`],
-      tips:[`พยายามหลีกเลี่ยงการจัดประชุมช่วงเช้าตรู่ถ้าทำได้`,`เปิดโหมดถนอมสายตา (Blue light filter) ที่หน้าจอก่อนนอน 1 ชม.`,`ถ้าหิวดึก ให้เปลี่ยนจากบะหมี่เป็นผลไม้หรือนมอุ่นๆ`]
+      tips:[
+        `พยายามบล็อกตารางเวลาช่วงเช้าไว้ เพื่อหลีกเลี่ยงการจัดประชุมเช้าตรู่ถ้าทำได้`,
+        `เปิดโหมดถนอมสายตา (Blue light filter) ที่หน้าจอมือถือและคอมพิวเตอร์ 1-2 ชม. ก่อนนอน`,
+        `ถ้าหิวดึก ให้เปลี่ยนจากบะหมี่กึ่งสำเร็จรูปเป็นผลไม้ โยเกิร์ต หรือนมอุ่นๆ`,
+        `จดไอเดียที่พุ่งกระฉูดตอนกลางคืนไว้คร่าวๆ แล้วค่อยนำมาสานต่อให้เสร็จในวันพรุ่งนี้`,
+        `เก็บงานที่ต้องใช้ความคิดสร้างสรรค์สูงๆ ไว้ทำในช่วงหัวค่ำเป็นต้นไป`,
+        `ตั้งนาฬิกาเตือน "เวลาเลิกงาน" ให้ชัดเจน เพื่อไม่ให้เผลอโต้รุ่งจนเสียสุขภาพ`
+      ]
     },
     en:{name:`The Night Bat`,eng:`Night Type`,
       desc:`In the morning you're barely awake, but once it gets dark you come alive and the ideas start flowing. Night is when you do your best work.`,
       weak:`Waking up early or having a 9am appointment is pure torture. You also tend to snack late at night, which doesn't help the waistline.`,
-      timeline:[`10:00 - Gentle wake up`,`14:00 - Start tackling important tasks`,`21:00 - Idea generation (Peak productivity)`],
-      tips:[`Block out your mornings to avoid early meetings.`,`Use blue-light blocking screens 1 hour before sleep.`,`Swap heavy midnight snacks for warm milk or fruit.`]
+      tips:[
+        `Block out your morning calendar to avoid early meetings whenever possible.`,
+        `Turn on blue-light blocking features on all your screens 1-2 hours before bed.`,
+        `Swap heavy midnight snacks (like instant noodles) for warm milk, yogurt, or fruit.`,
+        `Write down your late-night bursts of ideas, but execute the heavy lifting the next day.`,
+        `Save your most creative, demanding, and complex tasks for the evening hours.`,
+        `Set a strict "stop working" alarm so you don't accidentally pull an all-nighter.`
+      ]
     }
   },
   owl:{emoji:"🦉",
     th:{name:`นกฮูกนอนยาก`,eng:`สายหลับยาก`,
       desc:`เวลานอนของคุณไม่แน่นอน มักคิดมากก่อนนอน พอหัวถึงหมอนสมองก็เริ่มขุดเรื่องเก่าหรือคิดเรื่องพรุ่งนี้ไม่หยุด`,
       weak:`การนอนขึ้นอยู่กับความเครียดในแต่ละวัน เดาไม่ได้เลยว่าคืนไหนจะหลับสบาย คืนไหนจะตาค้าง`,
-      timeline:[`เวลาตื่น - ไม่แน่นอน แนะนำให้ตื่นเวลาเดิมทุกวัน`,`16:00 - ออกกำลังกายให้ร่างกายเหนื่อย`,`22:00 - งดเล่นมือถือและเตรียมตัวผ่อนคลาย`],
-      tips:[`มีสมุดจดไว้ข้างเตียง คิดอะไรออกให้จดลงไป สมองจะได้ไม่ต้องจำ`,`ลดแสงในห้องลง 1 ชั่วโมงก่อนนอน สร้างบรรยากาศ`,`ลองฟังพอดแคสต์เล่านิทานหรือเสียงฝนตกช่วยให้หลับง่ายขึ้น`]
+      tips:[
+        `มีสมุดจดไว้ข้างเตียง คิดหรือกังวลเรื่องอะไรให้จดลงไป สมองจะได้ไม่ต้องแบกรับไว้`,
+        `ลดแสงสว่างในห้องลง 1 ชั่วโมงก่อนนอน เพื่อสร้างบรรยากาศให้ร่างกายรู้ว่าถึงเวลาพัก`,
+        `ลองฟังพอดแคสต์เล่านิทาน เสียงฝนตก หรือ White Noise เพื่อเบี่ยงเบนความคิด`,
+        `ออกกำลังกายในช่วงเย็น (แต่อย่าใกล้เวลานอนเกินไป) เพื่อให้ร่างกายรู้สึกเหนื่อยล้า`,
+        `หลีกเลี่ยงการคุยเรื่องเครียด หรือเช็กอีเมลง่านอย่างน้อย 2 ชั่วโมงก่อนเข้านอน`,
+        `ถ้านอนตาค้างเกิน 20 นาที ให้ลุกไปทำกิจกรรมเบาๆ (เช่น อ่านหนังสือ) แล้วค่อยกลับมานอนใหม่`
+      ]
     },
     en:{name:`The Restless Owl`,eng:`Insomniac Type`,
       desc:`Your sleep schedule is unpredictable. You tend to overthink before bed — the moment your head hits the pillow, your brain digs up old memories or spirals about tomorrow.`,
       weak:`Your sleep depends entirely on how stressed you are that day. There's no telling which nights you'll sleep soundly and which ones you'll be wide awake.`,
-      timeline:[`Wake time - Variable, try to keep it consistent`,`16:00 - Exercise to physically tire yourself out`,`22:00 - Strict no-screen wind down time`],
-      tips:[`Keep a "brain dump" notebook by your bed to write down racing thoughts.`,`Dim all lights 1 hour before bed to signal your brain.`,`Try listening to rain sounds or sleep stories to distract your mind.`]
+      tips:[
+        `Keep a "brain dump" notebook by your bed. Write down all racing thoughts so you can let them go.`,
+        `Dim all the lights in your home 1 hour before bed to naturally signal to your brain it's time to rest.`,
+        `Listen to rain sounds, sleep stories, or white noise to distract your mind from overthinking.`,
+        `Exercise in the late afternoon or early evening to physically tire your body out.`,
+        `Strictly avoid stressful conversations or checking work emails at least 2 hours before bed.`,
+        `If you can't fall asleep after 20 minutes, get out of bed, do a relaxing activity, and try again.`
+      ]
     }
   }
 };
@@ -453,7 +491,6 @@ function applyStaticText(){
   $("startBtn").textContent = s.start;
   $("resultTag").textContent = s.resultTag;
   $("weakLabel").textContent = s.weakLabel;
-  $("timelineLabel").textContent = s.timelineLabel;
   $("tipsLabel").textContent = s.tipsLabel;
   $("shareBtn").textContent = s.shareBtn;
   $("replayBtn").textContent = s.replayBtn;
@@ -473,7 +510,6 @@ function start() {
   const emailInput = $("userEmail").value.trim();
   const errorEl = $("formError");
 
-  // REGEX VALIDATION: Must contain "@" and end with ".com"
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/i;
 
   if (!nameInput || !emailInput || !emailRegex.test(emailInput)) {
@@ -537,14 +573,6 @@ function renderResult(){
   $("rEng").textContent = t[lang].eng;
   $("rDesc").textContent = t[lang].desc;
   $("rWeak").textContent = t[lang].weak;
-
-  const timelineBox = $("rTimeline");
-  timelineBox.innerHTML = "";
-  t[lang].timeline.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = item;
-    timelineBox.appendChild(li);
-  });
 
   const tipsBox = $("rTips");
   tipsBox.innerHTML = "";
