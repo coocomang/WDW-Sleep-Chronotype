@@ -235,8 +235,8 @@
     
     <div class="user-info-form">
       <input type="text" id="userName" placeholder="ชื่อของคุณ">
-      <input type="tel" id="userPhone" placeholder="เบอร์โทรศัพท์">
-      <div id="formError" class="error-msg">กรุณากรอกชื่อและเบอร์โทรศัพท์</div>
+      <input type="email" id="userEmail" placeholder="อีเมล / Gmail">
+      <div id="formError" class="error-msg">กรุณากรอกชื่อและอีเมลให้ถูกต้องก่อนเริ่มเทสต์</div>
     </div>
 
     <button class="btn" id="startBtn" onclick="start()">เริ่มเทสต์เลย</button>
@@ -304,8 +304,8 @@ const STR = {
     h1hl: `สัตว์อะไร`,
     lede: `ตอบคำถามสั้นๆ 7 ข้อเกี่ยวกับการนอน แล้วมาดูกันว่าคุณคือสัตว์ตัวไหน`,
     namePlaceholder: `ชื่อของคุณ`,
-    phonePlaceholder: `เบอร์โทรศัพท์`,
-    formError: `กรุณากรอกชื่อและเบอร์โทรศัพท์ก่อนเริ่มเทสต์`,
+    emailPlaceholder: `อีเมล / Gmail`,
+    formError: `กรุณากรอกชื่อและอีเมลให้ถูกต้อง (ต้องมี @ และ .com) ก่อนเริ่มเทสต์`,
     start: `เริ่มเทสต์เลย`,
     qWord: `คำถาม`,
     resultTag: `คุณคือ`,
@@ -326,8 +326,8 @@ const STR = {
     h1hl: `animal`,
     lede: `Answer 7 quick questions about your sleep habits and find out which animal you really are.`,
     namePlaceholder: `Your Name`,
-    phonePlaceholder: `Phone Number`,
-    formError: `Please enter your name and phone number to start.`,
+    emailPlaceholder: `Email / Gmail`,
+    formError: `Please enter your name and a valid email (must include @ and .com) to start.`,
     start: `Start the Quiz`,
     qWord: `Question`,
     resultTag: `You Are`,
@@ -433,8 +433,8 @@ const Q = [
 
 let lang = 'th';
 let idx = 0, score = {chicken:0,cat:0,bat:0,owl:0};
-let userInfo = {name: "", phone: ""}; 
-let userAnswers = []; // Array to store each chosen answer
+let userInfo = {name: "", email: ""}; 
+let userAnswers = []; 
 
 const $=id=>document.getElementById(id);
 
@@ -448,7 +448,7 @@ function applyStaticText(){
   $("h1hl").textContent = s.h1hl;
   $("lede").textContent = s.lede;
   $("userName").placeholder = s.namePlaceholder;
-  $("userPhone").placeholder = s.phonePlaceholder;
+  $("userEmail").placeholder = s.emailPlaceholder;
   $("formError").textContent = s.formError;
   $("startBtn").textContent = s.start;
   $("resultTag").textContent = s.resultTag;
@@ -470,22 +470,25 @@ function toggleLang(){
 
 function start() {
   const nameInput = $("userName").value.trim();
-  const phoneInput = $("userPhone").value.trim();
+  const emailInput = $("userEmail").value.trim();
   const errorEl = $("formError");
 
-  if (!nameInput || !phoneInput) {
+  // REGEX VALIDATION: Must contain "@" and end with ".com"
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$/i;
+
+  if (!nameInput || !emailInput || !emailRegex.test(emailInput)) {
     errorEl.classList.add("show");
-    setTimeout(() => errorEl.classList.remove("show"), 2000);
+    setTimeout(() => errorEl.classList.remove("show"), 2500);
     return; 
   }
 
   errorEl.classList.remove("show");
   userInfo.name = nameInput;
-  userInfo.phone = phoneInput;
+  userInfo.email = emailInput;
   
   idx=0; 
   score={chicken:0,cat:0,bat:0,owl:0}; 
-  userAnswers = []; // Reset answers
+  userAnswers = []; 
   go("quiz"); 
   render(); 
 }
@@ -507,7 +510,6 @@ function render(){
     const b=document.createElement("button");
     b.className="opt";
     b.innerHTML='<span class="dot"></span><span>'+label+'</span>';
-    // Passing the actual answer text to the pick function
     b.onclick=()=>pick(type, label);
     box.appendChild(b);
   });
@@ -515,7 +517,7 @@ function render(){
 
 function pick(type, answerLabel){
   score[type]++;
-  userAnswers.push(answerLabel); // Store the exact text of the answer
+  userAnswers.push(answerLabel);
   idx++;
   if(idx<Q.length){ render(); }
   else finish();
@@ -555,8 +557,8 @@ function renderResult(){
 
 function reset(){
   $("userName").value = "";
-  $("userPhone").value = "";
-  userInfo = {name: "", phone: ""};
+  $("userEmail").value = "";
+  userInfo = {name: "", email: ""};
   go("start"); 
 }
 
@@ -586,10 +588,10 @@ function saveDataToSheets(resultAnimal) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       name: userInfo.name,
-      phone: userInfo.phone,
+      email: userInfo.email,
       animal_result: resultAnimal,
       language: lang,
-      answers: userAnswers // Sending the array of 7 answers
+      answers: userAnswers
     })
   }).catch(error => console.error('Error recording data:', error));
 }
