@@ -441,19 +441,19 @@ const TYPES = {
 
 const Q = [
   {types:["chicken","cat","bat","owl"],
-   th:{q:`วันหยุดที่ไม่ต้องตั้งนาฬิกาปลุก คุณตื่นเองกี่โมง?`,a:[`ตี 4–ตี 5 ตื่นเอง นอนต่อไม่ได้แล้ว`,`6–8 โมง ตื่นตามปกติ`,`เกือบเที่ยง หรือบ่ายไปเลย`,`ไม่แน่ แล้วแต่เมื่อคืนหลับกี่โมง`]},
+   th:{q:`วันหยุดที่ไม่ต้องตั้งนาฬิกาปลุก คุณตื่นเองกี่โมง?`,a:[`ตี 4–ตี 5 ตื่นเอง นอนต่อไม่ได้แล้ว`,`6–8 โมง ตื่นตามปกติ`,`เกือบเที่ยง หรือบ่ายไปเลย`,`ไม่แน่นอน แล้วแต่เวลานอนของเมื่อคืน `]},
    en:{q:`On a day off with no alarm, what time do you naturally wake up?`,a:[`4–5am — wide awake, can't fall back asleep`,`6–8am — my usual wake-up time`,`Almost noon, or even into the afternoon`,`Varies, depends what time I fell asleep`]}},
 
   {types:["chicken","cat","bat","owl"],
-   th:{q:`ช่วงไหนของวันที่หัวโล่ง ทำงานได้ดีที่สุด?`,a:[`เช้าตรู่ สดที่สุดตอนเช้า`,`สายๆ ถึงบ่าย ค่อยๆ อุ่นเครื่อง`,`กลางคืน ยิ่งดึกยิ่งแล่น`,`บอกไม่ได้ แล้วแต่วัน`]},
+   th:{q:`ช่วงไหนของวันที่หัวโล่ง ทำงานได้ดีที่สุด?`,a:[`เช้าตรู่ สดชื่นที่สุดตอนเช้า`,`สายๆ ถึงบ่าย ค่อยๆ อุ่นเครื่อง`,`กลางคืน ยิ่งดึกยิ่งแล่น`,`บอกไม่ได้ แล้วแต่วัน`]},
    en:{q:`What time of day is your mind clearest and most productive?`,a:[`Early morning — sharpest right after I wake up`,`Late morning to afternoon — I warm up gradually`,`At night — the later it gets, the better I work`,`Hard to say, it changes day to day`]}},
 
   {types:["chicken","cat","bat","owl"],
-   th:{q:`พอถึงบ่ายสามโมง คุณเป็นยังไง?`,a:[`ง่วงจริง เพราะตื่นมาตั้งแต่เช้ามืด`,`ง่วงนิดหน่อย ขอกาแฟหรือชาเย็นสักแก้ว`,`ยังสดอยู่ เพิ่งตื่นได้ไม่นาน`,`แล้วแต่วัน บางวันเพลีย บางวันไหว`]},
+   th:{q:`พอถึงบ่ายสามโมง คุณเป็นยังไง?`,a:[`ง่วงจริง เพราะตื่นมาตั้งแต่เช้ามืด`,`ง่วงนิดหน่อย ขอกาแฟหรือชาเย็นสักแก้ว`,`ยังสดใสอยู่ เพิ่งตื่นได้ไม่นาน`,`แล้วแต่วัน บางวันเพลีย บางวันสดชื่น`]},
    en:{q:`How do you feel around 3pm?`,a:[`Genuinely sleepy, I've been up since dawn`,`A little drowsy, need a coffee or iced tea`,`Still fresh, I only woke up recently`,`Depends on the day, sometimes tired, sometimes fine`]}},
 
   {types:["chicken","cat","bat","owl"],
-   th:{q:`เพื่อนชวนออกไปเที่ยวกลางคืน คุณจะ…`,a:[`ขอผ่าน ง่วงแล้ว`,`ไปได้ แต่ขอกลับก่อนดึก`,`ไปสิ กำลังสนุกเลย!`,`ไป แต่กลับมานอนไม่หลับอยู่ดี`]},
+   th:{q:`เพื่อนชวนออกไปเที่ยวกลางคืน คุณจะ…`,a:[`ขอผ่าน ง่วงแล้ว`,`ไปได้ แต่ขอกลับก่อน 4 ทุ่ม`,`ไปแน่นอน! อยากไปสังสรรค์`,`ไปสิ อยู่ห้องก็นอนไม่หลับอยู่ดี`]},
    en:{q:`A friend invites you out for a late night — you…`,a:[`Pass, I'm already sleepy`,`Go, but head home before it gets too late`,`Absolutely, this is when the fun starts!`,`Go, but still can't fall asleep once I'm home`]}},
 
   {types:["chicken","cat","bat","owl"],
@@ -465,7 +465,7 @@ const Q = [
    en:{q:`The night before a work day, how do you sleep?`,a:[`Fall asleep easily, I'm an early riser anyway`,`Normal routine, scroll my phone a bit then doze off`,`Not sleepy yet, stay up late as usual`,`Can't sleep, my mind loops on tomorrow`]}},
 
   {types:["chicken","cat","bat","owl"],
-   th:{q:`พอหัวถึงหมอน อีกกี่นาทีถึงจะหลับ?`,a:[`5 นาที หลับปุ๊บ`,`เล่นมือถือสักพักแล้วค่อยหลับ`,`ยังไม่ง่วง ลุกไปทำอย่างอื่นต่อ`,`นาน คิดโน่นคิดนี่ไม่หยุด`]},
+   th:{q:`พอหัวถึงหมอน อีกกี่นาทีถึงจะหลับ?`,a:[`หลับปุ๋ยใน 5 นาที`,`เล่นมือถือสักพักแล้วค่อยหลับ`,`ยังไม่ง่วง ลุกไปทำอย่างอื่นต่อ`,`นาน คิดโน่นคิดนี่ไม่หยุด`]},
    en:{q:`Once your head hits the pillow, how long until you fall asleep?`,a:[`5 minutes, out like a light`,`Scroll my phone for a while, then drift off`,`Not sleepy yet, get up to do something else`,`A long time, my thoughts won't stop racing`]}}
 ];
 
