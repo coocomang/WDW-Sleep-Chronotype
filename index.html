@@ -294,7 +294,7 @@ const STR = {
     h1a: `มาค้นหากันว่า..`,
     h1b: `การนอนของคุณ`,
     h1hl: `เป็นแบบไหน`,
-    lede: `ตอบคำถามสั้น ๆ 7 ข้อ แล้วดูว่าสัตว์ตัวไหนสะท้อนรูปแบบการนอนของคุณ ได้ใกล้เคียงที่สุด`,
+    lede: `ตอบคำถามสั้น ๆ 7 ข้อ แล้วดูว่าสัตว์ตัวไหนสะท้อน<br>รูปแบบการนอนของคุณ ได้ใกล้เคียงที่สุด`
     namePlaceholder: `ชื่อของคุณ`,
     emailPlaceholder: `อีเมล / Gmail`,
     formError: `กรุณากรอกชื่อและอีเมลให้ถูกต้อง (ต้องมี @ และ .com) ก่อนเริ่มเทสต์`,
@@ -315,7 +315,7 @@ const STR = {
     h1a: `Your sleep style`,
     h1b: `reveals your inner`,
     h1hl: `animal`,
-    lede: `Answer 7 quick questions about your sleep habits and find out which animal you really are.`,
+    lede: `Answer 7 quick questions about your sleep habits<br>and find out which animal you really are.`,
     namePlaceholder: `Your Name`,
     emailPlaceholder: `Email / Gmail`,
     formError: `Please enter your name and a valid email (must include @ and .com) to start.`,
@@ -484,7 +484,7 @@ function applyStaticText(){
   $("h1a").textContent = s.h1a;
   $("h1b").textContent = s.h1b;
   $("h1hl").textContent = s.h1hl;
-  $("lede").textContent = s.lede;
+  $("lede").innerHTML = s.lede;
   $("userName").placeholder = s.namePlaceholder;
   $("userEmail").placeholder = s.emailPlaceholder;
   $("formError").textContent = s.formError;
