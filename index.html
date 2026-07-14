@@ -294,7 +294,7 @@ const STR = {
     h1a: `มาค้นหากันว่า..`,
     h1b: `การนอนของคุณ`,
     h1hl: `เป็นแบบไหน`,
-    lede: `ตอบคำถามสั้น ๆ 7 ข้อ แล้วดูว่าสัตว์ตัวไหนสะท้อน<br>รูปแบบการนอนของคุณ ได้ใกล้เคียงที่สุด`
+    lede: `ตอบคำถามสั้น ๆ 7 ข้อ แล้วดูว่าสัตว์ตัวไหนสะท้อน<br>รูปแบบการนอนของคุณ ได้ใกล้เคียงที่สุด`,
     namePlaceholder: `ชื่อของคุณ`,
     emailPlaceholder: `อีเมล / Gmail`,
     formError: `กรุณากรอกชื่อและอีเมลให้ถูกต้อง (ต้องมี @ และ .com) ก่อนเริ่มเทสต์`,
@@ -484,7 +484,7 @@ function applyStaticText(){
   $("h1a").textContent = s.h1a;
   $("h1b").textContent = s.h1b;
   $("h1hl").textContent = s.h1hl;
-  $("lede").innerHTML = s.lede;
+  $("lede").innerHTML = s.lede; 
   $("userName").placeholder = s.namePlaceholder;
   $("userEmail").placeholder = s.emailPlaceholder;
   $("formError").textContent = s.formError;
@@ -497,7 +497,6 @@ function applyStaticText(){
   $("toast").textContent = s.toast;
   $("langToggle").textContent = lang==='th' ? 'EN' : 'TH';
 }
-
 function toggleLang(){
   lang = lang==='th' ? 'en' : 'th';
   applyStaticText();
